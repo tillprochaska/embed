@@ -12,10 +12,11 @@ require('Embera/Autoload.php');
 
 /**
  * Converts a media URL into an embed (oEmbed)
- * @param string    The URL that will be converted
- * @return string   The HTML with the embed (iframe, object)
+ * @param string      The URL that will be converted
+ * @param true/false  Will the object be placed inline with text
+ * @return string     The HTML with the embed (iframe, object)
  */
-function oembed_convert($url) {
+function oembed_convert($url, $_inline) {
   $embera = new \Embera\Embera();
   $embera = new \Embera\Formatter($embera);
   $url_info = $embera->getUrlInfo($url);
@@ -85,6 +86,12 @@ function oembed_convert($url) {
       $play->addClass('play');
       $play->append('<img src="'.url('assets/oembed/oembed-play.png').'">');
 
+      // Create oembed-video wrapper
+      $output = new Brick('div');
+      if (!$_inline)
+        $output->addClass('oembed-video');
+      if (c::get('oembed.lazyvideo', false))
+        $output->addClass('oembed-lazyvideo');
 
       // Add elements to wrapper
       $output->append($play);
@@ -109,7 +116,7 @@ function oembed_convert($url) {
  * Adding an oEmbed field method: e.g. $page->video()->oembed()
  */
 field::$methods['oembed'] = function($field) {
-  return oembed_convert($field->value);
+  return oembed_convert($field->value, false);
 };
 
 
@@ -119,7 +126,7 @@ field::$methods['oembed'] = function($field) {
  */
 kirbytext::$tags['oembed'] = array(
   'html' => function($tag) {
-    return oembed_convert($tag->attr('oembed'));
+    return oembed_convert($tag->attr('oembed'), true);
   }
 );
 
