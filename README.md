@@ -46,7 +46,9 @@ There are a few options you can set for Kirby oEmbed in `site/config/config.php`
 ```php
 // site/config/config.php
 c::set('oembed.lazyvideo', true);
-c::set('oembed.color', 3f739f);
+c::set('oembed.color', '3f739f');
 ```
-- **oembed.lazyvideo**: Only after clicking on the videos thumbnail, the actual embed (iframe, object) is loaded (default: false)
-- **oembed.color**: Color used to theme some media's (e.g. Vimeo) video elements (default: aad450)
+- **oembed.lazyvideo**:  
+Only after clicking on the videos thumbnail, the actual embed (iframe, object) is loaded (default: false)
+- **oembed.color**:  
+Color used to theme some media's (e.g. Vimeo) video elements (default: 'aad450')
