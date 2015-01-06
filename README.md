@@ -55,6 +55,6 @@ Only after clicking on the videos thumbnail, the actual embed (iframe, object) i
 - **oembed.color**:  
 Color used to theme some media's (e.g. Vimeo) video elements (default: 'aad450')
 - **oembed.caching**:  
-Enable/disable caching of video thumbnails (default: false)
+Enable/disable caching of oEmbed HTML and video thumbnails (default: false)
 - **oembed.cacheexpires**:  
 Duration after the cached thumbnails expire in seconds (default: 3600)
