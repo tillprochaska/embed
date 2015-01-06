@@ -45,7 +45,7 @@ Use the field method `->oembed()` on fields that contain the link to the support
 There are a few options you can set for Kirby oEmbed in `site/config/config.php`:
 ```php
 // site/config/config.php
-c::set('oembed.lazyvideo', true);
+c::set('oembed.lazyvideo', false);
 c::set('oembed.color', '3f739f');
 ```
 - **oembed.lazyvideo**:  
