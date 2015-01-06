@@ -41,12 +41,12 @@ function oembed_convert($url) {
       // Create thumbnail placeholder
       // Get thumbnail with higher resolution for YouTube
       $youtube_maxres_thumb = youtube_id_from_url($url);
-      if ($youtube_maxres_thumb)
+      if ($youtube_maxres_thumb) :
         $thumb_url = "http://i1.ytimg.com/vi/".$youtube_maxres_thumb."/maxresdefault.jpg";
-      else
+      else :
         $embera->setTemplate('{thumbnail_url}');
         $thumb_url = $embera->transform($url);
-
+      endif;
 
       // Get images from cache if possible (and ombed.caching is true)
       // Create cache directory if it doesn't exist yet
@@ -79,7 +79,7 @@ function oembed_convert($url) {
       // Create play button overlay
       $play = new Brick('div');
       $play->addClass('play');
-      $play->append('<img src="'.url('assets/images/play.png').'">');
+      $play->append('<img src="'.url('assets/oembed/oembed-play.png').'">');
 
 
       // Create oembed-video wrapper
