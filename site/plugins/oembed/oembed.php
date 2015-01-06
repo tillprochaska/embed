@@ -16,7 +16,28 @@ require('Embera/Autoload.php');
  * @param true/false  Will the object be placed inline with text
  * @return string     The HTML with the embed (iframe, object)
  */
-function oembed_convert($url, $_inline) {
+function oembed_convert($url, $_inline = false, $_page = false, $_fieldname = false) {
+
+  return $_page->content()->get($_fieldname);
+  /*
+  try {
+
+    page('mypage')->update(array(
+      'title'        => 'A new title',
+      'text'         => 'Some text',
+      'anotherfield' => 'Some more data'
+    ));
+
+    echo 'The page has been updated';
+
+  } catch(Exception $e) {
+
+    echo $e->getMessage();
+
+  }
+  */
+
+
   $embera = new \Embera\Embera();
   $embera = new \Embera\Formatter($embera);
   $url_info = $embera->getUrlInfo($url);
@@ -108,7 +129,7 @@ function oembed_convert($url, $_inline) {
     $output = $embera->transform($url);
   endif;
 
-  return $output;
+  // return $output;
 }
 
 
@@ -116,7 +137,7 @@ function oembed_convert($url, $_inline) {
  * Adding an oEmbed field method: e.g. $page->video()->oembed()
  */
 field::$methods['oembed'] = function($field) {
-  return oembed_convert($field->value, false);
+  return oembed_convert($field->value, false, $field->page, $field->key);
 };
 
 
