@@ -1,7 +1,20 @@
 <?php
+/**
+ * Kirby oEmbed plugin for Kirby 2
+ *
+ * @author: Nico Hoffmann - distantnative.com
+ * @version: 0.1
+ *
+ */
 
 require('Embera/Autoload.php');
 
+
+/**
+ * Extracts the YouTube ID from an URL
+ * @param string    The url from where the ID should be extracted.
+ * @return string   The ID extracted from the URL - if not possible false
+ */
 function youtube_id_from_url($url) {
   $pattern =
     '%^# Match any youtube URL
@@ -26,14 +39,19 @@ function youtube_id_from_url($url) {
     return false;
 }
 
+
+/**
+ * Converts a media URL into an embed (oEmbed)
+ * @param string    The URL that will be converted
+ * @return string   The HTML with the embed (iframe, object)
+ */
 function oembed_convert($url) {
   $embera = new \Embera\Embera();
   $embera = new \Embera\Formatter($embera);
-
   $url_info = $embera->getUrlInfo($url);
 
+  // For video embeds
   if ($url_info[$url]['type'] == 'video') :
-    // Create Output Template
     $embera->setTemplate('{html}');
     $embed = $embera->transform($url);
 
@@ -56,26 +74,33 @@ function oembed_convert($url) {
       $thumb = "{thumbnail_url}";
 
     $embera->setTemplate('<img src="'.$thumb.'" class="thumb">');
-    $output = '<div class="oembed-video">'.$embera->transform($url).$embed.'</div>';
+    $output = new Brick('div');
+    $output->addClass('oembed-video');
+    $output->append($embera->transform($url));
+    $output->append($embed);
 
-
-
+  // For non-video embeds
   else :
     $embera->setTemplate('{html}');
     $output = $embera->transform($url);
-
   endif;
 
   return $output;
 }
 
 
-
-
+/**
+ * Adding an oEmbed field method: e.g. $page->video()->oembed()
+ */
 field::$methods['oembed'] = function($field) {
   return oembed_convert($field->value);
 };
 
+
+/**
+ * Extending Kirbytext with an oEmbed tag: e.g.
+ * (oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
+ */
 kirbytext::$tags['oembed'] = array(
   'html' => function($tag) {
     return oembed_convert($tag->attr('oembed'));
