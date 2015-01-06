@@ -4,51 +4,25 @@ Kirby oEmbed v0.1
 This plugin extends [Kirby CMS v2](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. 
 Uses [Embera](https://github.com/mpratt/Embera) as a PHP wrapper for oEmbed.
 
-## Installation
+# Installation
 1. Download [Kirby oEmbed](https://github.com/distantnative/kirby-oembed/zipball/master/)
-2. Copy the `oembed` folder to `site/plugins/`
-3. Add to your CSS for fluid + lazy videos:
-```
-.oembed-video {
-  width: 100%;
-  position: relative;
-  padding: 0;
-  padding-top: 56.25%;
-  background-color: #dedede;
-}
-
-.oembed-video iframe,
-.oembed-video object {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.oembed-video .thumb {
-  cursor: pointer;
-}
-
-.oembed-video iframe,
-.oembed-video object {
-  display: none;
-}
-```
-4. Add to your JS for lazy videos (jQuery required):
-```
-$(function() {
-  $('.oembed-video .thumb').click(function() {
-    wrapper = $(this).parent();
-    embed = wrapper.find('iframe, object');
-    embed.attr('src', embed.attr('data-src'));
-    embed.css({'display' : 'block'});
-    wrapper.find('.thumb').remove();
-  });
-});
+2. Copy the `site/plugins/oembed` directory to `site/plugins/`
+3. Copy the `assets/oembed` directory to `assets/`
+4. Add CSS link to your header:
+```php
+// site/snippets/header.php
+echo css('assets/oembed/oembed.css');
 ```
 
-## Usage
+**If lazy video [option](#options) is active:**
+5. Add the following JS links to your header:
+```php
+// site/snippets/header.php
+echo js('//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'); // if jQuery isn't included already
+echo js('assets/oembed/oembed.js');
+```
+
+# Usage
 There are two way to use Kirby oEmbed:
 
 **Inside (Kirbytext) fields:**
@@ -62,6 +36,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 **In [templates](http://getkirby.com/docs/templates):**
 
 Use the field method `->oembed()` on fields that contain the link to the supported media (e.g. YouTube, Vimeo, Soundcloud).
-```
+```php
 <?php echo $page->featured_video()->oembed(); ?>
+```
+
+# Options <a id="options"></a>
+There are a few options you can set for Kirby oEmbed in `site/config/config.php`:
+```php
+// site/config/config.php
+c::set('oembed.lazyvideo', true);
+c::set('oembed.color', 3f739f);
 ```
