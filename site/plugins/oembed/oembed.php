@@ -23,6 +23,12 @@ function oembed_convert($url) {
   // For video embeds
   if ($url_info[$url]['type'] == 'video') :
 
+    // Create oembed-video wrapper
+    $output = new Brick('div');
+    $output->addClass('oembed-video');
+    if (c::get('oembed.lazyvideo', false))
+      $output->addClass('oembed-lazyvideo');
+
     // Create embed element
     $embera->setTemplate('{html}');
     $embed = $embera->transform($url);
@@ -41,26 +47,44 @@ function oembed_convert($url) {
       // Create thumbnail placeholder
       // Get thumbnail with higher resolution for YouTube
       $youtube_maxres_thumb = youtube_id_from_url($url);
-      if ($youtube_maxres_thumb)
+      if ($youtube_maxres_thumb) :
         $thumb_url = "http://i1.ytimg.com/vi/".$youtube_maxres_thumb."/maxresdefault.jpg";
-      else
-        $thumb_url = "{thumbnail_url}";
+      else :
+        $embera->setTemplate('{thumbnail_url}');
+        $thumb_url = $embera->transform($url);
+      endif;
 
-      $embera->setTemplate('<img src="'.$thumb_url.'" class="thumb">');
-      $thumb = $embera->transform($url);
+      // Get images from cache if possible (and ombed.caching is true)
+      if (c::get('oembed.caching', false)) :
+
+        // Create cache directory if it doesn't exist yet
+        $_cahce_dir = kirby()->roots()->index() . '/thumbs/oembed';
+        dir::make($_cahce_dir);
+
+        $thumb_cache_key   = 'thumb-' . md5($thumb_url) . '.' . pathinfo($thumb_url, PATHINFO_EXTENSION);;
+        $thumb_cache_path  = $_cahce_dir . '/' . $thumb_cache_key;
+
+        // Try to fetch data from cache
+        $thumb_cache_exists = (filemtime($thumb_cache_path) < time() - c::get('oembed.cacheexpires', 3600)) ? false : file_exists($thumb_cache_path);
+
+        // Cache image if cache doesn't exist or expired
+        if (!$thumb_cache_exists) {
+          $file_to_cache = file_get_contents($thumb_url);
+          file_put_contents($thumb_cache_path, $file_to_cache);
+        }
+
+        // Get URL to cached image
+        $thumb_url = 'thumbs/oembed/' . $thumb_cache_key;
+      endif;
+
+      $thumb = '<img src="'.$thumb_url.'" class="thumb">';
 
 
       // Create play button overlay
       $play = new Brick('div');
       $play->addClass('play');
-      $play->append('<img src="'.url('assets/images/play.png').'">');
+      $play->append('<img src="'.url('assets/oembed/oembed-play.png').'">');
 
-
-      // Create oembed-video wrapper
-      $output = new Brick('div');
-      $output->addClass('oembed-video');
-      if (c::get('oembed.lazyvideo', false))
-        $output->addClass('oembed-lazyvideo');
 
       // Add elements to wrapper
       $output->append($play);
