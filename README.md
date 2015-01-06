@@ -15,6 +15,7 @@ echo css('assets/oembed/oembed.css');
 ```
 
 **If lazy video [option](#options) is active:**
+
 5. Add the following JS links to your header:
 ```php
 // site/snippets/header.php
