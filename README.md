@@ -4,7 +4,7 @@ Kirby oEmbed v0.2
 This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities.  
 It uses [Embera](https://github.com/mpratt/Embera) as a PHP wrapper for oEmbed.
 
-Using this plugin enables Kirby 2 CMS to display embeds of several media sites (e.g. YouTube, Vimeo, Soundlcoud) by only providing the URL to the medium. The plugin also includes some [options](#options) to reduce the site loading time by using lazy videos (thumbnail preview and embed is only loaded after click) as well as thumbnail and embed HTML caching.
+Using this plugin enables Kirby 2 CMS to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#options) to reduce the site loading time by using lazy videos (thumbnail preview and embed is only loaded after click) as well as thumbnail and embed HTML caching.
 
 # Installation
 1. Download [Kirby oEmbed](https://github.com/distantnative/kirby-oembed/zipball/master/)
