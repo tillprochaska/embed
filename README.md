@@ -14,8 +14,7 @@ Uses [Embera](https://github.com/mpratt/Embera) as a PHP wrapper for oEmbed.
 echo css('assets/oembed/oembed.css');
 ```
 
-**If lazy video [option](#options) is active:**
-
+**If lazy video [option](#options) is active:**  
 5. Add the following JS links to your header:
 ```php
 // site/snippets/header.php
