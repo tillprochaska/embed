@@ -19,7 +19,7 @@ echo css('assets/oembed/oembed.css');
 ```php
 // site/snippets/header.php
 echo js('//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'); // if jQuery isn't included already
-echo js('assets/oembed/oembed.js');
+echo js('assets/oembed/oembed.min.js');
 ```
 
 # Update
@@ -48,3 +48,5 @@ There are a few options you can set for Kirby oEmbed in `site/config/config.php`
 c::set('oembed.lazyvideo', true);
 c::set('oembed.color', 3f739f);
 ```
+- **oembed.lazyvideo**: Only after clicking on the videos thumbnail, the actual embed (iframe, object) is loaded (default: false)
+- **oembed.color**: Color used to theme some media's (e.g. Vimeo) video elements (default: aad450)
