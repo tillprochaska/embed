@@ -1,7 +1,7 @@
-Kirby oEmbed v0.1
+Kirby oEmbed v0.2
 ============
 
-This plugin extends [Kirby CMS v2](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. 
+This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. 
 Uses [Embera](https://github.com/mpratt/Embera) as a PHP wrapper for oEmbed.
 
 # Installation
