@@ -57,4 +57,4 @@ Color used to theme some media's (e.g. Vimeo) video elements (default: 'aad450')
 - **oembed.caching**:  
 Enable/disable caching of video thumbnails (default: false)
 - **oembed.cacheexpires**:  
-Duration after the cached thumbnails expire in minutes (default: 3600)
+Duration after the cached thumbnails expire in seconds (default: 3600)
