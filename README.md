@@ -28,16 +28,14 @@ echo js('assets/oembed/oembed.js');
 # Usage
 There are two way to use Kirby oEmbed:
 
-**Inside (Kirbytext) fields:**
-
+**Inside (Kirbytext) fields:**  
 Use `(oembed: URL)` inside your Kirbytext. The URL has to point to a supported media (e.g. YouTube, Vimeo, Soundcloud).
 ```
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 (oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
 ```
 
-**In [templates](http://getkirby.com/docs/templates):**
-
+**In [templates](http://getkirby.com/docs/templates):**  
 Use the field method `->oembed()` on fields that contain the link to the supported media (e.g. YouTube, Vimeo, Soundcloud).
 ```php
 <?php echo $page->featured_video()->oembed(); ?>
