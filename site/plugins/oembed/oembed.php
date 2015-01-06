@@ -95,7 +95,9 @@ function oembed_convert($url, $_inline = false, $_page = false, $_fieldname = fa
           }
 
           // Get URL to cached image
-          $thumb_url = 'thumbs/oembed/' . $thumb_cache_key;
+          $root_url = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+
+          $thumb_url = $root_url.'thumbs/oembed/' . $thumb_cache_key;
         endif;
 
         $thumb = '<img src="'.$thumb_url.'" class="thumb">';
