@@ -23,7 +23,7 @@ echo js('assets/oembed/oembed.min.js');
 ```
 
 # Update
-1. Copy and replace the `site/plugins/oembed` and  `assets/oembed` directories
+1. Replace the `site/plugins/oembed` and  `assets/oembed` directories with recent version
 
 # Usage
 There are two way to use Kirby oEmbed:
@@ -58,3 +58,27 @@ Color used to theme some media's (e.g. Vimeo) video elements (default: 'aad450')
 Enable/disable caching of oEmbed HTML and video thumbnails (default: false)
 - **oembed.cacheexpires**:  
 Duration after the cached thumbnails expire in seconds (default: 3600)
+
+# Examples
+### Blog: Featured Video
+```php
+// site/snippets/article.php
+<article>
+  <aside class="entry-meta">
+    ...
+  </aside>
+
+  <div class="entry-main">
+    <?php if ($post->video()!='') : ?>
+      <figure class="entry-cover">
+        <?php echo $post->video()->oembed(); ?>
+      </figure>
+    <?php endif : ?>
+
+    <div class="entry-content">
+      <?php echo $post->text()->kirbytext(); ?>
+    </div>
+  </div>
+  
+</article>
+```
