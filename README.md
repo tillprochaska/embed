@@ -22,6 +22,9 @@ echo js('//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'); // if jQu
 echo js('assets/oembed/oembed.js');
 ```
 
+# Update
+1. Copy and replace the `site/plugins/oembed` and  `assets/oembed` directories
+
 # Usage
 There are two way to use Kirby oEmbed:
 
