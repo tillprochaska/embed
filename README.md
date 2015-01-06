@@ -1,7 +1,7 @@
-Kirby oEmbed
+Kirby oEmbed v0.1
 ============
 
-This plugin extends [Kirby CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. 
+This plugin extends [Kirby CMS v2](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. 
 Uses [Embera](https://github.com/mpratt/Embera) as a PHP wrapper for oEmbed.
 
 ## Installation
@@ -59,7 +59,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 (oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
 ```
 
-**In templates:**
+**In [templates](http://getkirby.com/docs/templates):**
 
 Use the field method `->oembed()` on fields that contain the link to the supported media (e.g. YouTube, Vimeo, Soundcloud).
 ```
