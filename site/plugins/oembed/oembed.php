@@ -110,8 +110,10 @@ function oembed_convert($url, $_inline = false, $_page = false, $_fieldname = fa
 
         // Create oembed-video wrapper
         $output = new Brick('div');
-        if (!$_inline)
-          $output->addClass('oembed-video');
+        $output->addClass('oembed-video');
+        $wrapper_ratio = ($url_info[$url]['height'] / $url_info[$url]['width']) * 100;
+        $output->attr('style','padding-top:'.$wrapper_ratio.'%');
+
         if (c::get('oembed.lazyvideo', false))
           $output->addClass('oembed-lazyvideo');
 

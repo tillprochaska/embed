@@ -1,8 +1,7 @@
 .oembed-video {
   width: 100%;
   position: relative;
-  padding: 0;
-  padding-top: 56.25%; }
+  padding: 0; }
   .oembed-video iframe,
   .oembed-video object,
   .oembed-video img {
