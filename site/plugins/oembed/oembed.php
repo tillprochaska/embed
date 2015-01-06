@@ -55,29 +55,33 @@ function oembed_convert($url) {
     $embera->setTemplate('{html}');
     $embed = $embera->transform($url);
 
-    // Add Custom Parameters to embed URL (e.g. autoload)
-    // YouTube
-    if ($url_info[$url]['provider_name'] == 'YouTube')
-      $embed = str_replace('?feature=oembed', '?feature=oembed'.'&amp;'.'autoplay=1'.'&amp;'.'rel=0'.'&amp;'.'showinfo=0', $embed);
-    // Vimeo
-    elseif ($url_info[$url]['provider_name'] == 'Vimeo')
-      $embed = str_replace('" width="', '?'.'autoplay=1'.'&amp;'.'color=3f739f'.'&amp;'.'byline=0'.'&amp;'.'title=0'.'" width="', $embed);
+    if (c::get('oembed.lazyvideo', false)) :
+      // Add Custom Parameters to embed URL (e.g. autoload)
+      // YouTube
+      if ($url_info[$url]['provider_name'] == 'YouTube')
+        $embed = str_replace('?feature=oembed', '?feature=oembed'.'&amp;'.'autoplay=1'.'&amp;'.'rel=0'.'&amp;'.'showinfo=0', $embed);
+      // Vimeo
+      elseif ($url_info[$url]['provider_name'] == 'Vimeo')
+        $embed = str_replace('" width="', '?'.'autoplay=1'.'&amp;'.'color='.c::get('oembed.color','aad450').'&amp;'.'byline=0'.'&amp;'.'title=0'.'" width="', $embed);
 
-    $embed = str_replace(' src="', ' data-src="', $embed);
+      $embed = str_replace(' src="', ' data-src="', $embed);
 
 
-    // Get thumbnail with higher resolution for YouTube
-    $youtube_maxres_thumb = youtube_id_from_url($url);
-    if ($youtube_maxres_thumb)
-      $thumb = "http://i1.ytimg.com/vi/".$youtube_maxres_thumb."/maxresdefault.jpg";
-    else
-      $thumb = "{thumbnail_url}";
+      // Get thumbnail with higher resolution for YouTube
+      $youtube_maxres_thumb = youtube_id_from_url($url);
+      if ($youtube_maxres_thumb)
+        $thumb = "http://i1.ytimg.com/vi/".$youtube_maxres_thumb."/maxresdefault.jpg";
+      else
+        $thumb = "{thumbnail_url}";
 
-    $embera->setTemplate('<img src="'.$thumb.'" class="thumb">');
-    $output = new Brick('div');
-    $output->addClass('oembed-video');
-    $output->append($embera->transform($url));
-    $output->append($embed);
+      $embera->setTemplate('<img src="'.$thumb.'" class="thumb">');
+      $output = new Brick('div');
+      $output->addClass('oembed-video');
+      $output->append($embera->transform($url));
+      $output->append($embed);
+    else:
+      $output = $embed;
+    endif;
 
   // For non-video embeds
   else :
