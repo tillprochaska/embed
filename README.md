@@ -61,6 +61,7 @@ Duration after the cached thumbnails expire in seconds (default: 3600)
 
 # Examples
 ### Blog: Featured Video
+Use Kirby oEmbed to embed featured videos to your blog posts. The URL to the video (e.g. on YouTube or Vimeo) is stored in a field calles ´video´ in this example.
 ```php
 // site/snippets/article.php
 <article>
