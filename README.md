@@ -24,6 +24,8 @@ echo js('//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'); // if jQu
 echo js('assets/oembed/oembed.min.js');
 ```
 
+Instead of including additional CSS and JS links inside your header, you can also include the contents of ´assets/oembed/oembed.css´ or ´assets/oembed/oembed.scss´ as well as ´assets/oembed/oembed.js´ in your existing CSS/SCSS and JS files.
+
 # Update
 1. Replace the `site/plugins/oembed` and  `assets/oembed` directories with recent version
 
