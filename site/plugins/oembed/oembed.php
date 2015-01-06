@@ -56,7 +56,7 @@ function oembed_convert($url) {
       $thumb = "{thumbnail_url}";
 
     $embera->setTemplate('<img src="'.$thumb.'" class="thumb">');
-    $output = '<div class="oembed-video"><div class="play"><img src="'.url('assets/images/play.png').'"></div>'.$embera->transform($url).$embed.'</div>';
+    $output = '<div class="oembed-video">'.$embera->transform($url).$embed.'</div>';
 
 
 

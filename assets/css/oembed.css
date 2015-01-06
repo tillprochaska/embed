@@ -3,36 +3,23 @@
   position: relative;
   padding: 0;
   padding-top: 56.25%;
-  background-color: #dedede; }
-  .oembed-video iframe,
-  .oembed-video object,
-  .oembed-video img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; }
-  .oembed-video .play {
-    z-index: 10;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    opacity: .95;
-    cursor: pointer;
-    transition: opacity .4s ease-in-out; }
-    .oembed-video .play img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: auto;
-      height: auto; }
-  .oembed-video:hover .play {
-    opacity: .7; }
-  .oembed-video .thumb {
-    cursor: pointer; }
-  .oembed-video iframe,
-  .oembed-video object {
-    display: none; }
+  background-color: #dedede;
+}
+
+.oembed-video iframe,
+.oembed-video object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.oembed-video .thumb {
+  cursor: pointer;
+}
+
+.oembed-video iframe,
+.oembed-video object {
+  display: none;
+}
