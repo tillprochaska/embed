@@ -4,9 +4,10 @@ Kirby oEmbed
 This plugin extends [Kirby CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. 
 [Embera](https://github.com/mpratt/Embera) is used as a PHP wrapper for oEmbed.
 
-# Installation
-1. Copy the ´oembed´ folder to ´site/plugins/´
-2. Add to your CSS for fluid + lazy videos:
+## Installation
+1. Download [Kirby oEmbed](https://github.com/distantnative/kirby-oembed/zipball/master/)
+2. Copy the `oembed` folder to `site/plugins/`
+3. Add to your CSS for fluid + lazy videos:
 ```
 .oembed-video {
   width: 100%;
@@ -34,7 +35,7 @@ This plugin extends [Kirby CMS](http://getkirby.com) with some basic [oEmbed](ht
   display: none;
 }
 ```
-3. Add to your JS for lazy videos (jQuery required):
+4. Add to your JS for lazy videos (jQuery required):
 ```
 $(function() {
   $('.oembed-video .thumb').click(function() {
@@ -47,11 +48,16 @@ $(function() {
 });
 ```
 
-# Usage
+## Usage
 There are two way to use Kirby oEmbed:
 
 **Inside (Kirbytext) fields:**
-Include ´(oembed: LINK)´ inside your Kirbytext. The link has to point to a supported media (e.g. YouTube, Vimeo, Soundcloud).
+
+Include `(oembed: LINK)` inside your Kirbytext. The link has to point to a supported media (e.g. YouTube, Vimeo, Soundcloud).
 
 **In templates:**
-Use the field method ´->oembed()´ on fields that contain the link to the supported media (e.g. YouTube, Vimeo, Soundcloud).
+
+Use the field method `->oembed()` on fields that contain the link to the supported media (e.g. YouTube, Vimeo, Soundcloud).
+```
+<?php echo $page->featured_video()->oembed(); ?>
+```
