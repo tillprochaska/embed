@@ -44,10 +44,36 @@ function oembed_convert($url) {
       if ($youtube_maxres_thumb)
         $thumb_url = "http://i1.ytimg.com/vi/".$youtube_maxres_thumb."/maxresdefault.jpg";
       else
-        $thumb_url = "{thumbnail_url}";
+        $embera->setTemplate('{thumbnail_url}');
+        $thumb_url = $embera->transform($url);
 
-      $embera->setTemplate('<img src="'.$thumb_url.'" class="thumb">');
-      $thumb = $embera->transform($url);
+
+      // Get images from cache if possible (and ombed.caching is true)
+      // Create cache directory if it doesn't exist yet
+      if (c::get('oembed.caching', false)) {
+          dir::make(c::get('root.cache') . '/oembed');
+      }
+      $thumb_cache_key   = 'oembed/thumb.' . md5($thumb_url);
+      $thumb_cache_data  = false;
+
+      // Try to fetch data from cache
+      if ($_cache) {
+          $thumb_cache_data = (cache::modified($thumb_cache_key) < time() - c::get('oembed.cacheexpires', 3600)) ? false : cache::get($thumb_cache_key);
+      }
+
+      // Use remote thumb URL if the cache expired or the cache is empty
+      if (empty($thumb_cache_data)) {
+          $thumb = '<img src="'.$thumb_url.'" class="thumb">';
+
+          // Set new data for the cache
+          if (c::get('oembed.caching', false)) {
+              $file_to_cache = file_get_contents($thumb_url);
+              cache::set($thumb_cache_key, $file_to_cache);
+          }
+      } else {
+          $thumb_cached_url = $thumb_cache_data;
+          $thumb = '<img src="'.$thumb_cached_url.'" class="thumb">';
+      }
 
 
       // Create play button overlay
