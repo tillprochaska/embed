@@ -2,7 +2,7 @@ Kirby oEmbed
 ============
 
 This plugin extends [Kirby CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. 
-[Embera](https://github.com/mpratt/Embera) is used as a PHP wrapper for oEmbed.
+Uses [Embera](https://github.com/mpratt/Embera) as a PHP wrapper for oEmbed.
 
 ## Installation
 1. Download [Kirby oEmbed](https://github.com/distantnative/kirby-oembed/zipball/master/)
@@ -53,7 +53,11 @@ There are two way to use Kirby oEmbed:
 
 **Inside (Kirbytext) fields:**
 
-Include `(oembed: LINK)` inside your Kirbytext. The link has to point to a supported media (e.g. YouTube, Vimeo, Soundcloud).
+Use `(oembed: URL)` inside your Kirbytext. The URL has to point to a supported media (e.g. YouTube, Vimeo, Soundcloud).
+```
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+(oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
+```
 
 **In templates:**
 
