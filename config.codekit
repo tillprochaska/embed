@@ -11,11 +11,11 @@
 		"outputAbbreviatedPath": "\/assets\/oembed\/oembed-play.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"processed": 0
+		"processed": 1
 		},
 	"\/assets\/oembed\/oembed.css": {
 		"fileType": 16,
-		"ignore": 1,
+		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/assets\/oembed\/oembed.css",
 		"outputAbbreviatedPath": "No Output Path",
@@ -52,12 +52,12 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/assets\/oembed\/oembed.scss",
-		"outputAbbreviatedPath": "\/assets\/oembed\/oembed.css",
+		"outputAbbreviatedPath": "\/assets\/styles\/oembed.css",
 		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 1,
-		"outputStyle": 3,
-		"shouldRunAutoprefixer": 1,
-		"shouldRunBless": 1,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
 	"\/README.md": {
