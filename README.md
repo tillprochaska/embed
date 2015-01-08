@@ -90,6 +90,6 @@ Use Kirby oEmbed to embed featured videos to your blog posts. The URL to the vid
 
 # Troubleshooting
 ### Broken HTML embed code has been cached
-Open the affacted pages in the panel and re-save them. The oEmbed cache fields will be removed and (hopefully correctly) re-added the next time they are displayed.
+Open the affected pages in the panel and re-save them. The oEmbed cache fields will be removed and (hopefully correctly) re-added the next time they are displayed.
 
 Having more troubles? Please let me know by [opening and issue](https://github.com/distantnative/kirby-oembed/issues/new).
