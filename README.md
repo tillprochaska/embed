@@ -82,8 +82,19 @@ The following parameters are available so far:
 - **Vimeo**
     - color (hex value without the #)
 - **SoundCloud**
+    - size (default/smaller/compact)
     - visual (true/false)
     - artwork (true/false)
+
+You can set these parameters also globally for all oEmbed Kirbytext tags that do not specifiy the parameter themselves:
+
+```php
+// site/config/config.php
+c::get('oembed.defaults.color', 'FF00FF');
+c::get('oembed.defaults.visual', 'true');
+c::get('oembed.defaults.artwork', 'true');
+c::get('oembed.defaults.size', 'compact');
+```
 
 # Examples
 ### Blog: Featured Video
