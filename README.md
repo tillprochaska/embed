@@ -16,7 +16,7 @@ Using this plugin enables Kirby 2 CMS to display embeds of several media sites (
 echo css('assets/oembed/oembed.css');
 ```
 
-**If lazy video [option](#options) is active:**  
+**If lazy video [option](#options) is active:**    
 5. Add the following JS links to your header:
 ```php
 // site/snippets/header.php
@@ -64,7 +64,7 @@ Enable/disable caching of oEmbed HTML and video thumbnails (default: false)
 - **oembed.cacheexpires**:  
 Duration after the cached thumbnails expire in seconds (default: 3600)
 
-**Optional parameters:**
+### Optional parameters
 There are a few optional parameters for some media sites. For the Kirbytext tag you can use them in the following way:
  
 ```
@@ -78,12 +78,12 @@ And for the field method `->oembed()`:
 
 The following parameters are available so far:
 - **YouTube**
--- color
+    - color
 - **Vimeo**
--- color
+    - color
 - **SoundCloud**
--- visual
--- artwork
+    - visual
+    - artwork
 
 # Examples
 ### Blog: Featured Video
