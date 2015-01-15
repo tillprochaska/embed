@@ -75,6 +75,7 @@ function oembed_convert($text, $customParameters = array()) {
   if ($oEmbed) :
       // Create oembed-video wrapper
       $htmlOutput = new Brick('div');
+      $htmlOutput->addClass('oembed');
 
       if ($oEmbed->type === 'video') :
         $htmlOutput->addClass('oembed-video');
@@ -129,9 +130,9 @@ function oembed_convert($text, $customParameters = array()) {
 function replaceParameters($html, $embedType, $customParameters = array()) {
   switch ($embedType) {
     case 'SoundCloud':
-      if ($customParameters['visual'] == 'false')
-        $html = str_replace('visual=true', 'visual=false', $html);
-      if ($customParameters['artwork'] == 'false')
+    if (isset($customParameters['visual']) && $customParameters['visual'] == 'false')
+      $html = str_replace('visual=true', 'visual=false', $html);
+    if (isset($customParameters['artwork']) && $customParameters['artwork'] == 'false')
         $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
       return $html;
       break;

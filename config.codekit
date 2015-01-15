@@ -15,7 +15,7 @@
 		},
 	"\/assets\/oembed\/oembed.css": {
 		"fileType": 16,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/assets\/oembed\/oembed.css",
 		"outputAbbreviatedPath": "No Output Path",
@@ -52,10 +52,10 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/assets\/oembed\/oembed.scss",
-		"outputAbbreviatedPath": "\/assets\/styles\/oembed.css",
+		"outputAbbreviatedPath": "\/assets\/oembed\/oembed.css",
 		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
+		"outputPathIsSetByUser": 1,
+		"outputStyle": 3,
 		"shouldRunAutoprefixer": 0,
 		"shouldRunBless": 0,
 		"useLibsass": 0
@@ -72,686 +72,434 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Adapters\/Service.php": {
+	"\/site\/plugins\/oembed\/lib\/bootstrap.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Adapters\/Service.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/bootstrap.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Autoload.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Cache\/Engine.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Autoload.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Cache\/Engine.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Embera.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Cache\/Engine\/Null.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Embera.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Cache\/Engine\/Null.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/FakeResponse.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Cache\/Engine\/Volatile.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/FakeResponse.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Cache\/Engine\/Volatile.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Formatter.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Cacheable.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Formatter.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Cacheable.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/HttpRequest.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Configurable.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/HttpRequest.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Configurable.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Oembed.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Di\/Container.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Oembed.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Di\/Container.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Di\/Container\/Standard.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Di\/Container\/Standard.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/AmCharts.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Dom\/Parser.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/AmCharts.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Dom\/Parser.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Animoto.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Dom\/Parser\/Native.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Animoto.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Dom\/Parser\/Native.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/AolOn.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Essence.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/AolOn.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Essence.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/AppNet.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Exception.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/AppNet.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Exception.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/AudioSnaps.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Http\/Client.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/AudioSnaps.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Http\/Client.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Bambuser.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Http\/Client\/Curl.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Bambuser.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Http\/Client\/Curl.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/BlipTV.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Http\/Client\/Native.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/BlipTV.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Http\/Client\/Native.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Cacoo.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Http\/Exception.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Cacoo.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Http\/Exception.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Chartblocks.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Log\/Logger.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Chartblocks.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Log\/Logger.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Chirbit.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Log\/Logger\/Null.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Chirbit.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Log\/Logger\/Null.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/CircuitLab.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Media.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/CircuitLab.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Media.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Clyp.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Media\/Preparator.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Clyp.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Media\/Preparator.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/CollegeHumor.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Media\/Preparator\/Bandcamp.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/CollegeHumor.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Media\/Preparator\/Bandcamp.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Coub.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Media\/Preparator\/Vine.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Coub.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Media\/Preparator\/Vine.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/CrowdRanking.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Media\/Preparator\/Youtube.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/CrowdRanking.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Media\/Preparator\/Youtube.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/DailyMile.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Provider.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/DailyMile.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Provider.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/DailyMotion.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Provider\/Collection.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/DailyMotion.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Provider\/Collection.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Deviantart.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Provider\/OEmbed.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Deviantart.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Provider\/OEmbed.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Dipity.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Provider\/OEmbed\/Vimeo.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Dipity.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Provider\/OEmbed\/Vimeo.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/DotSub.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Provider\/OEmbed\/Youtube.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/DotSub.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Provider\/OEmbed\/Youtube.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Edocr.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Provider\/OpenGraph.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Edocr.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Provider\/OpenGraph.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Flickr.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Utility\/Autoload.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Flickr.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Utility\/Autoload.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/FunnyOrDie.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Utility\/Hash.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/FunnyOrDie.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Utility\/Hash.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/GeographCI.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Utility\/Json.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/GeographCI.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Utility\/Json.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/GeographDe.php": {
+	"\/site\/plugins\/oembed\/lib\/Essence\/Utility\/Xml.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/GeographDe.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Essence\/Utility\/Xml.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/GeographUk.php": {
+	"\/site\/plugins\/oembed\/lib\/Multiplayer.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/GeographUk.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/Multiplayer.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/GettyImages.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/driver.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/GettyImages.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/driver.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/GithubGist.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/apc.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/GithubGist.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/apc.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Gmep.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/example.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Gmep.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/example.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Hq23.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/files.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Hq23.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/files.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Huffduffer.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/memcache.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Huffduffer.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/memcache.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Hulu.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/memcached.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Hulu.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/memcached.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/IFixIt.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/sqlite.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/IFixIt.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/sqlite.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/IFTTT.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/wincache.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/IFTTT.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/wincache.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Instagram.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/xcache.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Instagram.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/drivers\/xcache.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Kickstarter.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/extensions.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Kickstarter.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/extensions.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Meetup.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/extensions\/regex.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Meetup.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/extensions\/regex.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/MixCloud.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/MixCloud.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/index.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/MobyPicture.php": {
+	"\/site\/plugins\/oembed\/lib\/phpfastcache\/phpfastcache.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/MobyPicture.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/phpfastcache\/phpfastcache.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/NFB.php": {
+	"\/site\/plugins\/oembed\/lib\/providers.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/NFB.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/OfficialFM.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/OfficialFM.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/PollDaddy.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/PollDaddy.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/PollEveryWhere.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/PollEveryWhere.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Rapidengage.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Rapidengage.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Rdio.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Rdio.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Revision3.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Revision3.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Roomshare.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Roomshare.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Sapo.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Sapo.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Screenr.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Screenr.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Scribd.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Scribd.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Shoudio.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Shoudio.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Sketchfab.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Sketchfab.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/SlideShare.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/SlideShare.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/SoundCloud.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/SoundCloud.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Speakerdeck.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Speakerdeck.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Spotify.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Spotify.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Ted.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Ted.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Twitter.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Twitter.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Ustream.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Ustream.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Viddler.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Viddler.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/VideoFork.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/VideoFork.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/VideoJug.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/VideoJug.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Vimeo.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Vimeo.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Vine.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Vine.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/WordpressTV.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/WordpressTV.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/YFrog.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/YFrog.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Providers\/Youtube.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Providers\/Youtube.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/site\/plugins\/oembed\/Embera\/Url.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/Embera\/Url.php",
+		"inputAbbreviatedPath": "\/site\/plugins\/oembed\/lib\/providers.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
