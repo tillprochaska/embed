@@ -7,152 +7,19 @@
  *
  */
 
-require('Embera/Autoload.php');
+require_once('lib/bootstrap.php');
+require_once('lib/Multiplayer.php');
 
+if (c::get('oembed.caching', false))
+  require_once("lib/phpfastcache/phpfastcache.php");
 
-/**
- * Converts a media URL into an embed (oEmbed)
- * @param string      The URL that will be converted
- * @param true/false  Will the object be placed inline with text
- * @return string     The HTML with the embed (iframe, object)
- */
-function oembed_convert($url, $_inline = false, $_page = false, $_fieldname = false) {
-
-  $html_cached = '';
-  $html_cachetime = time();
-
-  if (!$_inline) :
-    $html_cached = $_page->content()->get($_fieldname.'oecached');
-    $html_cachetime = $_page->content()->get($_fieldname.'oecachetime')->or(time());
-  endif;
-
-
-  // If embed HTML is cached, not expired and oEmbed not inline
-  if (c::get('oembed.caching', false) &&
-      $html_cached != '' &&
-      $html_cachetime < time() - c::get('oembed.cacheexpires', 3600) &&
-      !$_inline) :
-
-    return $html_cached;
-
-  else:
-
-    $embera = new \Embera\Embera();
-    $embera = new \Embera\Formatter($embera);
-    $url_info = $embera->getUrlInfo($url);
-
-    // For video embeds
-    if ($url_info[$url]['type'] == 'video') :
-
-      // Create oembed-video wrapper
-      $output = new Brick('div');
-      $output->addClass('oembed-video');
-      if (c::get('oembed.lazyvideo', false))
-        $output->addClass('oembed-lazyvideo');
-
-      // Create embed element
-      $embera->setTemplate('{html}');
-      $embed = $embera->transform($url);
-
-      if (c::get('oembed.lazyvideo', false)) :
-        // Add Custom Parameters to embed URL (e.g. autoload)
-        // YouTube
-        if ($url_info[$url]['provider_name'] == 'YouTube')
-          $embed = str_replace('?feature=oembed', '?feature=oembed'.'&amp;'.'autoplay=1'.'&amp;'.'rel=0'.'&amp;'.'showinfo=0', $embed);
-        // Vimeo
-        elseif ($url_info[$url]['provider_name'] == 'Vimeo')
-          $embed = str_replace('" width="', '?'.'autoplay=1'.'&amp;'.'color='.c::get('oembed.color','aad450').'&amp;'.'byline=0'.'&amp;'.'title=0'.'" width="', $embed);
-
-        $embed = str_replace(' src="', ' data-src="', $embed);
-
-        // Create thumbnail placeholder
-        // Get thumbnail with higher resolution for YouTube
-        $youtube_maxres_thumb = youtube_id_from_url($url);
-        if ($youtube_maxres_thumb) :
-          $thumb_url = "http://i1.ytimg.com/vi/".$youtube_maxres_thumb."/maxresdefault.jpg";
-        else :
-          $embera->setTemplate('{thumbnail_url}');
-          $thumb_url = $embera->transform($url);
-        endif;
-
-        // Get images from cache if possible (and ombed.caching is true)
-        if (c::get('oembed.caching', false)) :
-
-          // Create cache directory if it doesn't exist yet
-          $_cahce_dir = kirby()->roots()->index() . '/thumbs/oembed';
-          dir::make($_cahce_dir);
-
-          $thumb_cache_key   = 'thumb-' . md5($thumb_url) . '.' . pathinfo($thumb_url, PATHINFO_EXTENSION);;
-          $thumb_cache_path  = $_cahce_dir . '/' . $thumb_cache_key;
-
-          // Try to fetch data from cache
-          $thumb_cache_exists = (filemtime($thumb_cache_path) < time() - c::get('oembed.cacheexpires', 3600)) ? false : file_exists($thumb_cache_path);
-
-          // Cache image if cache doesn't exist or expired
-          if (!$thumb_cache_exists) {
-            $file_to_cache = file_get_contents($thumb_url);
-            file_put_contents($thumb_cache_path, $file_to_cache);
-          }
-
-          // Get URL to cached image
-          $root_url = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-
-          $thumb_url = $root_url.'thumbs/oembed/' . $thumb_cache_key;
-        endif;
-
-        $thumb = '<img src="'.$thumb_url.'" class="thumb">';
-
-
-        // Create play button overlay
-        $play = new Brick('div');
-        $play->addClass('play');
-        $play->append('<img src="'.url('assets/oembed/oembed-play.png').'">');
-
-        // Create oembed-video wrapper
-        $output = new Brick('div');
-        $output->addClass('oembed-video');
-        $wrapper_ratio = ($url_info[$url]['height'] / $url_info[$url]['width']) * 100;
-        $output->attr('style','padding-top:'.$wrapper_ratio.'%');
-
-        if (c::get('oembed.lazyvideo', false))
-          $output->addClass('oembed-lazyvideo');
-
-        // Add elements to wrapper
-        $output->append($play);
-        $output->append($thumb);
-        $output->append($embed);
-
-      else:
-        $output = $embed;
-      endif;
-
-    // For non-video embeds
-    else :
-      $embera->setTemplate('{html}');
-      $output = $embera->transform($url);
-    endif;
-
-
-    if (!$_inline) :
-      try {
-        $_page->update(array(
-          $_fieldname.'oecached'     => $output,
-          $_fieldname.'oecachetime'  => time()
-        ));
-      } catch(Exception $e) { }
-    endif;
-
-    return $output;
-
-  endif;
-}
 
 
 /**
  * Adding an oEmbed field method: e.g. $page->video()->oembed()
  */
-field::$methods['oembed'] = function($field) {
-  return oembed_convert($field->value, false, $field->page, $field->key);
+field::$methods['oembed'] = function($field, $customParameters = array()) {
+  return oembed_convert($field->value, $customParameters);
 };
 
 
@@ -161,37 +28,145 @@ field::$methods['oembed'] = function($field) {
  * (oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
  */
 kirbytext::$tags['oembed'] = array(
+  'attr' => array(
+      'artwork'
+  ),
   'html' => function($tag) {
-    return oembed_convert($tag->attr('oembed'), true);
+    $customParameters = array(
+      "artwork" => $tag->attr('artwork', 'true')
+    );
+    return oembed_convert($tag->attr('oembed'), $customParameters);
   }
 );
 
 
+
+
 /**
- * Extracts the YouTube ID from an URL
- * @param string    The url from where the ID should be extracted.
- * @return string   The ID extracted from the URL - if not possible false
+ * Converts a media URL into an embed (oEmbed)
+ * @param string      The URL that will be converted
  */
-function youtube_id_from_url($url) {
-  $pattern =
-    '%^# Match any youtube URL
-    (?:https?://)?  # Optional scheme. Either http or https
-    (?:www\.)?      # Optional www subdomain
-    (?:             # Group host alternatives
-      youtu\.be/    # Either youtu.be,
-    | youtube\.com  # or youtube.com
-      (?:           # Group path alternatives
-        /embed/     # Either /embed/
-      | /v/         # or /v/
-      | .*v=        # or /watch\?v=
-      )             # End path alternatives.
-    )               # End host alternatives.
-    ([\w-]{10,12})  # Allow 10-12 for 11 char youtube id.
-    ($|&).*         # if additional parameters are also in query string after video id.
-    $%x'
-    ;
-    $result = preg_match($pattern, trim($url), $matches);
-    if (false !== $result)
-      return $matches[1];
-    return false;
+function oembed_convert($text, $customParameters = array()) {
+  $Essence = Essence\Essence::instance();
+  $Multiplayer = new Multiplayer\Multiplayer( );
+
+
+  if (c::get('oembed.caching', false)) :
+    $cacheDir = kirby()->roots()->cache()."/oembed";
+    if (!file_exists($cacheDir))
+      mkdir($cacheDir);
+    $Cache = phpFastCache("auto",
+                    array("path" => kirby()->roots()->cache()."/oembed"));
+
+    // try to get from Cache first.
+    $oEmbed = $Cache->get($text.'-json');
+  endif;
+
+  if($oEmbed == null) :
+      $oEmbed = $Essence->embed($text, [
+          'thumbnailFormat' => 'maxres'
+      ]);
+
+      // Write to Cache Save API Calls next time
+      if (c::get('oembed.caching', false))
+        $Cache->set($text.'-json', $oEmbed, c::get('oembed.cacheexpires', 3600*24));
+  endif;
+
+  if ($oEmbed) :
+      // Create oembed-video wrapper
+      $htmlOutput = new Brick('div');
+
+      if ($oEmbed->type === 'video') :
+        $htmlOutput->addClass('oembed-video');
+        $WrapperRatio = ($oEmbed->height / $oEmbed->width) * 100;
+        $htmlOutput->attr('style','padding-top:'.$WrapperRatio.'%');
+
+        if (c::get('oembed.lazyvideo', false))
+          $htmlOutput->addClass('oembed-lazyvideo');
+
+        // Create thumb image
+        $htmlThumb = '<img src="'.cachedThumbnail($oEmbed->thumbnailUrl).'" class="thumb">';
+
+        // Create play button overlay
+        $htmlPlay = new Brick('div');
+        $htmlPlay->addClass('play');
+        $htmlPlay->append('<img src="'.url('assets/oembed/oembed-play.png').'">');
+
+        // Add elements to wrapper
+        $htmlOutput->append($htmlPlay);
+        $htmlOutput->append($htmlThumb);
+
+        // Create embed HTML
+        $htmlEmbed = $Multiplayer->html($oEmbed->url, [
+          'autoPlay' => true,
+          'showInfos' => false,
+          'showBranding' => false,
+          'showRelated' => false,
+          'highlightColor' => $customParameters['color']
+        ]);
+        $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
+
+      else:
+        $htmlEmbed = $oEmbed->html;
+      endif;
+
+      // Add embed HTML to wrapper
+      $htmlOutput->append($htmlEmbed);
+
+      return replaceParameters($htmlOutput, $oEmbed->providerName, $customParameters);
+  else :
+    return $text;
+  endif;
+}
+
+
+/**
+ * Adds/replaces optional parameters
+ * @param string      embed type / media sites
+ */
+function replaceParameters($html, $embedType, $customParameters = array()) {
+  switch ($embedType) {
+    case 'SoundCloud':
+      if ($customParameters['visual'] == 'false')
+        $html = str_replace('visual=true', 'visual=false', $html);
+      if ($customParameters['artwork'] == 'false')
+        $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
+      return $html;
+      break;
+    default:
+      return $html;
+  }
+}
+
+
+/**
+ * Returns URL to cached thumb if it exists
+ * @param string      Thumbnail URL
+ */
+function cachedThumbnail($ThumbnailURL) {
+  // Get images from cache if possible (and ombed.caching is true)
+  if (c::get('oembed.caching', false)) :
+    if (!file_exists('thumbs/oembed'))
+      mkdir('thumbs/oembed');
+    $thumbKey = 'thumb-'.md5($ThumbnailURL).'.'.pathinfo($ThumbnailURL, PATHINFO_EXTENSION);
+    $thumbPath = kirby()->roots()->thumbs().'/oembed/'.$thumbKey;
+
+    // Cache image if cache doesn't exist or expired
+    if (!file_exists($thumbPath)) :
+      $thumbFile = file_get_contents($ThumbnailURL);
+      file_put_contents($thumbPath, $thumbFile);
+    elseif (filemtime($thumbPath) >= (time() - c::get('oembed.cacheexpires', 3600*24))) :
+      unlink($thumbPath);
+      $thumbFile = file_get_contents($ThumbnailURL);
+      file_put_contents($thumbPath, $thumbFile);
+    endif;
+
+    // Get URL to cached image
+    $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+
+    return $root.'thumbs/oembed/' . $thumbKey;
+
+  else :
+    return $ThumbnailURL;
+  endif;
 }
