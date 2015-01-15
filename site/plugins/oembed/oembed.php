@@ -3,20 +3,13 @@
  * Kirby oEmbed plugin for Kirby 2
  *
  * @author: Nico Hoffmann - distantnative.com
- * @version: 0.1
+ * @version: 0.5
  *
  */
 
-require_once('lib/bootstrap.php');
-require_once('lib/Multiplayer.php');
-
-if (c::get('oembed.caching', false))
-  require_once("lib/phpfastcache/phpfastcache.php");
-
-
 
 /**
- * Adding an oEmbed field method: e.g. $page->video()->oembed()
+ * oEmbed field method: $page->video()->oembed()
  */
 field::$methods['oembed'] = function($field, $customParameters = array()) {
   return oembed_convert($field->value, $customParameters);
@@ -24,7 +17,7 @@ field::$methods['oembed'] = function($field, $customParameters = array()) {
 
 
 /**
- * Extending Kirbytext with an oEmbed tag: e.g.
+ * oEmbed Kirbytext tag:
  * (oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
  */
 kirbytext::$tags['oembed'] = array(
@@ -41,10 +34,17 @@ kirbytext::$tags['oembed'] = array(
 
 
 
+require_once('lib/bootstrap.php');
+require_once('lib/Multiplayer.php');
+
+if (c::get('oembed.caching', false))
+  require_once("lib/phpfastcache/phpfastcache.php");
+
 
 /**
  * Converts a media URL into an embed (oEmbed)
- * @param string      The URL that will be converted
+ * @param string     The URL that will be converted
+ * @param array      Array of parameters that will be added to embed URL
  */
 function oembed_convert($text, $customParameters = array()) {
   $Essence = Essence\Essence::instance();
@@ -122,7 +122,9 @@ function oembed_convert($text, $customParameters = array()) {
 
 /**
  * Adds/replaces optional parameters
- * @param string      embed type / media sites
+ * @param string     HTML output of embed
+ * @param string     embed type / media site
+ * @param array      Array of parameters that will be added to embed URL
  */
 function replaceParameters($html, $embedType, $customParameters = array()) {
   switch ($embedType) {
