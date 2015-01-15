@@ -1,4 +1,4 @@
-Kirby oEmbed v0.5
+Kirby oEmbed v0.6
 ============
 
 This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities.  

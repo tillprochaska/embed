@@ -22,11 +22,17 @@ field::$methods['oembed'] = function($field, $customParameters = array()) {
  */
 kirbytext::$tags['oembed'] = array(
   'attr' => array(
-      'artwork'
+      'artwork',
+      'visual',
+      'size',
+      'color'
   ),
   'html' => function($tag) {
     $customParameters = array(
-      "artwork" => $tag->attr('artwork', 'true')
+      "artwork" => $tag->attr('artwork', c::get('oembed.defaults.artwork', 'true')),
+      "visual" => $tag->attr('visual', c::get('oembed.defaults.visual', 'true')),
+      "size" => $tag->attr('size', c::get('oembed.defaults.size', 'default')),
+      "color" => $tag->attr('color', c::get('oembed.defaults.color', ''))
     );
     return oembed_convert($tag->attr('oembed'), $customParameters);
   }
@@ -98,13 +104,23 @@ function oembed_convert($text, $customParameters = array()) {
         $htmlOutput->append($htmlThumb);
 
         // Create embed HTML
-        $htmlEmbed = $Multiplayer->html($oEmbed->url, [
-          'autoPlay' => true,
-          'showInfos' => false,
-          'showBranding' => false,
-          'showRelated' => false,
-          'highlightColor' => $customParameters['color']
-        ]);
+        if (isset($customParameters['color'])) :
+          $htmlEmbed = $Multiplayer->html($oEmbed->url, [
+            'autoPlay' => true,
+            'showInfos' => false,
+            'showBranding' => false,
+            'showRelated' => false,
+            'highlightColor' => $customParameters['color']
+          ]);
+        else :
+          $htmlEmbed = $Multiplayer->html($oEmbed->url, [
+            'autoPlay' => true,
+            'showInfos' => false,
+            'showBranding' => false,
+            'showRelated' => false
+          ]);
+        endif;
+
         $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
 
       else:
@@ -130,10 +146,18 @@ function oembed_convert($text, $customParameters = array()) {
 function replaceParameters($html, $embedType, $customParameters = array()) {
   switch ($embedType) {
     case 'SoundCloud':
-    if (isset($customParameters['visual']) && $customParameters['visual'] == 'false')
-      $html = str_replace('visual=true', 'visual=false', $html);
-    if (isset($customParameters['artwork']) && $customParameters['artwork'] == 'false')
-        $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
+      if (isset($customParameters['size']) &&
+          $customParameters['size'] == 'compact')
+          $html = str_replace('height="400"', 'height="140"', $html);
+      if (isset($customParameters['size']) &&
+          $customParameters['size'] == 'smaller')
+          $html = str_replace('height="400"', 'height="300"', $html);
+      if (isset($customParameters['visual']) &&
+          $customParameters['visual'] == 'false')
+          $html = str_replace('visual=true', 'visual=false', $html);
+      if (isset($customParameters['artwork']) &&
+          $customParameters['artwork'] == 'false')
+          $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
       return $html;
       break;
     default:
