@@ -2,7 +2,7 @@ Kirby oEmbed v0.5
 ============
 
 This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities.  
-It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed.
+It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed as well as [phpfastcache](https://github.com/khoaofgod/phpfastcache) as caching library.
 
 Using this plugin enables Kirby 2 CMS to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#options) to reduce the site loading time by using lazy videos (thumbnail preview and embed is only loaded after click) as well as extensive caching.
 
@@ -78,12 +78,12 @@ And for the field method `->oembed()`:
 
 The following parameters are available so far:
 - **YouTube**
-    - color
+    - color (hex value without the #)
 - **Vimeo**
-    - color
+    - color (hex value without the #)
 - **SoundCloud**
-    - visual
-    - artwork
+    - visual (true/false)
+    - artwork (true/false)
 
 # Examples
 ### Blog: Featured Video
