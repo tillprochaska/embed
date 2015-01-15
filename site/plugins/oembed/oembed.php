@@ -102,7 +102,7 @@ function oembed_convert($text, $customParameters = array()) {
           'showInfos' => false,
           'showBranding' => false,
           'showRelated' => false,
-          'highlightColor' => 'BADA55'
+          'highlightColor' => $customParameters['color']
         ]);
         $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
 
