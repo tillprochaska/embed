@@ -1,8 +1,8 @@
-Kirby oEmbed v0.5
+Kirby oEmbed v0.6
 ============
 
 This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities.  
-It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed.
+It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed as well as [phpfastcache](https://github.com/khoaofgod/phpfastcache) as caching library.
 
 Using this plugin enables Kirby 2 CMS to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#options) to reduce the site loading time by using lazy videos (thumbnail preview and embed is only loaded after click) as well as extensive caching.
 
@@ -78,12 +78,23 @@ And for the field method `->oembed()`:
 
 The following parameters are available so far:
 - **YouTube**
-    - color
+    - color (hex value without the #)
 - **Vimeo**
-    - color
+    - color (hex value without the #)
 - **SoundCloud**
-    - visual
-    - artwork
+    - size (default/smaller/compact)
+    - visual (true/false)
+    - artwork (true/false)
+
+You can set these parameters also globally for all oEmbed Kirbytext tags that do not specifiy the parameter themselves:
+
+```php
+// site/config/config.php
+c::get('oembed.defaults.color', 'FF00FF');
+c::get('oembed.defaults.visual', 'true');
+c::get('oembed.defaults.artwork', 'true');
+c::get('oembed.defaults.size', 'compact');
+```
 
 # Examples
 ### Blog: Featured Video

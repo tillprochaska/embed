@@ -44,7 +44,9 @@ class Youtube extends Preparator {
 					break;
 
 				case 'maxres':
-					$url = str_replace( 'hqdefault', 'maxresdefault', $url );
+					$new_url = str_replace( 'hqdefault', 'maxresdefault', $url );
+					if(curl_init($new_url))
+						$url = $new_url;
 					break;
 
 				case 'large':

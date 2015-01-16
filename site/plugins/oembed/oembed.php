@@ -3,9 +3,42 @@
  * Kirby oEmbed plugin for Kirby 2
  *
  * @author: Nico Hoffmann - distantnative.com
- * @version: 0.1
+ * @version: 0.5
  *
  */
+
+
+/**
+ * oEmbed field method: $page->video()->oembed()
+ */
+field::$methods['oembed'] = function($field, $customParameters = array()) {
+  return oembed_convert($field->value, $customParameters);
+};
+
+
+/**
+ * oEmbed Kirbytext tag:
+ * (oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
+ */
+kirbytext::$tags['oembed'] = array(
+  'attr' => array(
+      'artwork',
+      'visual',
+      'size',
+      'color'
+  ),
+  'html' => function($tag) {
+    $customParameters = array(
+      "artwork" => $tag->attr('artwork', c::get('oembed.defaults.artwork', 'true')),
+      "visual" => $tag->attr('visual', c::get('oembed.defaults.visual', 'true')),
+      "size" => $tag->attr('size', c::get('oembed.defaults.size', 'default')),
+      "color" => $tag->attr('color', c::get('oembed.defaults.color', ''))
+    );
+    return oembed_convert($tag->attr('oembed'), $customParameters);
+  }
+);
+
+
 
 require_once('lib/bootstrap.php');
 require_once('lib/Multiplayer.php');
@@ -14,37 +47,10 @@ if (c::get('oembed.caching', false))
   require_once("lib/phpfastcache/phpfastcache.php");
 
 
-
-/**
- * Adding an oEmbed field method: e.g. $page->video()->oembed()
- */
-field::$methods['oembed'] = function($field, $customParameters = array()) {
-  return oembed_convert($field->value, $customParameters);
-};
-
-
-/**
- * Extending Kirbytext with an oEmbed tag: e.g.
- * (oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
- */
-kirbytext::$tags['oembed'] = array(
-  'attr' => array(
-      'artwork'
-  ),
-  'html' => function($tag) {
-    $customParameters = array(
-      "artwork" => $tag->attr('artwork', 'true')
-    );
-    return oembed_convert($tag->attr('oembed'), $customParameters);
-  }
-);
-
-
-
-
 /**
  * Converts a media URL into an embed (oEmbed)
- * @param string      The URL that will be converted
+ * @param string     The URL that will be converted
+ * @param array      Array of parameters that will be added to embed URL
  */
 function oembed_convert($text, $customParameters = array()) {
   $Essence = Essence\Essence::instance();
@@ -75,6 +81,7 @@ function oembed_convert($text, $customParameters = array()) {
   if ($oEmbed) :
       // Create oembed-video wrapper
       $htmlOutput = new Brick('div');
+      $htmlOutput->addClass('oembed');
 
       if ($oEmbed->type === 'video') :
         $htmlOutput->addClass('oembed-video');
@@ -97,13 +104,23 @@ function oembed_convert($text, $customParameters = array()) {
         $htmlOutput->append($htmlThumb);
 
         // Create embed HTML
-        $htmlEmbed = $Multiplayer->html($oEmbed->url, [
-          'autoPlay' => true,
-          'showInfos' => false,
-          'showBranding' => false,
-          'showRelated' => false,
-          'highlightColor' => $customParameters['color']
-        ]);
+        if (isset($customParameters['color'])) :
+          $htmlEmbed = $Multiplayer->html($oEmbed->url, [
+            'autoPlay' => true,
+            'showInfos' => false,
+            'showBranding' => false,
+            'showRelated' => false,
+            'highlightColor' => $customParameters['color']
+          ]);
+        else :
+          $htmlEmbed = $Multiplayer->html($oEmbed->url, [
+            'autoPlay' => true,
+            'showInfos' => false,
+            'showBranding' => false,
+            'showRelated' => false
+          ]);
+        endif;
+
         $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
 
       else:
@@ -122,15 +139,25 @@ function oembed_convert($text, $customParameters = array()) {
 
 /**
  * Adds/replaces optional parameters
- * @param string      embed type / media sites
+ * @param string     HTML output of embed
+ * @param string     embed type / media site
+ * @param array      Array of parameters that will be added to embed URL
  */
 function replaceParameters($html, $embedType, $customParameters = array()) {
   switch ($embedType) {
     case 'SoundCloud':
-      if ($customParameters['visual'] == 'false')
-        $html = str_replace('visual=true', 'visual=false', $html);
-      if ($customParameters['artwork'] == 'false')
-        $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
+      if (isset($customParameters['size']) &&
+          $customParameters['size'] == 'compact')
+          $html = str_replace('height="400"', 'height="140"', $html);
+      if (isset($customParameters['size']) &&
+          $customParameters['size'] == 'smaller')
+          $html = str_replace('height="400"', 'height="300"', $html);
+      if (isset($customParameters['visual']) &&
+          $customParameters['visual'] == 'false')
+          $html = str_replace('visual=true', 'visual=false', $html);
+      if (isset($customParameters['artwork']) &&
+          $customParameters['artwork'] == 'false')
+          $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
       return $html;
       break;
     default:
