@@ -120,8 +120,9 @@ function oembed_convert($text, $customParameters = array()) {
             'showRelated' => false
           ]);
         endif;
-
-        $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
+        
+        if (c::get('oembed.lazyvideo', false))
+          $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
 
       else:
         $htmlEmbed = $oEmbed->html;
