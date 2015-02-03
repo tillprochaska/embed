@@ -68,7 +68,7 @@ function oembed_convert($text, $customParameters = array()) {
     $oEmbed = $Cache->get($text.'-json');
   endif;
 
-  if($oEmbed == null) :
+  if(! isset($oEmbed) or $oEmbed == null) :
       $oEmbed = $Essence->embed($text, [
           'thumbnailFormat' => 'maxres'
       ]);
