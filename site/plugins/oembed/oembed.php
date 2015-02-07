@@ -68,7 +68,7 @@ function oembed_convert($text, $customParameters = array()) {
     $oEmbed = $Cache->get($text.'-json');
   endif;
 
-  if($oEmbed == null) :
+  if(! isset($oEmbed) or $oEmbed == null) :
       $oEmbed = $Essence->embed($text, [
           'thumbnailFormat' => 'maxres'
       ]);
@@ -121,8 +121,9 @@ function oembed_convert($text, $customParameters = array()) {
           ]);
         endif;
         
-        if (c::get('oembed.lazyvideo', false))
+        if (c::get('oembed.lazyvideo', false)):
           $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
+        endif;
 
       else:
         $htmlEmbed = $oEmbed->html;
