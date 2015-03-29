@@ -11,8 +11,9 @@
 /**
  * oEmbed field method: $page->video()->oembed()
  */
-field::$methods['oembed'] = function($field, $customParameters = array()) {
-  return oembed_convert($field->value, $customParameters);
+field::$methods['oembed'] = function($field, $args = array()) {
+  $oembed = new KirbyOEmbed($field->value);
+  return $oembed->get($args);
 };
 
 
@@ -25,16 +26,18 @@ kirbytext::$tags['oembed'] = array(
       'artwork',
       'visual',
       'size',
-      'color'
+      'color',
   ),
   'html' => function($tag) {
-    $customParameters = array(
+    $args = array(
       "artwork" => $tag->attr('artwork', c::get('oembed.defaults.artwork', 'true')),
-      "visual" => $tag->attr('visual', c::get('oembed.defaults.visual', 'true')),
-      "size" => $tag->attr('size', c::get('oembed.defaults.size', 'default')),
-      "color" => $tag->attr('color', c::get('oembed.defaults.color', ''))
+      "visual"  => $tag->attr('visual', c::get('oembed.defaults.visual', 'true')),
+      "size"    => $tag->attr('size', c::get('oembed.defaults.size', 'default')),
+      "color"   => $tag->attr('color', c::get('oembed.defaults.color', ''))
     );
-    return oembed_convert($tag->attr('oembed'), $customParameters);
+
+    $oembed = new KirbyOEmbed($tag->attr('oembed'));
+    return $oembed->get($args);
   }
 );
 
@@ -43,159 +46,175 @@ kirbytext::$tags['oembed'] = array(
 require_once('lib/bootstrap.php');
 require_once('lib/Multiplayer.php');
 
-if (c::get('oembed.caching', false))
-  require_once("lib/phpfastcache/phpfastcache.php");
+
+class KirbyOEmbed {
+
+  public $url     = '';
+  public $doCache = false;
+
+  protected $embedObject  = null;
+
+  protected $Essence      = null;
+  protected $Multiplacer  = null;
+  protected $Cache        = null;
+
+  public function __construct($url) {
+    $this->url      = $url;
+    $this->doCache  = c::get('oembed.caching', false);
+
+    $this->Essence      = Essence\Essence::instance();
+    $this->Multiplayer  = new Multiplayer\Multiplayer();
+
+    if ($this->doCache)
+      $this->Cache = $this->cache('file', kirby()->roots()->cache().'/oembed');
+  }
 
 
-/**
- * Converts a media URL into an embed (oEmbed)
- * @param string     The URL that will be converted
- * @param array      Array of parameters that will be added to embed URL
- */
-function oembed_convert($text, $customParameters = array()) {
-  $Essence = Essence\Essence::instance();
-  $Multiplayer = new Multiplayer\Multiplayer( );
+  public function get($parameters) {
+    if ($this->embedObject = $this->embedObject()) {
+      $output = $this->template();
+      $output = $this->replaceParameters($output, $this->embedObject->providerName, $parameters);
+      return $output;
+    } else {
+      return $this->url;
+    }
+  }
 
 
-  if (c::get('oembed.caching', false)) :
-    $cacheDir = kirby()->roots()->cache()."/oembed";
-    if (!file_exists($cacheDir))
-      mkdir($cacheDir);
-    $Cache = phpFastCache("auto",
-                    array("path" => kirby()->roots()->cache()."/oembed"));
+  protected function template() {
+    // Create oembed-video wrapper
+    $output = new Brick('div');
+    $output->addClass('oembed');
 
-    // try to get from Cache first.
-    $oEmbed = $Cache->get($text.'-json');
-  endif;
+    if ($this->embedObject->type === 'video') :
+      // Maintain aspect ratio of videos
+      $output->addClass('oembed-video');
+      $wrapperRatio = ($this->embedObject->height / $this->embedObject->width) * 100;
+      $output->attr('style','padding-top:'.$wrapperRatio.'%');
 
-  if(! isset($oEmbed) or $oEmbed == null) :
-      $oEmbed = $Essence->embed($text, [
-          'thumbnailFormat' => 'maxres'
-      ]);
+      if (c::get('oembed.lazyvideo', false)) $output->addClass('oembed-lazyvideo');
 
-      // Write to Cache Save API Calls next time
-      if (c::get('oembed.caching', false))
-        $Cache->set($text.'-json', $oEmbed, c::get('oembed.cacheexpires', 3600*24));
-  endif;
+      // Create thumb image
+      // $thumb = '<img src="'.$this->getThumbnail().'" class="thumb">';
+      $thumb = new Brick('div');
+      $thumb->addClass('thumb');
+      $thumb->attr('style','background-image: url('.$this->getThumbnail().')');
 
-  if ($oEmbed) :
-      // Create oembed-video wrapper
-      $htmlOutput = new Brick('div');
-      $htmlOutput->addClass('oembed');
+      // Create play button overlay
+      $htmlPlay = new Brick('div');
+      $htmlPlay->addClass('play');
+      $htmlPlay->append('<img src="'.url('assets/oembed/oembed-play.png').'">');
 
-      if ($oEmbed->type === 'video') :
-        $htmlOutput->addClass('oembed-video');
-        $WrapperRatio = ($oEmbed->height / $oEmbed->width) * 100;
-        $htmlOutput->attr('style','padding-top:'.$WrapperRatio.'%');
+      // Add elements to wrapper
+      $output->append($htmlPlay);
+      $output->append($thumb);
 
-        if (c::get('oembed.lazyvideo', false))
-          $htmlOutput->addClass('oembed-lazyvideo');
-
-        // Create thumb image
-        $htmlThumb = '<img src="'.cachedThumbnail($oEmbed->thumbnailUrl).'" class="thumb">';
-
-        // Create play button overlay
-        $htmlPlay = new Brick('div');
-        $htmlPlay->addClass('play');
-        $htmlPlay->append('<img src="'.url('assets/oembed/oembed-play.png').'">');
-
-        // Add elements to wrapper
-        $htmlOutput->append($htmlPlay);
-        $htmlOutput->append($htmlThumb);
-
-        // Create embed HTML
-        if (isset($customParameters['color'])) :
-          $htmlEmbed = $Multiplayer->html($oEmbed->url, [
-            'autoPlay' => true,
-            'showInfos' => false,
-            'showBranding' => false,
-            'showRelated' => false,
-            'highlightColor' => $customParameters['color']
-          ]);
-        else :
-          $htmlEmbed = $Multiplayer->html($oEmbed->url, [
-            'autoPlay' => true,
-            'showInfos' => false,
-            'showBranding' => false,
-            'showRelated' => false
-          ]);
-        endif;
-        
-        if (c::get('oembed.lazyvideo', false)):
-          $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
-        endif;
-
-      else:
-        $htmlEmbed = $oEmbed->html;
+      // Create embed HTML
+      if (isset($parameters['color'])) :
+        $htmlEmbed = $this->Multiplayer->html($this->embedObject->url, [
+          'autoPlay' => true,
+          'showInfos' => false,
+          'showBranding' => false,
+          'showRelated' => false,
+          'highlightColor' => $parameters['color']
+        ]);
+      else :
+        $htmlEmbed = $this->Multiplayer->html($this->embedObject->url, [
+          'autoPlay' => true,
+          'showInfos' => false,
+          'showBranding' => false,
+          'showRelated' => false
+        ]);
       endif;
 
-      // Add embed HTML to wrapper
-      $htmlOutput->append($htmlEmbed);
+      if (c::get('oembed.lazyvideo', false)):
+        $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
+      endif;
 
-      return replaceParameters($htmlOutput, $oEmbed->providerName, $customParameters);
-  else :
-    return $text;
-  endif;
-}
-
-
-/**
- * Adds/replaces optional parameters
- * @param string     HTML output of embed
- * @param string     embed type / media site
- * @param array      Array of parameters that will be added to embed URL
- */
-function replaceParameters($html, $embedType, $customParameters = array()) {
-  switch ($embedType) {
-    case 'SoundCloud':
-      if (isset($customParameters['size']) &&
-          $customParameters['size'] == 'compact')
-          $html = str_replace('height="400"', 'height="140"', $html);
-      if (isset($customParameters['size']) &&
-          $customParameters['size'] == 'smaller')
-          $html = str_replace('height="400"', 'height="300"', $html);
-      if (isset($customParameters['visual']) &&
-          $customParameters['visual'] == 'false')
-          $html = str_replace('visual=true', 'visual=false', $html);
-      if (isset($customParameters['artwork']) &&
-          $customParameters['artwork'] == 'false')
-          $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
-      return $html;
-      break;
-    default:
-      return $html;
-  }
-}
-
-
-/**
- * Returns URL to cached thumb if it exists
- * @param string      Thumbnail URL
- */
-function cachedThumbnail($ThumbnailURL) {
-  // Get images from cache if possible (and ombed.caching is true)
-  if (c::get('oembed.caching', false)) :
-    if (!file_exists('thumbs/oembed'))
-      mkdir('thumbs/oembed');
-    $thumbKey = 'thumb-'.md5($ThumbnailURL).'.'.pathinfo($ThumbnailURL, PATHINFO_EXTENSION);
-    $thumbPath = kirby()->roots()->thumbs().'/oembed/'.$thumbKey;
-
-    // Cache image if cache doesn't exist or expired
-    if (!file_exists($thumbPath)) :
-      $thumbFile = file_get_contents($ThumbnailURL);
-      file_put_contents($thumbPath, $thumbFile);
-    elseif (filemtime($thumbPath) >= (time() - c::get('oembed.cacheexpires', 3600*24))) :
-      unlink($thumbPath);
-      $thumbFile = file_get_contents($ThumbnailURL);
-      file_put_contents($thumbPath, $thumbFile);
+    else:
+      $htmlEmbed = $this->embedObject->html;
     endif;
 
-    // Get URL to cached image
-    $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+    // Add embed HTML to wrapper
+    $output->append($htmlEmbed);
 
-    return $root.'thumbs/oembed/' . $thumbKey;
+    return $output;
+  }
 
-  else :
-    return $ThumbnailURL;
-  endif;
+  protected function replaceParameters($html, $embedType, $customParameters = array()) {
+    switch ($embedType) {
+      case 'SoundCloud':
+        if (isset($customParameters['size']) &&
+            $customParameters['size'] == 'compact')
+            $html = str_replace('height="400"', 'height="140"', $html);
+        if (isset($customParameters['size']) &&
+            $customParameters['size'] == 'smaller')
+            $html = str_replace('height="400"', 'height="300"', $html);
+        if (isset($customParameters['visual']) &&
+            $customParameters['visual'] == 'false')
+            $html = str_replace('visual=true', 'visual=false', $html);
+        if (isset($customParameters['artwork']) &&
+            $customParameters['artwork'] == 'false')
+            $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
+        return $html;
+        break;
+      default:
+        return $html;
+    }
+  }
+
+  protected function cachedThumbnail($thumbUrl) {
+    // Get images from cache if possible (and ombed.caching is true)
+    if ($this->doCache) {
+      $dir = kirby()->roots()->thumbs().'/oembed';
+
+      if (!file_exists($dir)) mkdir($dir);
+
+      $thumbKey  = md5($thumbUrl).'.'.pathinfo($thumbUrl, PATHINFO_EXTENSION);
+      $thumbPath = $dir.'/'.$thumbKey;
+
+      // Cache image if cache doesn't exist or expired
+      if (!file_exists($thumbPath)) {
+        $thumbFile = file_get_contents($thumbUrl);
+        file_put_contents($thumbPath, $thumbFile);
+      } elseif (filemtime($thumbPath) >= (time() - c::get('oembed.cacheexpires', 3600*24))) {
+        unlink($thumbPath);
+        $thumbFile = file_get_contents($thumbUrl);
+        file_put_contents($thumbPath, $thumbFile);
+      }
+
+      // Get URL to cached image
+      $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+
+      return $root.'thumbs/oembed/' . $thumbKey;
+
+    } else {
+      return $thumbUrl;
+    }
+  }
+
+  protected function embedObject() {
+    // try to get from Cache first.
+    if ($this->doCache)
+      $oEmbed = $this->Cache->get(md5($this->url));
+
+    if(!isset($oEmbed) or $oEmbed == null) :
+        $oEmbed = $this->Essence->embed($this->url, [
+            'thumbnailFormat' => 'maxres'
+        ]);
+
+        // Write to Cache Save API Calls next time
+        if (c::get('oembed.caching', false))
+          $this->Cache->set(md5($this->url), $oEmbed, c::get('oembed.cacheexpires', 60*24));
+    endif;
+
+    return $oEmbed;
+  }
+
+  protected function cache($driver, $dir) {
+    if (!file_exists($dir)) mkdir($dir);
+    return cache::setup($driver, array('root' => $dir));
+  }
+
 }
+
