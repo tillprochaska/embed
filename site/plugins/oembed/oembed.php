@@ -13,6 +13,8 @@
  */
 field::$methods['oembed'] = function($field, $args = array()) {
   $oembed = new KirbyOEmbed($field->value);
+  if (isset($args['thumbnail']))
+    $oembed->setThumbnail($args['thumbnail']);
   return $oembed->get($args);
 };
 
@@ -23,6 +25,7 @@ field::$methods['oembed'] = function($field, $args = array()) {
  */
 kirbytext::$tags['oembed'] = array(
   'attr' => array(
+      'thumb',
       'artwork',
       'visual',
       'size',
@@ -37,6 +40,8 @@ kirbytext::$tags['oembed'] = array(
     );
 
     $oembed = new KirbyOEmbed($tag->attr('oembed'));
+    if ($tag->attr('thumb', false))
+      $oembed->setThumbnail($tag->file($tag->attr('thumb'))->url());
     return $oembed->get($args);
   }
 );
@@ -50,6 +55,7 @@ require_once('lib/Multiplayer.php');
 class KirbyOEmbed {
 
   public $url     = '';
+  public $thumb   = null;
   public $doCache = false;
 
   protected $embedObject  = null;
@@ -80,6 +86,20 @@ class KirbyOEmbed {
     }
   }
 
+  public function getThumbnail() {
+    if ($this->thumb) {
+      return $this->thumb;
+    }
+    else {
+      if ($this->embedObject = $this->embedObject()) {
+        return $this->cachedThumbnail($this->embedObject->thumbnailUrl);
+      }
+    }
+  }
+
+  public function setThumbnail($thumb) {
+    $this->thumb = $thumb;
+  }
 
   protected function template() {
     // Create oembed-video wrapper
