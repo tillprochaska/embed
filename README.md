@@ -1,5 +1,6 @@
-Kirby oEmbed v0.6
+Kirby oEmbed
 ============
+![Release](https://img.shields.io/github/release/distantnative/kirby-oembed.svg)  [![Issues](https://img.shields.io/github/issues/distantnative/kirby-oembed.svg)](https://github.com/distantnative/kirby-oembed/issues)
 
 This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities.  
 It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed as well as [phpfastcache](https://github.com/khoaofgod/phpfastcache) as caching library.
