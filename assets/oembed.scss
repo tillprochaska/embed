@@ -38,7 +38,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    opacity: .95;
+    opacity: .7;
     cursor: pointer;
     transition: opacity .4s ease-in-out;
 
@@ -51,15 +51,21 @@
       height: auto;
     }
   }
+
   &:hover .play {
-    opacity: .7;
+    opacity: .4;
   }
 
   .thumb {
+    position: absolute;
+    top:    0;
+    bottom: 0;
+    left:   0;
+    right:  0;
+    background-size: cover;
+    background-position: 50% 50%;
     cursor: pointer;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
   }
 
   iframe,

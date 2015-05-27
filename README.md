@@ -1,8 +1,9 @@
-Kirby oEmbed v0.6
+Kirby oEmbed v0.7
 ============
+![Release](https://img.shields.io/github/release/distantnative/kirby-oembed.svg) 
+[![Issues](https://img.shields.io/github/issues/distantnative/kirby-oembed.svg)](https://github.com/distantnative/kirby-oembed/issues)
 
-This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities.  
-It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed as well as [phpfastcache](https://github.com/khoaofgod/phpfastcache) as caching library.
+This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed.
 
 Using this plugin enables Kirby 2 CMS to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#options) to reduce the site loading time by using lazy videos (thumbnail preview and embed is only loaded after click) as well as extensive caching.
 
@@ -10,8 +11,7 @@ Requires PHP 5.4 and higher.
 
 # Installation
 1. Download [Kirby oEmbed](https://github.com/distantnative/kirby-oembed/zipball/master/)
-2. Copy the `site/plugins/oembed` directory to `site/plugins/`
-3. Copy the `assets/oembed` directory to `assets/`
+2. Copy the `oembed` directory to `site/plugins/` and the contents of `assets` to `assets/oembed/`
 4. Add CSS link to your header:
 ```php
 // site/snippets/header.php
@@ -26,12 +26,12 @@ echo js('//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'); // if jQu
 echo js('assets/oembed/oembed.min.js');
 ```
 
-Instead of including additional CSS and JS links inside your header, you can also include the contents of `assets/oembed/oembed.css` or `assets/oembed/oembed.scss` as well as `assets/oembed/oembed.js` in your existing CSS/SCSS and JS files.
+Instead of including additional CSS and JS links inside your header, you can also include the contents of `assets/oembed.css` and `assets/oembed.js` in your existing CSS and JS files.
 
 **If caching [option](#options) is active:** 
 6. You might need to set CHMODs for `site/cache/oembed` and `thumbs/oembed`
 
-# Update
+## Update
 1. Replace the `site/plugins/oembed` and  `assets/oembed` directories with recent version
 2. Delete `site/cache/oembed` and `thumbs/oembed`
 
@@ -104,21 +104,20 @@ Use Kirby oEmbed to embed featured videos to your blog posts. The URL to the vid
 ```php
 // site/snippets/article.php
 <article>
-  <aside class="entry-meta">
-    ...
-  </aside>
+  <aside class="entry-meta">...</aside>
 
   <div class="entry-main">
-    <?php if ($post->video()!='') : ?>
-      <figure class="entry-cover">
-        <?php echo $post->video()->oembed(); ?>
-      </figure>
-    <?php endif : ?>
+    <?php if($post->video()!=''): ?>
+      <figure class="entry-cover"><?php echo $post->video()->oembed(); ?></figure>
+    <?php endif; ?>
 
-    <div class="entry-content">
-      <?php echo $post->text()->kirbytext(); ?>
-    </div>
+    <div class="entry-content"><?php echo $post->text()->kt(); ?></div>
   </div>
   
 </article>
 ```
+
+# Version history
+**0.7**
+- File structure of plugin repository changed
+- Improved HTML validation of plugin output
