@@ -1,6 +1,6 @@
 Kirby oEmbed v0.7
 ============
-![Release](https://img.shields.io/github/release/distantnative/kirby-oembed.svg)  
+![Release](https://img.shields.io/github/release/distantnative/kirby-oembed.svg) 
 [![Issues](https://img.shields.io/github/issues/distantnative/kirby-oembed.svg)](https://github.com/distantnative/kirby-oembed/issues)
 
 This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed.
@@ -11,8 +11,7 @@ Requires PHP 5.4 and higher.
 
 # Installation
 1. Download [Kirby oEmbed](https://github.com/distantnative/kirby-oembed/zipball/master/)
-2. Copy the `oembed` directory to `site/plugins/`
-3. Copy the contents of the `assets` directory to `assets/oembed/`
+2. Copy the `oembed` directory to `site/plugins/` and the contents of `assets` to `assets/oembed/`
 4. Add CSS link to your header:
 ```php
 // site/snippets/header.php
@@ -27,12 +26,12 @@ echo js('//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'); // if jQu
 echo js('assets/oembed/oembed.min.js');
 ```
 
-Instead of including additional CSS and JS links inside your header, you can also include the contents of `assets/oembed/oembed.css` or `assets/oembed/oembed.scss` as well as `assets/oembed/oembed.js` in your existing CSS/SCSS and JS files.
+Instead of including additional CSS and JS links inside your header, you can also include the contents of `assets/oembed.css` and `assets/oembed.js` in your existing CSS and JS files.
 
 **If caching [option](#options) is active:** 
 6. You might need to set CHMODs for `site/cache/oembed` and `thumbs/oembed`
 
-# Update
+## Update
 1. Replace the `site/plugins/oembed` and  `assets/oembed` directories with recent version
 2. Delete `site/cache/oembed` and `thumbs/oembed`
 
@@ -105,20 +104,14 @@ Use Kirby oEmbed to embed featured videos to your blog posts. The URL to the vid
 ```php
 // site/snippets/article.php
 <article>
-  <aside class="entry-meta">
-    ...
-  </aside>
+  <aside class="entry-meta">...</aside>
 
   <div class="entry-main">
     <?php if($post->video()!=''): ?>
-      <figure class="entry-cover">
-        <?php echo $post->video()->oembed(); ?>
-      </figure>
+      <figure class="entry-cover"><?php echo $post->video()->oembed(); ?></figure>
     <?php endif; ?>
 
-    <div class="entry-content">
-      <?php echo $post->text()->kirbytext(); ?>
-    </div>
+    <div class="entry-content"><?php echo $post->text()->kt(); ?></div>
   </div>
   
 </article>
