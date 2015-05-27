@@ -48,7 +48,7 @@ kirbytext::$tags['oembed'] = array(
 
 
 
-require_once('lib/bootstrap.php');
+require_once('lib/Essence/Essence.php');
 require_once('lib/Multiplayer.php');
 
 
@@ -68,7 +68,7 @@ class KirbyOEmbed {
     $this->url      = $url;
     $this->doCache  = c::get('oembed.caching', false);
 
-    $this->Essence      = Essence\Essence::instance();
+    $this->Essence      = new Essence\Essence;
     $this->Multiplayer  = new Multiplayer\Multiplayer();
 
     if ($this->doCache)
@@ -222,7 +222,7 @@ class KirbyOEmbed {
       $oEmbed = $this->Cache->get(md5($this->url));
 
     if(!isset($oEmbed) or $oEmbed == null) :
-        $oEmbed = $this->Essence->embed($this->url, [
+        $oEmbed = $this->Essence->extract($this->url, [
             'thumbnailFormat' => 'maxres'
         ]);
 
