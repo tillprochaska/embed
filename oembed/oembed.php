@@ -156,7 +156,7 @@ class KirbyOEmbed {
 
     // Better HTML validation
     $htmlEmbed = str_ireplace(array('frameborder="0"', 'webkitallowfullscreen', 'mozallowfullscreen'), '', $htmlEmbed);
-    $htmlEmbed = htmlspecialchars($htmlEmbed, ENT_NOQUOTES);
+    $htmlEmbed = str_replace('&','&amp;', str_replace('&amp;', '&', $htmlEmbed));
 
     // Add embed HTML to wrapper
     $output->append($htmlEmbed);
