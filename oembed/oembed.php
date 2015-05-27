@@ -3,7 +3,7 @@
  * Kirby oEmbed plugin for Kirby 2
  *
  * @author: Nico Hoffmann - distantnative.com
- * @version: 0.5
+ * @version: 0.7
  *
  */
 
@@ -115,7 +115,6 @@ class KirbyOEmbed {
       if (c::get('oembed.lazyvideo', false)) $output->addClass('oembed-lazyvideo');
 
       // Create thumb image
-      // $thumb = '<img src="'.$this->getThumbnail().'" class="thumb">';
       $thumb = new Brick('div');
       $thumb->addClass('thumb');
       $thumb->attr('style','background-image: url('.$this->getThumbnail().')');
@@ -123,7 +122,7 @@ class KirbyOEmbed {
       // Create play button overlay
       $htmlPlay = new Brick('div');
       $htmlPlay->addClass('play');
-      $htmlPlay->append('<img src="'.url('assets/oembed/oembed-play.png').'">');
+      $htmlPlay->append('<img src="'.url('assets/oembed/oembed-play.png').'" alt="Play">');
 
       // Add elements to wrapper
       $output->append($htmlPlay);
@@ -154,6 +153,10 @@ class KirbyOEmbed {
     else:
       $htmlEmbed = $this->embedObject->html;
     endif;
+
+    // Better HTML validation
+    $htmlEmbed = str_ireplace(array('frameborder="0"', 'webkitallowfullscreen', 'mozallowfullscreen'), '', $htmlEmbed);
+    $htmlEmbed = htmlspecialchars($htmlEmbed, ENT_NOQUOTES);
 
     // Add embed HTML to wrapper
     $output->append($htmlEmbed);
