@@ -1,9 +1,9 @@
-Kirby oEmbed
+Kirby oEmbed v0.7
 ============
-![Release](https://img.shields.io/github/release/distantnative/kirby-oembed.svg)  [![Issues](https://img.shields.io/github/issues/distantnative/kirby-oembed.svg)](https://github.com/distantnative/kirby-oembed/issues)
+![Release](https://img.shields.io/github/release/distantnative/kirby-oembed.svg)  
+[![Issues](https://img.shields.io/github/issues/distantnative/kirby-oembed.svg)](https://github.com/distantnative/kirby-oembed/issues)
 
-This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities.  
-It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed as well as [phpfastcache](https://github.com/khoaofgod/phpfastcache) as caching library.
+This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed.
 
 Using this plugin enables Kirby 2 CMS to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#options) to reduce the site loading time by using lazy videos (thumbnail preview and embed is only loaded after click) as well as extensive caching.
 
@@ -11,8 +11,8 @@ Requires PHP 5.4 and higher.
 
 # Installation
 1. Download [Kirby oEmbed](https://github.com/distantnative/kirby-oembed/zipball/master/)
-2. Copy the `site/plugins/oembed` directory to `site/plugins/`
-3. Copy the `assets/oembed` directory to `assets/`
+2. Copy the `oembed` directory to `site/plugins/`
+3. Copy the contents of the `assets` directory to `assets/oembed/`
 4. Add CSS link to your header:
 ```php
 // site/snippets/header.php
@@ -110,11 +110,11 @@ Use Kirby oEmbed to embed featured videos to your blog posts. The URL to the vid
   </aside>
 
   <div class="entry-main">
-    <?php if ($post->video()!='') : ?>
+    <?php if($post->video()!=''): ?>
       <figure class="entry-cover">
         <?php echo $post->video()->oembed(); ?>
       </figure>
-    <?php endif : ?>
+    <?php endif; ?>
 
     <div class="entry-content">
       <?php echo $post->text()->kirbytext(); ?>
@@ -123,3 +123,8 @@ Use Kirby oEmbed to embed featured videos to your blog posts. The URL to the vid
   
 </article>
 ```
+
+# Version history
+**0.7**
+- File structure of plugin repository changed
+- Improved HTML validation of plugin output
