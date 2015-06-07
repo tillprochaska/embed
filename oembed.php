@@ -6,7 +6,7 @@ require 'core.php';
  * oEmbed field method: $page->video()->oembed()
  */
 field::$methods['oembed'] = function($field, $args = array()) {
-  $oembed = new KirbyOEmbed($field->value);
+  $oembed = new OEmbed($field->value);
 
   // autoplay setting
   if((isset($args['autoplay']) and $args['autoplay'] == true) or c::get('oembed.autoplay', false)) {
@@ -42,7 +42,7 @@ kirbytext::$tags['oembed'] = array(
       "color"   => $tag->attr('color', c::get('oembed.defaults.color', ''))
     );
 
-    $oembed = new KirbyOEmbed($tag->attr('oembed'));
+    $oembed = new OEmbed($tag->attr('oembed'));
 
     // autoplay setting
     if($tag->attr('autoplay', c::get('oembed.autoplay', false)) == 'true') {

@@ -1,222 +1,106 @@
 <?php
 
-spl_autoload_register('KirbyOEmbed::autoload');
+require 'autoload.php';
+require 'cache.php';
+require 'thumb.php';
+require 'template.php';
+
+spl_autoload_register('OembedAutoload::autoload');
+
 
 use Essence\Essence;
-use Multiplayer\Multiplayer;
 
-class KirbyOEmbed {
+class OEmbed {
 
-  public $url      = '';
+  public $url      = null;
   public $thumb    = null;
   public $autoplay = false;
-  public $doCache  = false;
+  public $caching  = false;
 
-  public $cacheDir = null;
-  public $thumbDir = null;
+  protected $media       = null;
+  protected $Essence     = null;
+  protected $Cache       = null;
 
-  protected $embedObject  = null;
-  protected $Essence      = null;
-  protected $Multiplacer  = null;
-  protected $Cache        = null;
 
   public function __construct($url) {
-    $this->Essence     = new Essence();
-    $this->Multiplayer = new Multiplayer();
-
-    // default directories
-    $this->cacheDir = kirby()->roots()->cache();
-    $this->thumbDir = kirby()->roots()->thumbs();
-
     $this->url      = $url;
-    $this->doCache  = c::get('oembed.caching', false);
 
-    // prepare cache
-    if ($this->doCache) {
-      $this->Cache = $this->cache('file', $this->cacheDir);
-    }
+    $this->caching  = c::get('oembed.caching', false);
+    if($this->caching) $this->Cache = new OembedCache();
+
+    $this->thumb    = new OembedThumb($this->caching);
+    $this->Essence  = new Essence();
+
   }
 
-  public function get($parameters) {
-    // return oembed element
-    if ($embedObject = $this->embedObject()) {
-      $output = $this->template();
-      $output = $this->replaceParameters($output, $embedObject->providerName, $parameters);
-      return $output;
 
-    // no oembed result
+  public function get($parameters) {
+    if($oembed = $this->media()) {
+      $html = $this->template();
+      $html = OembedTemplate::parameters($html, $oembed->get('providerName'), $parameters);
+      return $html;
+
     } else {
       return $this->url;
     }
   }
 
-  public function getThumbnail() {
-    // (custom) thumbnail is already set
-    if ($this->thumb) {
-      return $this->thumb;
 
-    // retrieve thumnail
-    } else {
-      if ($embedObject = $this->embedObject()) {
-        return $this->cachedThumbnail($embedObject->thumbnailUrl);
+  protected function media() {
+    if($this->media === null) {
+      if($this->caching) $Media = $this->cache();
+      if(!isset($Media) or $Media == null) {
+          $Media = $this->create();
+          if($this->caching) $this->cache($Media);
       }
+      $this->media = $Media;
     }
+    return $this->media;
   }
 
-  public function setThumbnail($thumb) {
-    $this->thumb = $thumb;
+
+  protected function create() {
+    $Media = $this->Essence->extract($this->url);
+    $Media = OembedThumb::highRes($Media);
+    return $Media;
   }
+
+
+  protected function cache($Media = null) {
+    if($Media) return $this->Cache->set($this->url, $Media);
+    else       return $this->Cache->get($this->url);
+  }
+
 
   protected function template() {
-    // Create oembed-video wrapper
     $output = new Brick('div');
     $output->addClass('oembed');
 
-    if ($this->embedObject->type === 'video') :
-      // Maintain aspect ratio of videos
-      $output->addClass('oembed-video');
-      $wrapperRatio = ($this->embedObject->height / $this->embedObject->width) * 100;
-      $output->attr('style','padding-top:'.$wrapperRatio.'%');
+    if ($this->media->get('type') === 'video') {
+      $output = OembedTemplate::ratio($output, $this->media);
 
-      if (c::get('oembed.lazyvideo', false)) $output->addClass('oembed-lazyvideo');
+      if (c::get('oembed.lazyvideo', false)) {
+        $output->addClass('oembed-lazyvideo');
+      }
 
-      // Create thumb image
-      $thumb = new Brick('div');
-      $thumb->addClass('thumb');
-      $thumb->attr('style','background-image: url('.$this->getThumbnail().')');
-
-      // Create play button overlay
-      $htmlPlay = new Brick('div');
-      $htmlPlay->addClass('play');
-      $htmlPlay->append('<img src="'.url('assets/oembed/oembed-play.png').'" alt="Play">');
-
-      // Add elements to wrapper
-      $output->append($htmlPlay);
+      $play  = OembedTemplate::play();
+      $output->append($play);
+      $thumb = OembedTemplate::thumb($this->thumb->get($this->media()));
       $output->append($thumb);
 
-      // Create embed HTML
-      if (isset($parameters['color'])) :
-        $htmlEmbed = $this->Multiplayer->html($this->embedObject->url, [
-          'autoPlay'       => $this->autoplay or c::get('oembed.lazyvideo', false),
-          'showInfos'      => false,
-          'showBranding'   => false,
-          'showRelated'    => false,
-          'highlightColor' => $parameters['color']
-        ]);
-      else :
-        $htmlEmbed = $this->Multiplayer->html($this->embedObject->url, [
-          'autoPlay'     => $this->autoplay or c::get('oembed.lazyvideo', false),
-          'showInfos'    => false,
-          'showBranding' => false,
-          'showRelated'  => false
-        ]);
-      endif;
+      $html = OembedTemplate::embed($this->media, $this->autoplay);
 
-      if (c::get('oembed.lazyvideo', false)):
-        $htmlEmbed = str_replace(' src="', ' data-src="', $htmlEmbed);
-      endif;
+    } else {
+      $html = $this->media->get('html');
+    }
 
-    else:
-      $htmlEmbed = $this->embedObject->html;
-    endif;
-
-    // Better HTML validation
-    $htmlEmbed = str_ireplace(array('frameborder="0"', 'webkitallowfullscreen', 'mozallowfullscreen'), '', $htmlEmbed);
-    $htmlEmbed = str_replace('&','&amp;', str_replace('&amp;', '&', $htmlEmbed));
-
-    // Add embed HTML to wrapper
-    $output->append($htmlEmbed);
+    $html = OembedTemplate::validation($html);
+    $output->append($html);
 
     return $output;
   }
 
-  protected function replaceParameters($html, $embedType, $customParameters = array()) {
-    switch ($embedType) {
-      case 'SoundCloud':
-        if (isset($customParameters['size']) &&
-            $customParameters['size'] == 'compact')
-            $html = str_replace('height="400"', 'height="140"', $html);
-        if (isset($customParameters['size']) &&
-            $customParameters['size'] == 'smaller')
-            $html = str_replace('height="400"', 'height="300"', $html);
-        if (isset($customParameters['visual']) &&
-            $customParameters['visual'] == 'false')
-            $html = str_replace('visual=true', 'visual=false', $html);
-        if (isset($customParameters['artwork']) &&
-            $customParameters['artwork'] == 'false')
-            $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
-        return $html;
-        break;
-      default:
-        return $html;
-    }
-  }
-
-  protected function cachedThumbnail($thumbUrl) {
-    // Get images from cache if possible (and ombed.caching is true)
-    if ($this->doCache) {
-
-      if (!file_exists($this->thumbDir)) mkdir($this->thumbDir);
-
-      $thumbKey  = 'oembed-' . md5($thumbUrl) . '.' . pathinfo($thumbUrl, PATHINFO_EXTENSION);
-      $thumbPath = $this->thumbDir . DS . $thumbKey;
-
-      // Cache image if cache doesn't exist or expired
-      if (!file_exists($thumbPath)) {
-        $thumbFile = file_get_contents($thumbUrl);
-        file_put_contents($thumbPath, $thumbFile);
-      } elseif (filemtime($thumbPath) >= (time() - c::get('oembed.cacheexpires', 3600*24))) {
-        unlink($thumbPath);
-        $thumbFile = file_get_contents($thumbUrl);
-        file_put_contents($thumbPath, $thumbFile);
-      }
-
-      // Get URL to cached image
-      $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-
-      return $root . str_replace(kirby()->roots()->index() . DS, '', $this->thumbDir) . DS . $thumbKey;
-
-    } else {
-      return $thumbUrl;
-    }
-  }
-
-  protected function embedObject() {
-
-    // already processed?
-    if($this->embedObject === null) {
-      // try to get from cache first.
-      if ($this->doCache) {
-        $oEmbed = $this->Cache->get('oembed-' . md5($this->url));
-      }
-
-      // not in the cache
-      if(!isset($oEmbed) or $oEmbed == null) {
-          $oEmbed = $this->Essence->extract($this->url, array(
-              'thumbnailFormat' => 'maxres'
-          ));
-
-
-          // Write to Cache to save API calls next time
-          if (c::get('oembed.caching', false)) {
-            $this->Cache->set('oembed-' . md5($this->url), $oEmbed, c::get('oembed.cacheexpires', 60*24));
-          }
-      }
-
-      $this->embedObject = $oEmbed;
-    }
-
-    return $this->embedObject;
-  }
-
-  protected function cache($driver, $dir) {
-    if (!file_exists($dir)) mkdir($dir);
-    return cache::setup($driver, array('root' => $dir));
-  }
-
-  public static function autoload($class) {
-    $path = dirname( __FILE__ ) . DS . 'lib' . DS . str_replace('\\', '/', $class) . '.php';
-    if (file_exists($path)) require $path;
-  }
-
 }
+
+
+
