@@ -25,32 +25,25 @@ class OembedThumb {
   protected function cache($url) {
     if($this->caching) {
 
-      $highRes = $this->path($url);
-      $this->clearCache($highRes);
+      $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . DS . str_replace(kirby()->roots()->index() . DS, '', $this->dir);
 
-      $lowRes  = $this->path(self::lowRes($url));
-      $this->clearCache($lowRes);
+      $key  = array('high' => $this->key($url), 'low' => $this->key(self::lowRes($url)));
+      $path = array('high' => $this->path($url), 'low' => $this->path(self::lowRes($url)));
 
-      if($this->cached($highRes)) {
-        echo 1;
-        $key = $this->key($url);
+      $this->clearCache($path['high']);
+      $this->clearCache($path['low']);
 
-      } elseif($this->cached($lowRes)) {
-        echo 2;
-        $key = $this->key(self::lowRes($url));
+      if($this->cached($path['high'])) {
+        return $root . DS . $key['high'];
+
+      } elseif($this->cached($path['low'])) {
+        return $root . DS . $key['low'];
 
       } else {
-        echo 3;
         $file = $this->loadRemote($url);
-        $url  = $file['type'] == 'high' ? $url : self::lowRes($url);
-        $path = $file['type'] == 'high' ? $highRes : $lowRes;
-        file_put_contents($path, $file['file']);
-        $key = $this->key($url);
+        file_put_contents($path[$file['type']], $file['file']);
+        return $root . DS . $key[$file['type']];
       }
-
-      $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . DS;
-
-      return $root . str_replace(kirby()->roots()->index() . DS, '', $this->dir) . DS . $key;
 
     } else {
       return $url;
@@ -62,7 +55,7 @@ class OembedThumb {
   }
 
   protected function key($url) {
-    return 'oembed-' . md5($url) . '.' . pathinfo($url, PATHINFO_EXTENSION);
+    return 'oembed_' . md5($url) . '.' . pathinfo($url, PATHINFO_EXTENSION);
   }
 
   protected function path($url) {
@@ -71,18 +64,17 @@ class OembedThumb {
   }
 
   protected function loadRemote($url) {
-    $ype = 'high';
     $file = @file_get_contents($url);
     if($file === false) {
       $file = file_get_contents(self::lowRes($url));
-      $type = 'low';
+      return array('type' => 'low', 'file' => $file);
     }
-    return array('type' => $type, 'file' => $file);
+    return array('type' => 'high', 'file' => $file);
   }
 
   protected function clearCache($path) {
-    $expires = time() - c::get('oembed.cacheexpires', 3600*24);
-    if (file_exists($path) and filemtime($path) >= $expires) {
+    $expired = time() - c::get('oembed.cacheexpires', 3600*24);
+    if(file_exists($path) and filemtime($path) < $expired) {
       unlink($path);
     }
   }
