@@ -17,9 +17,9 @@ class OEmbed {
   public $autoplay = false;
   public $caching  = false;
 
-  protected $media       = null;
-  protected $Essence     = null;
-  protected $Cache       = null;
+  protected $media    = null;
+  protected $Essence  = null;
+  protected $Cache    = null;
 
 
   public function __construct($url) {
@@ -61,7 +61,7 @@ class OEmbed {
 
   protected function create() {
     $Media = $this->Essence->extract($this->url);
-    $Media = OembedThumb::highRes($Media);
+    if($Media) $Media = OembedThumb::highRes($Media);
     return $Media;
   }
 
