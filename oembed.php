@@ -15,7 +15,7 @@ field::$methods['oembed'] = function($field, $args = array()) {
 
   // custom thumbnail
   if (isset($args['thumbnail'])) {
-    $oembed->setThumbnail($args['thumbnail']);
+    $oembed->thumb->set($args['thumbnail']);
   }
 
   return $oembed->get($args);
@@ -51,7 +51,7 @@ kirbytext::$tags['oembed'] = array(
 
     // custom thumbnail
     if($tag->attr('thumb', false)) {
-      $oembed->setThumbnail($tag->file($tag->attr('thumb'))->url());
+      $oembed->thumb->set($tag->file($tag->attr('thumb'))->url());
     }
 
     return $oembed->get($args);
