@@ -12,6 +12,9 @@ class KirbyOEmbed {
   public $autoplay = false;
   public $doCache  = false;
 
+  public $cacheDir = null;
+  public $thumbDir = null;
+
   protected $embedObject  = null;
   protected $Essence      = null;
   protected $Multiplacer  = null;
@@ -21,11 +24,16 @@ class KirbyOEmbed {
     $this->url      = $url;
     $this->doCache  = c::get('oembed.caching', false);
 
+    // default directories
+    $this->cacheDir = kirby()->roots()->cache();
+    $this->thumbDir = kirby()->roots()->thumbs();
+
     $this->Essence     = new Essence();
     $this->Multiplayer = new Multiplayer();
 
-    if ($this->doCache)
-      $this->Cache = $this->cache('file', kirby()->roots()->cache().'/oembed');
+    if ($this->doCache) {
+      $this->Cache = $this->cache('file', $this->cacheDir);
+    }
   }
 
   public function get($parameters) {
@@ -141,12 +149,11 @@ class KirbyOEmbed {
   protected function cachedThumbnail($thumbUrl) {
     // Get images from cache if possible (and ombed.caching is true)
     if ($this->doCache) {
-      $dir = kirby()->roots()->thumbs().'/oembed';
 
-      if (!file_exists($dir)) mkdir($dir);
+      if (!file_exists($this->thumbDir)) mkdir($this->thumbDir);
 
-      $thumbKey  = md5($thumbUrl).'.'.pathinfo($thumbUrl, PATHINFO_EXTENSION);
-      $thumbPath = $dir.'/'.$thumbKey;
+      $thumbKey  = 'oembed-' . md5($thumbUrl) . '.' . pathinfo($thumbUrl, PATHINFO_EXTENSION);
+      $thumbPath = $this->thumbDir . DS . $thumbKey;
 
       // Cache image if cache doesn't exist or expired
       if (!file_exists($thumbPath)) {
@@ -161,7 +168,7 @@ class KirbyOEmbed {
       // Get URL to cached image
       $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
 
-      return $root.'thumbs/oembed/' . $thumbKey;
+      return $root . str_replace(kirby()->roots()->index() . DS, '', $this->thumbDir) . DS . $thumbKey;
 
     } else {
       return $thumbUrl;
@@ -171,7 +178,7 @@ class KirbyOEmbed {
   protected function embedObject() {
     // try to get from Cache first.
     if ($this->doCache)
-      $oEmbed = $this->Cache->get(md5($this->url));
+      $oEmbed = $this->Cache->get('oembed-' . md5($this->url));
 
     if(!isset($oEmbed) or $oEmbed == null) :
         $oEmbed = $this->Essence->extract($this->url, [
@@ -180,7 +187,7 @@ class KirbyOEmbed {
 
         // Write to Cache to save API Calls next time
         if (c::get('oembed.caching', false))
-          $this->Cache->set(md5($this->url), $oEmbed, c::get('oembed.cacheexpires', 60*24));
+          $this->Cache->set('oembed-' . md5($this->url), $oEmbed, c::get('oembed.cacheexpires', 60*24));
     endif;
 
     return $oEmbed;

@@ -29,9 +29,6 @@ echo js('assets/oembed/oembed.min.js');
 
 Instead of including additional CSS and JS links inside your header, you can also include the contents of `assets/oembed.css` and `assets/oembed.js` in your existing CSS and JS files.
 
-**If caching [option](#options) is active:** 
-6. You might need to set CHMODs for `site/cache/oembed` and `thumbs/oembed`
-
 ## Update
 1. Replace the `site/plugins/oembed` and  `assets/oembed` directories with recent version
 2. Delete `site/cache/oembed` and `thumbs/oembed`
