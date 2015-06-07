@@ -1,6 +1,6 @@
 <?php
 
-require 'core.php';
+require 'core/oembed.php';
 
 /**
  * oEmbed field method: $page->video()->oembed()
