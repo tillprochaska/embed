@@ -44,7 +44,8 @@ class OembedTemplate {
   }
 
   public static function validation($html) {
-    $html = str_ireplace(array('frameborder="0"', 'webkitallowfullscreen', 'mozallowfullscreen'), '', $html);
+    $html = str_ireplace(array('webkitallowfullscreen', 'mozallowfullscreen'), '', $html);
+    $html = str_ireplace('frameborder="0"', 'seamless', $html);
     $html = str_replace('&','&amp;', str_replace('&amp;', '&', $html));
     return $html;
   }
