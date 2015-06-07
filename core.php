@@ -7,9 +7,10 @@ use Multiplayer\Multiplayer;
 
 class KirbyOEmbed {
 
-  public $url     = '';
-  public $thumb   = null;
-  public $doCache = false;
+  public $url      = '';
+  public $thumb    = null;
+  public $autoplay = false;
+  public $doCache  = false;
 
   protected $embedObject  = null;
   protected $Essence      = null;
@@ -82,18 +83,18 @@ class KirbyOEmbed {
       // Create embed HTML
       if (isset($parameters['color'])) :
         $htmlEmbed = $this->Multiplayer->html($this->embedObject->url, [
-          'autoPlay' => true,
-          'showInfos' => false,
-          'showBranding' => false,
-          'showRelated' => false,
+          'autoPlay'       => $this->autoplay or c::get('oembed.lazyvideo', false),
+          'showInfos'      => false,
+          'showBranding'   => false,
+          'showRelated'    => false,
           'highlightColor' => $parameters['color']
         ]);
       else :
         $htmlEmbed = $this->Multiplayer->html($this->embedObject->url, [
-          'autoPlay' => true,
-          'showInfos' => false,
+          'autoPlay'     => $this->autoplay or c::get('oembed.lazyvideo', false),
+          'showInfos'    => false,
           'showBranding' => false,
-          'showRelated' => false
+          'showRelated'  => false
         ]);
       endif;
 

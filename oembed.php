@@ -7,7 +7,17 @@ require 'core.php';
  */
 field::$methods['oembed'] = function($field, $args = array()) {
   $oembed = new KirbyOEmbed($field->value);
-  if (isset($args['thumbnail'])) $oembed->setThumbnail($args['thumbnail']);
+
+  // autoplay setting
+  if((isset($args['autoplay']) and $args['autoplay'] == true) or c::get('oembed.autoplay', false)) {
+    $oembed->autoplay = true;
+  }
+
+  // custom thumbnail
+  if (isset($args['thumbnail'])) {
+    $oembed->setThumbnail($args['thumbnail']);
+  }
+
   return $oembed->get($args);
 };
 
@@ -18,6 +28,7 @@ field::$methods['oembed'] = function($field, $args = array()) {
 kirbytext::$tags['oembed'] = array(
   'attr' => array(
       'thumb',
+      'autoplay',
       'artwork',
       'visual',
       'size',
@@ -32,7 +43,17 @@ kirbytext::$tags['oembed'] = array(
     );
 
     $oembed = new KirbyOEmbed($tag->attr('oembed'));
-    if ($tag->attr('thumb', false)) $oembed->setThumbnail($tag->file($tag->attr('thumb'))->url());
+
+    // autoplay setting
+    if($tag->attr('autoplay', c::get('oembed.autoplay', false)) == 'true') {
+      $oembed->autoplay = true;
+    }
+
+    // custom thumbnail
+    if($tag->attr('thumb', false)) {
+      $oembed->setThumbnail($tag->file($tag->attr('thumb'))->url());
+    }
+
     return $oembed->get($args);
   }
 );

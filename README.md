@@ -56,10 +56,13 @@ Use the field method `->oembed()` on fields that contain the link to the support
 There are a few options you can set globally for Kirby oEmbed in `site/config/config.php`:
 ```php
 // site/config/config.php
+c::set('oembed.autoplay', true);
 c::set('oembed.lazyvideo', true);
 c::set('oembed.caching', false);
 c::set('oembed.cacheexpires', 3600*24);
 ```
+- **oembed.autoplay**:  
+Videos start playing automatically after page loaded. Can also be used on a per-tag basis: `(oembed: https://youtube.com/watch?v=wZZ7oFKsKzY autoplay: true)`
 - **oembed.lazyvideo**:  
 Only after clicking on the videos thumbnail, the actual embed (iframe, object) is loaded (default: false)
 - **oembed.caching**:  
@@ -71,7 +74,7 @@ Duration after the cached thumbnails expire in seconds (default: 3600)
 There are a few optional parameters for some media sites. For the Kirbytext tag you can use them in the following way:
  
 ```
-(oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY color: FF00FF)
+(oembed: https://youtube.com/watch?v=wZZ7oFKsKzY color: FF00FF)
 ```
 
 And for the field method `->oembed()`:
