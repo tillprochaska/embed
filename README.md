@@ -1,7 +1,7 @@
-Kirby oEmbed v0.7
+Kirby oEmbed v0.8
 ============
-![Release](https://img.shields.io/github/release/distantnative/kirby-oembed.svg) 
-[![Issues](https://img.shields.io/github/issues/distantnative/kirby-oembed.svg)](https://github.com/distantnative/kirby-oembed/issues)
+![Release](https://img.shields.io/github/release/distantnative/oembed.svg) 
+[![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues)
 
 This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed.
 
@@ -10,8 +10,9 @@ Using this plugin enables Kirby 2 CMS to display embeds of several media sites (
 Requires PHP 5.4 and higher.
 
 # Installation
-1. Download [Kirby oEmbed](https://github.com/distantnative/kirby-oembed/zipball/master/)
-2. Copy the `oembed` directory to `site/plugins/` and the contents of `assets` to `assets/oembed/`
+1. Download [Kirby oEmbed](https://github.com/distantnative/oembed/zipball/master/)
+2. Copy the files to `site/plugins/oembed/` 
+3. Copy the contents of `assets` to `assets/oembed/`
 4. Add CSS link to your header:
 ```php
 // site/snippets/header.php
@@ -118,6 +119,10 @@ Use Kirby oEmbed to embed featured videos to your blog posts. The URL to the vid
 ```
 
 # Version history
+**0.8**
+- Restructured plugin files and renamed repository to `oembed`
+- Updated Essence library
+
 **0.7**
 - File structure of plugin repository changed
 - Improved HTML validation of plugin output

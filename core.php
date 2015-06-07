@@ -1,56 +1,9 @@
 <?php
-/**
- * Kirby oEmbed plugin for Kirby 2
- *
- * @author: Nico Hoffmann - distantnative.com
- * @version: 0.7
- *
- */
 
+spl_autoload_register('KirbyOEmbed::autoload');
 
-/**
- * oEmbed field method: $page->video()->oembed()
- */
-field::$methods['oembed'] = function($field, $args = array()) {
-  $oembed = new KirbyOEmbed($field->value);
-  if (isset($args['thumbnail']))
-    $oembed->setThumbnail($args['thumbnail']);
-  return $oembed->get($args);
-};
-
-
-/**
- * oEmbed Kirbytext tag:
- * (oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
- */
-kirbytext::$tags['oembed'] = array(
-  'attr' => array(
-      'thumb',
-      'artwork',
-      'visual',
-      'size',
-      'color',
-  ),
-  'html' => function($tag) {
-    $args = array(
-      "artwork" => $tag->attr('artwork', c::get('oembed.defaults.artwork', 'true')),
-      "visual"  => $tag->attr('visual', c::get('oembed.defaults.visual', 'true')),
-      "size"    => $tag->attr('size', c::get('oembed.defaults.size', 'default')),
-      "color"   => $tag->attr('color', c::get('oembed.defaults.color', ''))
-    );
-
-    $oembed = new KirbyOEmbed($tag->attr('oembed'));
-    if ($tag->attr('thumb', false))
-      $oembed->setThumbnail($tag->file($tag->attr('thumb'))->url());
-    return $oembed->get($args);
-  }
-);
-
-
-
-require_once('lib/Essence/Essence.php');
-require_once('lib/Multiplayer.php');
-
+use Essence\Essence;
+use Multiplayer\Multiplayer;
 
 class KirbyOEmbed {
 
@@ -59,7 +12,6 @@ class KirbyOEmbed {
   public $doCache = false;
 
   protected $embedObject  = null;
-
   protected $Essence      = null;
   protected $Multiplacer  = null;
   protected $Cache        = null;
@@ -68,13 +20,12 @@ class KirbyOEmbed {
     $this->url      = $url;
     $this->doCache  = c::get('oembed.caching', false);
 
-    $this->Essence      = new Essence\Essence;
-    $this->Multiplayer  = new Multiplayer\Multiplayer();
+    $this->Essence     = new Essence();
+    $this->Multiplayer = new Multiplayer();
 
     if ($this->doCache)
       $this->Cache = $this->cache('file', kirby()->roots()->cache().'/oembed');
   }
-
 
   public function get($parameters) {
     if ($this->embedObject = $this->embedObject()) {
@@ -226,7 +177,7 @@ class KirbyOEmbed {
             'thumbnailFormat' => 'maxres'
         ]);
 
-        // Write to Cache Save API Calls next time
+        // Write to Cache to save API Calls next time
         if (c::get('oembed.caching', false))
           $this->Cache->set(md5($this->url), $oEmbed, c::get('oembed.cacheexpires', 60*24));
     endif;
@@ -239,5 +190,9 @@ class KirbyOEmbed {
     return cache::setup($driver, array('root' => $dir));
   }
 
-}
+  public static function autoload($class) {
+    $path = dirname( __FILE__ ) . DS . 'lib' . DS . str_replace('\\', '/', $class) . '.php';
+    if (file_exists($path)) require $path;
+  }
 
+}
