@@ -21,38 +21,44 @@ class KirbyOEmbed {
   protected $Cache        = null;
 
   public function __construct($url) {
-    $this->url      = $url;
-    $this->doCache  = c::get('oembed.caching', false);
+    $this->Essence     = new Essence();
+    $this->Multiplayer = new Multiplayer();
 
     // default directories
     $this->cacheDir = kirby()->roots()->cache();
     $this->thumbDir = kirby()->roots()->thumbs();
 
-    $this->Essence     = new Essence();
-    $this->Multiplayer = new Multiplayer();
+    $this->url      = $url;
+    $this->doCache  = c::get('oembed.caching', false);
 
+    // prepare cache
     if ($this->doCache) {
       $this->Cache = $this->cache('file', $this->cacheDir);
     }
   }
 
   public function get($parameters) {
-    if ($this->embedObject = $this->embedObject()) {
+    // return oembed element
+    if ($embedObject = $this->embedObject()) {
       $output = $this->template();
-      $output = $this->replaceParameters($output, $this->embedObject->providerName, $parameters);
+      $output = $this->replaceParameters($output, $embedObject->providerName, $parameters);
       return $output;
+
+    // no oembed result
     } else {
       return $this->url;
     }
   }
 
   public function getThumbnail() {
+    // (custom) thumbnail is already set
     if ($this->thumb) {
       return $this->thumb;
-    }
-    else {
-      if ($this->embedObject = $this->embedObject()) {
-        return $this->cachedThumbnail($this->embedObject->thumbnailUrl);
+
+    // retrieve thumnail
+    } else {
+      if ($embedObject = $this->embedObject()) {
+        return $this->cachedThumbnail($embedObject->thumbnailUrl);
       }
     }
   }
@@ -176,21 +182,31 @@ class KirbyOEmbed {
   }
 
   protected function embedObject() {
-    // try to get from Cache first.
-    if ($this->doCache)
-      $oEmbed = $this->Cache->get('oembed-' . md5($this->url));
 
-    if(!isset($oEmbed) or $oEmbed == null) :
-        $oEmbed = $this->Essence->extract($this->url, [
-            'thumbnailFormat' => 'maxres'
-        ]);
+    // already processed?
+    if($this->embedObject === null) {
+      // try to get from cache first.
+      if ($this->doCache) {
+        $oEmbed = $this->Cache->get('oembed-' . md5($this->url));
+      }
 
-        // Write to Cache to save API Calls next time
-        if (c::get('oembed.caching', false))
-          $this->Cache->set('oembed-' . md5($this->url), $oEmbed, c::get('oembed.cacheexpires', 60*24));
-    endif;
+      // not in the cache
+      if(!isset($oEmbed) or $oEmbed == null) {
+          $oEmbed = $this->Essence->extract($this->url, array(
+              'thumbnailFormat' => 'maxres'
+          ));
 
-    return $oEmbed;
+
+          // Write to Cache to save API calls next time
+          if (c::get('oembed.caching', false)) {
+            $this->Cache->set('oembed-' . md5($this->url), $oEmbed, c::get('oembed.cacheexpires', 60*24));
+          }
+      }
+
+      $this->embedObject = $oEmbed;
+    }
+
+    return $this->embedObject;
   }
 
   protected function cache($driver, $dir) {
