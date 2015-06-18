@@ -33,6 +33,7 @@ kirbytext::$tags['oembed'] = array(
       'visual',
       'size',
       'color',
+      'jsapi',
   ),
   'html' => function($tag) {
     $args = array(
@@ -40,6 +41,7 @@ kirbytext::$tags['oembed'] = array(
       "visual"  => $tag->attr('visual', c::get('oembed.defaults.visual', 'true')),
       "size"    => $tag->attr('size', c::get('oembed.defaults.size', 'default')),
       "color"   => $tag->attr('color', c::get('oembed.defaults.color', ''))
+      'jsapi'   => $tag->attr('jsapi', false)
     );
 
     $oembed = new OEmbed($tag->attr('oembed'));

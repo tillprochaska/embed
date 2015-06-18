@@ -52,24 +52,37 @@ class OembedTemplate {
 
   public static function parameters($html, $type, $parameters = array()) {
     switch ($type) {
+      case 'YouTube':
+        if(isset($parameters['jsapi']) and $parameters['jsapi'] !== false) {
+          $html = str_ireplace('autoplay=', 'enablejsapi=1&amp;autoplay=', $html);
+        }
+        break;
+
+      case 'Vimeo':
+        if(isset($parameters['jsapi']) and $parameters['jsapi'] !== false) {
+          $html = str_ireplace('autoplay=', 'api=1&amp;autoplay=', $html);
+        }
+        break;
+
       case 'SoundCloud':
-        if (isset($parameters['size']) and $parameters['size'] == 'compact') {
-          $html = str_replace('height="400"', 'height="140"', $html);
+        if(isset($parameters['size']) and $parameters['size'] == 'compact') {
+          $html = str_ireplace('height="400"', 'height="140"', $html);
         }
-        if (isset($parameters['size']) and $parameters['size'] == 'smaller') {
-          $html = str_replace('height="400"', 'height="300"', $html);
+        if(isset($parameters['size']) and $parameters['size'] == 'smaller') {
+          $html = str_ireplace('height="400"', 'height="300"', $html);
         }
-        if (isset($parameters['visual']) and $parameters['visual'] == 'false') {
-          $html = str_replace('visual=true', 'visual=false', $html);
+        if(isset($parameters['visual']) and $parameters['visual'] == 'false') {
+          $html = str_ireplace('visual=true', 'visual=false', $html);
         }
-        if (isset($parameters['artwork']) and $parameters['artwork'] == 'false') {
-          $html = str_replace('show_artwork=true', 'show_artwork=false', $html);
+        if(isset($parameters['artwork']) and $parameters['artwork'] == 'false') {
+          $html = str_ireplace('show_artwork=true', 'show_artwork=false', $html);
         }
-        return $html;
         break;
 
       default:
-        return $html;
+        break;
     }
+
+    return $html;
   }
 }
