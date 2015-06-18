@@ -27,6 +27,7 @@ field::$methods['oembed'] = function($field, $args = array()) {
  */
 kirbytext::$tags['oembed'] = array(
   'attr' => array(
+      'class',
       'thumb',
       'autoplay',
       'artwork',
@@ -37,10 +38,10 @@ kirbytext::$tags['oembed'] = array(
   ),
   'html' => function($tag) {
     $args = array(
-      "artwork" => $tag->attr('artwork', c::get('oembed.defaults.artwork', 'true')),
-      "visual"  => $tag->attr('visual', c::get('oembed.defaults.visual', 'true')),
-      "size"    => $tag->attr('size', c::get('oembed.defaults.size', 'default')),
-      "color"   => $tag->attr('color', c::get('oembed.defaults.color', ''))
+      'class'   => $tag->attr('class', false),
+      'artwork' => $tag->attr('artwork', c::get('oembed.defaults.artwork', 'true')),
+      'visual'  => $tag->attr('visual', c::get('oembed.defaults.visual', 'true')),
+      'size'    => $tag->attr('size', c::get('oembed.defaults.size', 'default')),
       'jsapi'   => $tag->attr('jsapi', false)
     );
 

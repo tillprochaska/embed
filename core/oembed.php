@@ -36,8 +36,9 @@ class OEmbed {
 
   public function get($parameters) {
     if($oembed = $this->media()) {
-      $html = $this->template();
-      $html = OembedTemplate::parameters($html, $oembed->get('providerName'), $parameters);
+      $class = isset($parameters['class']) ? $parameters['class'] : false;
+      $html  = $this->template($class);
+      $html  = OembedTemplate::parameters($html, $oembed->get('providerName'), $parameters);
       return $html;
 
     } else {
@@ -72,9 +73,14 @@ class OEmbed {
   }
 
 
-  protected function template() {
+  protected function template($class = false) {
     $output = new Brick('div');
     $output->addClass('oembed');
+    if($class !== false) {
+      $output->addClass($class);
+    } else {
+      $output->addClass('oembed-'.substr(md5($this->url), 0, 6));
+    }
 
     if ($this->media->get('type') === 'video') {
       $output = OembedTemplate::ratio($output, $this->media);
