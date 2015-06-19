@@ -7,7 +7,7 @@ This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](
 
 Using this plugin enables Kirby 2 CMS to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#options) to reduce the site loading time by using lazy videos (thumbnail preview and embed is only loaded after click) as well as extensive caching.
 
-Requires PHP 5.4 and higher.
+Requires PHP 5.5 and higher (looking into a more compatible solution for older PHP versions).
 
 # Installation
 1. Download [Kirby oEmbed](https://github.com/distantnative/oembed/zipball/master/)
