@@ -1,4 +1,4 @@
-Kirby oEmbed v0.8
+oEmbed for Kirby 2 CMS
 ============
 ![Release](https://img.shields.io/github/release/distantnative/oembed.svg) 
 [![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues)
@@ -81,9 +81,9 @@ And for the field method `->oembed()`:
 
 The following parameters are available so far:
 - **YouTube**
-    - color (hex value without the #)
+    - jsapi (true/false)
 - **Vimeo**
-    - color (hex value without the #)
+    - jsapi (true/false)
 - **SoundCloud**
     - size (default/smaller/compact)
     - visual (true/false)
@@ -93,7 +93,6 @@ You can set these parameters also globally for all oEmbed Kirbytext tags that do
 
 ```php
 // site/config/config.php
-c::get('oembed.defaults.color', 'FF00FF');
 c::get('oembed.defaults.visual', 'true');
 c::get('oembed.defaults.artwork', 'true');
 c::get('oembed.defaults.size', 'compact');
@@ -119,9 +118,16 @@ Use Kirby oEmbed to embed featured videos to your blog posts. The URL to the vid
 ```
 
 # Version history
-**0.8**
+**1.0**
 - Restructured plugin files and renamed repository to `oembed`
-- Updated Essence library
+- Updated Essence library to v3
+- Added custom class option and default container classes
+- Added `jsapi` option
+- Improved frameborder handling and validation
+- Better thumb caching and low res fallback
+- Better cache and thumb dir handling
+- Autoplay only on lazyload or with `autoplay` option
+- Enhanced CSS browser support
 
 **0.7**
 - File structure of plugin repository changed
