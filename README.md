@@ -1,15 +1,11 @@
 ![oEmbed for Kirby CMS](http://distantnative.com/remote/github/kirby-oembed-github.png)  
 [![Release](https://img.shields.io/github/release/distantnative/oembed.svg)](https://github.com/distantnative/oembed/releases) [![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues) [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/distantnative/oembed/master/LICENSE)
 
-This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed.
+This plugin extends [Kirby CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. It enables Kirby to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#Options) to reduce the site loading time by using lazy videos as well as extensive caching.
 
-Using this plugin enables Kirby 2 CMS to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#options) to reduce the site loading time by using lazy videos (thumbnail preview and embed is only loaded after click) as well as extensive caching.
+It is built on the [Essence](https://github.com/essence) libraries.
 
-**Requires:** PHP 5.5 and higher (looking into a more compatible solution for older PHP versions)
-
-![In the panel](http://distantnative.com/remote/github/kirby-oembed-github-example1.png)
-
-![On the front](http://distantnative.com/remote/github/kirby-oembed-github-example2.png)
+**Requires:** PHP 5.5+ (looking into a more compatible solution)
 
 
 # Table of Contents
@@ -47,8 +43,6 @@ Instead of including additional CSS and JS links inside your header, you can als
 
 
 # Usage <a id="Usage"></a>
-There are two ways to use oEmbed:
-
 **Inside Kirbytext:**  
 Use the Kirbytag `(oembed: url)` with the url referring to a supported medium (e.g. YouTube, Vimeo, Soundcloud).
 ```
@@ -125,6 +119,10 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
   </div>
 </article>
 ```
+
+![In the panel](http://distantnative.com/remote/github/kirby-oembed-github-example1.png)
+
+![On the front](http://distantnative.com/remote/github/kirby-oembed-github-example2.png)
 
 
 # Help & Improve <a id="Help"></a>
