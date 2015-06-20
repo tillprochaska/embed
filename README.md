@@ -9,6 +9,9 @@ It is built on the [Essence](https://github.com/essence) libraries.
 **Requires:** PHP 5.5+ (looking into a more compatible solution)
 
 
+The plugin is free, but I'd appreciate if you'd support me with a [moral license](https://gumroad.com/l/kirby-oembed)!
+
+
 # Table of Contents
 1. [Installation](#Installation)
 2. [Usage](#Usage)
