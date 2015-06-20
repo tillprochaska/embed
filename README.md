@@ -1,7 +1,6 @@
 oEmbed for Kirby 2 CMS
 ============
-![Release](https://img.shields.io/github/release/distantnative/oembed.svg) 
-[![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues)
+[![Release](https://img.shields.io/github/release/distantnative/oembed.svg)](https://github.com/distantnative/oembed/releases) [![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues) [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/distantnative/oembed/master/LICENSE)
 
 This plugin extends [Kirby 2 CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. It uses [Essence](https://github.com/felixgirault/essence) and [Multiplayer](https://github.com/felixgirault/multiplayer/) as PHP wrappers for oEmbed.
 
