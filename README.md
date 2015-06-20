@@ -87,6 +87,8 @@ And for the field method `->oembed()`:
 ```
 
 The following parameters are available so far:
+- **all providers''
+    - class
 - **YouTube**
     - jsapi (true/false)
 - **Vimeo**
@@ -123,6 +125,8 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
 ![In the panel](http://distantnative.com/remote/github/kirby-oembed-github-example1.png)
 
 ![On the front](http://distantnative.com/remote/github/kirby-oembed-github-example2.png)
+
+![On the front playing](http://distantnative.com/remote/github/kirby-oembed-github-example3.png)
 
 
 # Help & Improve <a id="Help"></a>
