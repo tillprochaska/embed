@@ -36,7 +36,7 @@ echo css('assets/oembed/oembed.css');
 echo js(array(
   '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js', // requires jQuery
   'assets/oembed/oembed.min.js'
-);
+));
 ```
 
 Instead of including additional CSS and JS links inside your header, you can also include the contents of `assets/oembed.css` and `assets/oembed.js` in your existing CSS and JS files.
