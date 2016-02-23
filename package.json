@@ -1,0 +1,8 @@
+{
+  "name":     "oEmbed",
+  "author":   "Nico Hoffmann",
+  "version":  "1.0",
+  "repository": {
+    "url": "https://github.com/distantnative/oembed"
+  }
+}
