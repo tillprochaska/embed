@@ -9,7 +9,11 @@ class Data {
   protected $dir;
 
   public function __construct($url) {
-    return Embed::create($url, $this->config());
+    $this->data = Embed::create($url, $this->config());
+  }
+
+  public function get() {
+    return $this->data;
   }
 
   protected function config() {

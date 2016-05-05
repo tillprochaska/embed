@@ -13,8 +13,9 @@ class Core {
 
     $this->load();
 
-    $this->provider = $this->provider();
-    $this->options  = $this->options($args);
+    $this->provider   = $this->provider();
+    $this->options    = $this->options($args);
+    $this->parameters = [];
   }
 
   // ================================================
@@ -26,6 +27,7 @@ class Core {
       $this->data = $this->cache->get();
     } else {
       $this->data = new Data($this->url);
+      $this->data = $this->data->get();
       $this->cache->set($this->data, 1560);
     }
   }

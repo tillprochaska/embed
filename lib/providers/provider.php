@@ -12,4 +12,19 @@ class Provider {
   }
 
   protected function init() {}
+
+
+  // ================================================
+  //  Helpers
+  // ================================================
+
+  protected function option($option) {
+    return $this->core->options[$option];
+  }
+
+  protected function parameter($parameter) {
+    if(!is_array($parameter)) $parameter = [$parameter];
+
+    $this->core->parameters = array_merge($this->core->parameters, $parameter);
+  }
 }

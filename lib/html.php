@@ -31,13 +31,13 @@ class Html {
       $ratio               = $this->core->aspectRatio();
       $this->data['style'] = 'padding-top: ' . $ratio . '%';
 
+      // Lazy video
       if($this->options['lazyvideo']) {
         $this->lazyVideo();
-      } else if($this->options['autoplay']) {
-        $this->autoplayVideo();
       }
     }
 
+    $this->parameters();
     return $this->snippet('wrapper', $this->data);
   }
 
@@ -52,14 +52,7 @@ class Html {
     $replace            = '$1data-src$3';
     $this->data['code'] = preg_replace($pattern, $replace, $this->data['code']);
 
-    $this->autoplayVideo();
     $this->thumbVideo();
-  }
-
-  protected function autoplayVideo() {
-    $pattern            = '/(src|data-src)(=")(.*)(\?)(.*)(")/U';
-    $replace            = '$1$2$3$4$5&rel=0&autoplay=1$6';
-    $this->data['code'] = preg_replace($pattern, $replace, $this->data['code']);
   }
 
   protected function thumbVideo() {
@@ -72,6 +65,20 @@ class Html {
   // ================================================
   //  Helpers
   // ================================================
+
+  protected function parameters() {
+    $parameters = implode('&', $this->core->parameters);
+
+    $pattern            = '/(src|data-src)(=".*)(\?.*)(")/U';
+    $order              = '$1$2$3&' . $parameters . '$4';
+    $this->data['code'] = preg_replace($pattern, $order, $this->data['code'], -1, $found);
+
+    if($found == 0) {
+      $pattern            = '/(src|data-src)(=".*)(")/U';
+      $order              = '$1$2?' . $parameters . '$3';
+      $this->data['code'] = preg_replace($pattern, $order, $this->data['code']);
+    }
+  }
 
   protected function snippet($name, $data) {
     return tpl::load(dirname(__DIR__) . DS . 'snippets' . DS . $name . '.php', $data);
