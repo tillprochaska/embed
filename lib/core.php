@@ -4,17 +4,17 @@ namespace Kirby\Plugins\distantnative\oEmbed;
 
 use A;
 use C;
-use Embed\Embed;
-use F;
 
 class Core {
 
   public function __construct($url, $args = []) {
     $this->url      = $url;
     $this->cache    = new Cache($url);
-    $this->options  = $this->options($args);
 
     $this->load();
+
+    $this->provider = $this->provider();
+    $this->options  = $this->options($args);
   }
 
   // ================================================
@@ -25,13 +25,7 @@ class Core {
     if($this->cache->exists()) {
       $this->data = $this->cache->get();
     } else {
-      $this->data = Embed::create($this->url, [
-        'adapter' => [
-          'config' => [
-            'getBiggerImage' => true,
-          ]
-        ]
-      ]);
+      $this->data = new Data($this->url);
       $this->cache->set($this->data, 1560);
     }
   }
@@ -51,25 +45,19 @@ class Core {
 
 
   // ================================================
-  //  Load cached thumb (or cache it if not yet)
+  //  Thumb
   // ================================================
 
   public function thumb() {
-    $thumb  = $this->image();
-    $dir    = kirby()->roots()->thumbs() . DS . 'oembed';
-    $file   = md5($thumb) . '.' . pathinfo($thumb, PATHINFO_EXTENSION);
-    $cached = $dir . DS . $file;
+    return new Thumb($this->image());
+  }
 
-    if(f::modified($cached) + 86400 < time()) {
-      f::remove($cached);
-    }
 
-    if(!f::exists($cached)) {
-      if(!file_exists($dir)) mkdir($dir);
-      file_put_contents($cached, file_get_contents($thumb));
-    }
-
-    return url('thumbs/oembed/' . $file);
+  protected function provider() {
+    $namespace = 'Kirby\Plugins\distantnative\oEmbed\Providers\\';
+    $class     =  $namespace . $this->data()->providerName;
+    $class     =  class_exists($class) ? $class : $namespace . 'Provider';
+    return new $class($this, $this->url);
   }
 
 
@@ -78,10 +66,8 @@ class Core {
   // ================================================
 
   public function __call($name, $args) {
-    $class = 'Kirby\Plugins\distantnative\oEmbed\Providers\\' . $this->data()->providerName;
-
-    if(method_exists($class, $name)) {
-      return $class::{$name}($this, $args);
+    if(method_exists($this->provider, $name)) {
+      return $this->provider->{$name}($this->data()->{$name}, $args);
     } else {
       return $this->data()->{$name};
     }

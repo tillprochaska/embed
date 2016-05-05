@@ -2,8 +2,13 @@
 
 require_once('vendor/Embed/autoloader.php');
 require_once('lib/core.php');
+require_once('lib/data.php');
 require_once('lib/cache.php');
 require_once('lib/html.php');
+require_once('lib/thumb.php');
+
+require_once('lib/providers/provider.php');
+require_once('lib/providers/youtube.php');
 
 
 // $page->video()->oembed()

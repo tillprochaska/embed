@@ -1,1 +1,1 @@
-<div class="kirby-plugin-oembed__thumb" style="background-image:url('<?= $url ?>');"><img src="<?= url('assets/plugins/oembed/images/play.png') ?>" width="250" height="150" /></div>
+<div class="kirby-plugin-oembed__thumb" style="background-image:url('<?= $url ?>');"><img src="<?= url(c::get('plugin.oembed.video.lazyload.btn', 'assets/plugins/oembed/images/play.png')) ?>" width="250" height="150" /></div>

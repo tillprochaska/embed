@@ -11,10 +11,11 @@ class Html {
     $this->options = $this->core->options;
 
     $this->data    = [
-      'code'  => $this->core->code(),
-      'type'  => $this->core->type(),
-      'style' => null,
-      'more'  => null
+      'code'     => $this->core->code(),
+      'type'     => $this->core->type(),
+      'provider' => $this->core->providerName(),
+      'style'    => null,
+      'more'     => null
     ];
   }
 
@@ -26,7 +27,6 @@ class Html {
   public function __toString() {
 
     if($this->core->type() == 'video') {
-
       // Container ratio
       $ratio               = $this->core->aspectRatio();
       $this->data['style'] = 'padding-top: ' . $ratio . '%';
@@ -70,7 +70,7 @@ class Html {
 
 
   // ================================================
-  //  Template helper
+  //  Helpers
   // ================================================
 
   protected function snippet($name, $data) {
