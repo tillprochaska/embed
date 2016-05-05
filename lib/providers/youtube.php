@@ -22,21 +22,21 @@ class YouTube extends Provider {
     $this->timecode = preg_match('/t=(.+?)&?/U', $this->url, $t) ? $t[1] : false;
   }
 
-  protected function setTimecode($code) {
+  protected function setTimecode() {
     if($this->timecode !== false) {
-      $pattern = '/(src|data-src)(=")(.*)(\?)(.*)(")/U';
-      $replace = '$1$2$3$4$5&start=' . $this->calculateTimecode() . '$6';
-      $code    = preg_replace($pattern, $replace, $code);
-      return $code;
+      $this->core->parameters[] = 'start=' . $this->calculateTimecode();
     }
   }
 
   protected function calculateTimecode() {
-    $time = 0;
-    if(preg_match('/([0-9]+)h/i', $this->timecode, $h)) $time += $h[0] * 60 * 60;
-    if(preg_match('/([0-9]+)m/i', $this->timecode, $m)) $time += $m[0] * 60;
-    if(preg_match('/([0-9]+)s/i', $this->timecode, $s)) $time += $s[0];
+    $time  = $this->disectTimecode('h') * 60 * 60;
+    $time += $this->disectTimecode('m') * 60 ;
+    $time += $this->disectTimecode('s');
     return $time;
+  }
+
+  protected function disectTimecode($identifier) {
+    return preg_match('/([0-9]+)' . $identifier . '/i', $this->timecode, $match) ? $match[0] : 0;
   }
 
 }
