@@ -17,7 +17,7 @@ gulp.task('css', function() {
 gulp.task('js', function() {
   return gulp.src('assets/js/src/oembed.js')
     .pipe(uglify())
-    .pipe(gulp.dest('assets/js/dist'));
+    .pipe(gulp.dest('assets/js'));
 });
 
 gulp.task('watch', function() {

@@ -1,52 +1,48 @@
-![oEmbed for Kirby CMS](http://distantnative.com/remote/github/kirby-oembed-github.png)  
-[![Release](https://img.shields.io/github/release/distantnative/oembed.svg)](https://github.com/distantnative/oembed/releases) [![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues) [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/distantnative/oembed/master/LICENSE)
-[![Moral License](https://img.shields.io/badge/buy-moral_license-8dae28.svg)](https://gumroad.com/l/kirby-oembed)
+![oEmbed for Kirby CMS](docs/logo.png)  
+[![Release](https://img.shields.io/github/release/distantnative/oembed.svg)](https://github.com/distantnative/oembed/releases) [![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues) [![Moral License](https://img.shields.io/badge/buy-moral_license-8dae28.svg)](https://gumroad.com/l/kirby-oembed)
 
-This plugin extends [Kirby CMS](http://getkirby.com) with some basic [oEmbed](http://oembed.com) functionalities. It enables Kirby to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#Options) to reduce the site loading time by using lazy videos as well as extensive caching.
+The oEmbed plugin extends [Kirby CMS](http://getkirby.com) with some extensive embed functionalities. It enables Kirby to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#Options) to reduce the site loading time by using lazy videos as well as extensive caching.
 
-It is built on the [Essence](https://github.com/essence) libraries.
+It is built on the [oscarotero/Embed](https://github.com/oscarotero/Embed) library.
 
-**Requires:** PHP 5.5+ (looking into a more compatible solution)
-
-
-The plugin is free, but I'd appreciate if you'd support me with a [moral license](https://gumroad.com/l/kirby-oembed)!
+**Requires:** PHP 5.4+ (looking into a more compatible solution)
 
 
-# Table of Contents
-1. [Installation](#Installation)
-2. [Usage](#Usage)
-3. [Options](#Options)
-4. [Examples](#Usage)
-5. [Help & Improve](#Help)
-6. [Version History](#VersionHistory)
+## Table of Contents
+1. [Requirements](#Requirements)
+2. [Installation & Update](#Installation)
+3. [Usage](#Usage)
+4. [Options](#Options)
+5. [Examples](#Usage)
+6. [Help & Improve](#Help)
+7. [Version History](#VersionHistory)
+
+## Requirements <a id="Requirements"></a>
+Since version 1.0.0 the footnotes plugin requires Kirby CMS 2.3.0 or higher.  
+If you are running an older version of Kirby, please use [version 0.9.0](https://github.com/distantnative/footnotes/releases/tag/v0.9).
 
 
-# Installation <a id="Installation"></a>
+## Installation & Update <a id="Installation"></a>
 1. Download [oEmbed](https://github.com/distantnative/oembed/zipball/master/)
-2. Copy the files to `site/plugins/oembed/` 
-3. Copy the contents of `assets` to `assets/oembed/`
-4. Add CSS link to your header (e.g. `site/snippets/header.php`):
+2. Add the files to `site/plugins/oembed/` 
+3. Add CSS link to your header (e.g. `site/snippets/header.php`):
 ```php
-echo css('assets/oembed/oembed.css');
+<?= css('assets/plugins/oembed/css/oembed.css') ?>
 ```
 
-**If lazy video [option](#Options) is active:**    
-5. Add the following JS links to your header (e.g. `site/snippets/header.php`):
+#### With video lazyload [option](#Options)
+4. Add the following JS link to your footer (e.g. `site/snippets/footer.php`):
 ```php
-echo js(array(
-  '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js', // requires jQuery
-  'assets/oembed/oembed.min.js'
-));
+<?= js('assets/plugins/oembed/js/oembed.js') ?>
 ```
 
-Instead of including additional CSS and JS links inside your header, you can also include the contents of `assets/oembed.css` and `assets/oembed.js` in your existing CSS and JS files.
+#### With the [Kirby CLI](https://github.com/getkirby/cli)
+```
+kirby plugin:install distantnative/oembed
+```
 
-### Update
-1. Replace the `site/plugins/oembed` and  `assets/oembed` directories with recent version
-2. Delete `site/cache/oembed` and `thumbs/oembed`
 
-
-# Usage <a id="Usage"></a>
+## Usage <a id="Usage"></a>
 **Inside Kirbytext:**  
 Use the Kirbytag `(oembed: url)` with the url referring to a supported medium (e.g. YouTube, Vimeo, Soundcloud).
 ```
@@ -61,7 +57,7 @@ Use the field method `->oembed()` on fields that contain an url reffering to a s
 ```
 
 
-# Options <a id="Options"></a>
+## Options <a id="Options"></a>
 There are a few options you can set globally for Kirby oEmbed in `site/config/config.php`:
 ```php
 c::set('oembed.autoplay', true);
@@ -110,8 +106,8 @@ c::get('oembed.defaults.size', 'compact');
 ```
 
 
-# Examples <a id="Examples"></a>
-### Blog: Featured Video
+## Examples <a id="Examples"></a>
+#### Blog: Featured Video
 Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube or Vimeo) is stored in a field called ´video´ in this example.
 ```php
 // site/snippets/article.php
@@ -133,23 +129,15 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
 ![On the front playing](http://distantnative.com/remote/github/kirby-oembed-github-example3.png)
 
 
-# Help & Improve <a id="Help"></a>
+## Help & Improve <a id="Help"></a>
 *If you have any suggestions for further configuration options, [please let me know](https://github.com/distantnative/oembed/issues/new).*
 
 
-# Version history <a id="VersionHistory"></a>
-**1.0**
-- Restructured plugin files and renamed repository to `oembed`
-- Updated Essence library to v3
-- Added custom class option and default container classes
-- Added `jsapi` option
-- Improved frameborder handling and validation
-- Better thumb caching and low res fallback
-- Better cache and thumb dir handling
-- Autoplay only on lazyload or with `autoplay` option
-- Enhanced CSS browser support
+## Version history <a id="VersionHistory"></a>
+You can find a more or less complete version history in the [changelog](docs/CHANGELOG.md).
 
-**0.7**
-- File structure of plugin repository changed
-- Improved HTML validation of plugin output
+## License
+[MIT License](http://www.opensource.org/licenses/mit-license.php)
 
+## Author
+Nico Hoffmann - <https://nhoffmann.com>

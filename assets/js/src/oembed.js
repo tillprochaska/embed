@@ -1,10 +1,14 @@
-$(function() {
-  $('.oembed-video .thumb, .oembed-video .play').click(function() {
-    var wrapper = $(this).parent();
-    var embed = wrapper.find('iframe, object');
-    embed.attr('src', embed.attr('data-src'));
-    embed.css({'display' : 'block'});
-    wrapper.find('.play, .thumb').remove();
-  });
-});
+document.addEventListener("DOMContentLoaded", function(event) {
+  var thumb = document.getElementsByClassName('kirby-plugin-oembed__thumb');
 
+  var oembedLoad = function() {
+      var wrapper = this.parentNode;
+      var embed   = wrapper.children[0];
+      embed.src = embed.dataset.src;
+      this.remove();
+  };
+
+  for (var i = 0; i < thumb.length; i++) {
+      thumb[i].addEventListener('click', oembedLoad, false);
+  }
+});
