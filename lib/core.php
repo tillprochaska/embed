@@ -23,12 +23,12 @@ class Core {
   // ================================================
 
   protected function load() {
-    if($this->cache->exists()) {
+    if($this->cache->exists() && c::get('plugin.oembed.caching', true)) {
       $this->data = $this->cache->get();
     } else {
       $this->data = new Data($this->url);
       $this->data = $this->data->get();
-      $this->cache->set($this->data, 1560);
+      $this->cache->set($this->data, c::get('plugin.oembed.caching.duration', 24) * 60);
     }
   }
 
@@ -38,8 +38,11 @@ class Core {
 
   protected function options($options) {
     $defaults = [
+      'class'     => null,
+      'thumb'     => null,
       'autoplay'  => c::get('plugin.oembed.video.autoplay', false),
       'lazyvideo' => c::get('plugin.oembed.video.lazyload', true),
+      'jsapi'     => c::get('plugin.oembed.providers.jsapi', true),
     ];
 
     return a::merge($defaults, $options);
@@ -51,9 +54,14 @@ class Core {
   // ================================================
 
   public function thumb() {
-    return new Thumb($this->image());
+    $thumb = $this->options['thumb'] ? $this->options['thumb'] : $this->image();
+    return new Thumb($thumb);
   }
 
+
+  // ================================================
+  //  Custom provider instance
+  // ================================================
 
   protected function provider() {
     $namespace = 'Kirby\Plugins\distantnative\oEmbed\Providers\\';

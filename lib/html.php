@@ -12,6 +12,7 @@ class Html {
 
     $this->data    = [
       'code'     => $this->core->code(),
+      'class'    => $this->core->options['class'], 
       'type'     => $this->core->type(),
       'provider' => $this->core->providerName(),
       'style'    => null,

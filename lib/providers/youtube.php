@@ -11,6 +11,7 @@ class YouTube extends Provider {
   public function code($code) {
     $this->setAutoplay();
     $this->setTimecode();
+    $this->setJsApi();
     return $code;
   }
 
@@ -49,6 +50,17 @@ class YouTube extends Provider {
 
   protected function disectTimecode($identifier) {
     return preg_match('/([0-9]+)' . $identifier . '/i', $this->timecode, $match) ? $match[0] : 0;
+  }
+
+
+  // ================================================
+  //  JS API
+  // ================================================
+
+  protected function setJsApi() {
+    if($this->option('jsapi')) {
+      $this->parameter('enablejsapi=1');
+    }
   }
 
 }

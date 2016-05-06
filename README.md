@@ -1,11 +1,12 @@
 ![oEmbed for Kirby CMS](docs/logo.png)  
-[![Release](https://img.shields.io/github/release/distantnative/oembed.svg)](https://github.com/distantnative/oembed/releases) [![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues) [![Moral License](https://img.shields.io/badge/buy-moral_license-8dae28.svg)](https://gumroad.com/l/kirby-oembed)
 
-The oEmbed plugin extends [Kirby CMS](http://getkirby.com) with some extensive embed functionalities. It enables Kirby to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud) by only providing the URL to the medium. The plugin also includes some [options](#Options) to reduce the site loading time by using lazy videos as well as extensive caching.
+[![Release](https://img.shields.io/github/release/distantnative/oembed.svg)](https://github.com/distantnative/oembed/releases) 
+[![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues) 
+[![Moral License](https://img.shields.io/badge/buy-moral_license-8dae28.svg)](https://gumroad.com/l/kirby-oembed)
+
+The oEmbed plugin extends [Kirby CMS](http://getkirby.com) with some extensive embed functionalities. It enables Kirby to display embeds of several media sites (e.g. YouTube, Vimeo, Soundcloud, Instagram etc.) by only providing the URL to the medium.
 
 It is built on the [oscarotero/Embed](https://github.com/oscarotero/Embed) library.
-
-**Requires:** PHP 5.4+ (looking into a more compatible solution)
 
 
 ## Table of Contents
@@ -13,25 +14,24 @@ It is built on the [oscarotero/Embed](https://github.com/oscarotero/Embed) libra
 2. [Installation & Update](#Installation)
 3. [Usage](#Usage)
 4. [Options](#Options)
+5. [Styles & Scripts](#StylesScripts)
 5. [Examples](#Usage)
 6. [Help & Improve](#Help)
 7. [Version History](#VersionHistory)
 
 ## Requirements <a id="Requirements"></a>
-Since version 1.0.0 the footnotes plugin requires Kirby CMS 2.3.0 or higher.  
-If you are running an older version of Kirby, please use [version 0.9.0](https://github.com/distantnative/footnotes/releases/tag/v0.9).
+Kirby CMS 2.3.0+ and PHP 5.4+.
 
 
 ## Installation & Update <a id="Installation"></a>
-1. Download [oEmbed](https://github.com/distantnative/oembed/zipball/master/)
-2. Add the files to `site/plugins/oembed/` 
-3. Add CSS link to your header (e.g. `site/snippets/header.php`):
+1. Download [oEmbed](https://github.com/distantnative/oembed/zipball/master/) and add the files to `site/plugins/oembed/` 
+2. Add the necessary styles by including the following in the header:
 ```php
 <?= css('assets/plugins/oembed/css/oembed.css') ?>
 ```
 
 #### With video lazyload [option](#Options)
-4. Add the following JS link to your footer (e.g. `site/snippets/footer.php`):
+3. Add the necessary script by including the following right before the `</body>` tag:
 ```php
 <?= js('assets/plugins/oembed/js/oembed.js') ?>
 ```
@@ -43,67 +43,68 @@ kirby plugin:install distantnative/oembed
 
 
 ## Usage <a id="Usage"></a>
-**Inside Kirbytext:**  
-Use the Kirbytag `(oembed: url)` with the url referring to a supported medium (e.g. YouTube, Vimeo, Soundcloud).
-```
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
-(oembed: https://www.youtube.com/watch?v=wZZ7oFKsKzY)
-```
-
-**Inside templates:**  
-Use the field method `->oembed()` on fields that contain an url reffering to a supported medium (e.g. YouTube, Vimeo, Soundcloud).
+**As field method in templates:**  
+Use the method on fields that contain a url that points to a supported medium (e.g. YouTube, Vimeo, Twitter, Instagram, Spotify etc.):
 ```php
-<?php echo $page->featured_video()->oembed(); ?>
+<?php echo $page->featured_tweet()->oembed(); ?>
 ```
 
+
+**As Kirbytext tag:**  
+```
+You'll be given love. You'll be taken care of. You'll be given love. You have to trust it. Maybe not from the sources. You have poured yours. Maybe not from the directions. You are staring at.
+
+(oembed: https://vimeo.com/43444347)
+
+Twist your head around. It's all around you. All is full of love. All around you. All is full of love. You just ain't receiving. All is full of love. Your phone is off the hook. All is full of love. Your doors are all shut. All is full of love.
+```
+
+**As global PHP helper function:**
+```php
+<?= oembed('https://www.youtube.com/watch?v=m2ua3O_fdCY') ?>
+```
 
 ## Options <a id="Options"></a>
-There are a few options you can set globally for Kirby oEmbed in `site/config/config.php`:
+
+#### Per embed
+You can set the following options on each embed to apply:
+
 ```php
-c::set('oembed.autoplay', true);
-c::set('oembed.lazyvideo', true);
-c::set('oembed.caching', false);
-c::set('oembed.cacheexpires', 3600*24);
-```
-- **oembed.autoplay**:  
-Videos start playing automatically after page loaded. Can also be used on a per-tag basis: `(oembed: https://youtube.com/watch?v=wZZ7oFKsKzY autoplay: true)`
-- **oembed.lazyvideo**:  
-Only after clicking on the thumbnail, the embed (iframe, object) is loaded (default: false)
-- **oembed.caching**:  
-Enable/disable caching of embed HTML and video thumbnails (default: false)
-- **oembed.cacheexpires**:  
-Duration after the cached thumbnails expire in seconds (default: 3600)
+// with the field method
+<?= $page->featured_video()->oemebed([
+  'lazyvideo' => true
+]) ?>
 
-### Optional parameters
-There are a few optional parameters for some media sites. For the Kirbytext tag you can use them in the following way:
- 
-```
-(oembed: https://youtube.com/watch?v=wZZ7oFKsKzY size: smaller)
+// with the Kirbytext tag
+(oembed: https://www.youtube.com/watch?v=IlV7RhT6zHs lazyvideo: true)
 ```
 
-And for the field method `->oembed()`:
+| Option      | Values         | Description                               |
+|-------------|----------------|-------------------------------------------|
+| `class`     | (string)       | Class to be added to the embed wrapper    |
+| `thumb`     | (string)       | Custom thumbnail (URL)                    |
+| `autoload`  | `true`/`false` | Starts the embedded video automatically   |
+| `lazyvideo` | `true`/`false` | Lazyload the embedded video               |
+| `jsapi`     | `true`/`false` | Activates the JS API of certain providers |
+
+
+#### Global
+You can set the following options in your `site/config/config.php` to generally apply to all embeds:
+
 ```php
-<?php echo $page->featured_video()->oembed(array('size' => 'smaller')); ?>
+c::set('plugin.oembed.video.autoplay', false);
+
+c::set('plugin.oembed.video.lazyload', true);
+c::set('plugin.oembed.video.lazyload.btn', 'assets/plugins/oembed/images/play.png');
+
+c::set('plugin.oembed.caching', true);
+c::set('plugin.oembed.caching.duration', 24); // in hours
+
+c::set('plugin.oembed.providers.jsapi', false);
 ```
 
-The following parameters are available so far:
-- **all providers''
-    - class
-- **YouTube**
-    - jsapi (true/false)
-- **Vimeo**
-    - jsapi (true/false)
-- **SoundCloud**
-    - size (default/smaller/compact)
-    - visual (true/false)
-    - artwork (true/false)
+## Styles & Scripts <a id="StylesScripts"></a>
 
-You can set these parameters also globally for all oEmbed Kirbytext tags that do not specifiy the parameter themselves in `site/config/config.php`:
-```php
-c::get('oembed.defaults.visual', 'true');
-c::get('oembed.defaults.artwork', 'true');
-c::get('oembed.defaults.size', 'compact');
-```
 
 
 ## Examples <a id="Examples"></a>
@@ -114,19 +115,15 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
 <article>
   <aside class="entry-meta">...</aside>
   <div class="entry-main">
-    <?php if($post->video()!=''): ?>
-      <figure class="entry-cover"><?php echo $post->video()->oembed(); ?></figure>
+    <?php if($post->video()->isNotEmpty()): ?>
+      <figure class="entry-cover"><?= $post->video()->oembed(); ?></figure>
     <?php endif; ?>
-    <div class="entry-content"><?php echo $post->text()->kt(); ?></div>
+    <div class="entry-content"><?= $post->text()->kt(); ?></div>
   </div>
 </article>
 ```
 
-![In the panel](http://distantnative.com/remote/github/kirby-oembed-github-example1.png)
 
-![On the front](http://distantnative.com/remote/github/kirby-oembed-github-example2.png)
-
-![On the front playing](http://distantnative.com/remote/github/kirby-oembed-github-example3.png)
 
 
 ## Help & Improve <a id="Help"></a>

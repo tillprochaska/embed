@@ -1,8 +1,12 @@
 {
-  "name": "oEmbed",
-  "author": "Nico Hoffmann",
-  "version": "1.0",
+  "name": "oembed",
+  "description": "Kirby oEmbed Plugin",
+  "author": "Nico Hoffmann <nico@getkirby.com>",
+  "version": "2.0.0",
+  "type": "kirby-plugin",
+  "license": "MIT",
   "repository": {
+    "type": "git",
     "url": "https://github.com/distantnative/oembed"
   },
   "devDependencies": {
