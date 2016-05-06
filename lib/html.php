@@ -12,7 +12,7 @@ class Html {
 
     $this->data    = [
       'code'     => $this->core->code(),
-      'class'    => $this->core->options['class'], 
+      'class'    => $this->core->options['class'],
       'type'     => $this->core->type(),
       'provider' => $this->core->providerName(),
       'style'    => null,
@@ -26,37 +26,52 @@ class Html {
   // ================================================
 
   public function __toString() {
+    // call preparation method for type
+    $this->prepareType();
 
-    if($this->core->type() == 'video') {
-      // Container ratio
-      $ratio               = $this->core->aspectRatio();
-      $this->data['style'] = 'padding-top: ' . $ratio . '%';
+    // update embed ifram url
+    $this->updateData('code', function($code) {
+      return $this->core->url->update($code);
+    });
 
-      // Lazy video
-      if($this->options['lazyvideo']) {
-        $this->lazyVideo();
-      }
-    }
-
-    $this->parameters();
     return $this->snippet('wrapper', $this->data);
   }
 
+  // ================================================
+  //  Types
+  // ================================================
+
+  protected function prepareType() {
+    $prepareType = 'prepare' . ucfirst($this->core->type());
+    if(method_exists($this, $prepareType)) {
+      $this->{$prepareType}();
+    }
+  }
+
 
   // ================================================
-  //  Video lazy loading
+  //  Videos
   // ================================================
+
+  protected function prepareVideo() {
+    // Container ratio
+    $this->data['style'] = 'padding-top:'.$this->core->aspectRatio().'%';
+
+    // Lazy video
+    if($this->options['lazyvideo']) {
+      $this->lazyVideo();
+    }
+  }
 
   protected function lazyVideo() {
     // src -> data-src
-    $pattern            = '/(iframe.*)(src)(=".*")/U';
-    $replace            = '$1data-src$3';
-    $this->data['code'] = preg_replace($pattern, $replace, $this->data['code']);
+    $this->updateData('code', function($code) {
+      $pattern = '/(iframe.*)(src)(=".*")/U';
+      $replace = '$1data-src$3';
+      return preg_replace($pattern, $replace, $code);
+    });
 
-    $this->thumbVideo();
-  }
-
-  protected function thumbVideo() {
+    // thumb
     $this->data['more'] = $this->snippet('thumb', [
       'url'   => $this->core->thumb(),
     ]);
@@ -67,6 +82,11 @@ class Html {
   //  Helpers
   // ================================================
 
+  protected function updateData($data, $value) {
+    if(is_callable($value)) {
+      $this->data[$data] = $value($this->data[$data]);
+    } else {
+      $this->data[$data] = $value;
     }
   }
 
