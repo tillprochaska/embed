@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../vendor/Embed/autoloader.php');
+require_once(__DIR__ . '/../vendor/Embed/src/autoloader.php');
 require_once(__DIR__ . '/core.php');
 require_once(__DIR__ . '/data.php');
 require_once(__DIR__ . '/cache.php');
