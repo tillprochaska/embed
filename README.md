@@ -14,10 +14,10 @@ It is built on the [oscarotero/Embed](https://github.com/oscarotero/Embed) libra
 2. [Installation & Update](#Installation)
 3. [Usage](#Usage)
 4. [Options](#Options)
-5. [Advanced](#Advanced)
-6. [Styles & Scripts](#StylesScripts)
-7. [Examples](#Examples)
-8. [Screenshots](#Screens)
+5. [Panel field](#Field)
+6. [Advanced](#Advanced)
+7. [Styles & Scripts](#StylesScripts)
+8. [Examples](#Examples)
 9. [Help & Improve](#Help)
 10. [Version History](#VersionHistory)
 
@@ -129,6 +129,24 @@ If you want to further customize and work with the embedded media. The following
 ```
 
 
+## Panel field <a id="Field"></a>
+The oEmbed plugin also includes its own panel field which provides a preview of the embedded media right inside the panel:
+
+```
+// in your blueprint
+…
+fields:
+  …
+  featured_video:
+    label: Featured video
+    type:  oembed
+```
+
+![Panel preview](docs/field1.png)  
+![Panel preview](docs/field2.png)  
+![Panel preview](docs/field3.png)  
+
+
 ## Advanced <a id="Advanced"></a>
 The oEmbed does not only provide you an easy way to output the embed code, but also gives you access to a whole array of additional information provided by the [oscarotero/Embed](https://github.com/oscarotero/Embed) library. 
 
@@ -160,8 +178,6 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
 </article>
 ```
 
-
-## Screenshots <a id="Screens"></a>
 ![YouTube embedded](docs/example.png)  
 ![Spotify embedded](docs/example2.png)  
 
