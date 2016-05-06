@@ -8,8 +8,11 @@ class Url {
   public $parameters = [];
 
   public function __construct($code) {
-    preg_match('/(src=")(.*)(")/U', $code, $match);
-    $this->url = $match[2];
+    if(preg_match('/(src=")(.*)(")/U', $code, $match)) {
+      $this->url = $match[2];
+    } else {
+      $this->url = false;
+    }
   }
 
   public function parameter($new) {
@@ -26,9 +29,13 @@ class Url {
   }
 
   public function update($code) {
-    $pattern = '/(src|data-src)(=")(.*)(")/U';
-    $order   = '$1$2' . $this->get() . '$4';
-    return preg_replace($pattern, $order, $code);
+    if($this->url !== false) {
+      $pattern = '/(src|data-src)(=")(.*)(")/U';
+      $order   = '$1$2' . $this->get() . '$4';
+      $code    = preg_replace($pattern, $order, $code);
+    }
+
+    return $code;
   }
 
 }
