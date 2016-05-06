@@ -49,3 +49,17 @@ $kirby->set('tag', 'oembed', [
     return oembed($tag->attr('oembed'), $args);
   }
 ]);
+
+
+// ================================================
+//  Register panel field
+// ================================================
+
+$kirby->set('field', 'oembed', __DIR__ . DS . 'field');
+$kirby->set('route', [
+  'pattern' => 'api/plugin/oembed/preview',
+  'action'  => function() {
+    return response::json([(string)oembed(get('url'))]);
+  },
+  'method'  => 'POST'
+]);

@@ -1,0 +1,25 @@
+
+.field-oembed-preview {
+  position:         relative;
+  min-height:       45px;
+  border:           2px solid #ddd;
+  border-top-width: 0;
+}
+
+.field-oembed-preview__bucket {
+  transition: opacity .5s;
+}
+
+.field-oembed-preview__label {
+  display:     none;
+  position:    absolute;
+  top:         50%;
+  left:        50%;
+  transform:   translate(-50%, -50%);
+  font-weight: 600;
+  font-size:   .8em;
+}
+
+.field-oembed-preview__bucket:empty ~ .field-oembed-preview__label {
+  display: block;
+}

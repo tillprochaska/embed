@@ -11,13 +11,15 @@ gulp.task('css', function() {
     .pipe(autoprefixer())
     .pipe(rename('oembed.css'))
     .pipe(cssmin())
-    .pipe(gulp.dest('assets/css'));
+    .pipe(gulp.dest('assets/css'))
+    .pipe(gulp.dest('field/assets/css'));
 });
 
 gulp.task('js', function() {
   return gulp.src('assets/js/src/oembed.js')
     .pipe(uglify())
-    .pipe(gulp.dest('assets/js'));
+    .pipe(gulp.dest('assets/js'))
+    .pipe(gulp.dest('field/assets/js'));
 });
 
 gulp.task('watch', function() {
