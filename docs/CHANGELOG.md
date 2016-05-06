@@ -3,7 +3,7 @@
 ## 2.0.0 (2016-05-06)
 - Requires Kirby 2.3.0
 - Complete rewrite of PHP, CSS, JS
-- Support for oEmbed and other embed sources
+- Panel field added with embed preview
 - Works now with a lot more media (Spotify, pastebin, issu among others)
 - Supports YouTube playlists and timecodes
 - More consistent options
