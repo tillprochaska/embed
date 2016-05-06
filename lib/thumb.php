@@ -11,7 +11,8 @@ class Thumb {
 
   public function __construct($url) {
     $this->url  = $url;
-    $this->dir  = kirby()->roots()->thumbs() . DS . 'oembed';
+    $this->dir  = kirby()->roots()->cache() . DS . 'oembed' . DS . 'thumbs';
+    
     $this->file = md5($this->url) . '.' . pathinfo($this->url, PATHINFO_EXTENSION);
     $this->root = $this->dir . DS . $this->file;
 
