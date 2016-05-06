@@ -46,7 +46,7 @@ kirby plugin:install distantnative/oembed
 **As field method in templates:**  
 Use the method on fields that contain a url that points to a supported medium (e.g. YouTube, Vimeo, Twitter, Instagram, Spotify etc.):
 ```php
-<?php echo $page->featured_tweet()->oembed(); ?>
+<?= $page->featured_tweet()->oembed(); ?>
 ```
 
 
@@ -104,8 +104,25 @@ c::set('plugin.oembed.providers.jsapi', false);
 ```
 
 ## Styles & Scripts <a id="StylesScripts"></a>
+The oEmbed plugin comes with very minimal styles, mainly for embedded videos and only a small script necessary when lazyloading videos:
 
+```php
+// Include styles
+<?= css('assets/plugins/oembed/css/oembed.css') ?>
 
+// Include script
+<?= js('assets/plugins/oembed/js/oembed.js') ?>
+```
+
+If you want to further customize and work with the embedded media. The following CSS classes are applied to the main wrapper:
+```
+.kirby-plugin-oembed
+.kirby-plugin-oembed--{TYPE}      // e.g. video, rich
+.kirby-plugin-oembed--{PROVIDER}  // e.g. YouTube, Vimeo
+
+.kirby-plugin-oembed__thumb
+.kirby-plugin-oembed__thumb > img
+```
 
 ## Examples <a id="Examples"></a>
 #### Blog: Featured Video
@@ -123,7 +140,7 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
 </article>
 ```
 
-
+![Example](docs/example.png)  
 
 
 ## Help & Improve <a id="Help"></a>
