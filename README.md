@@ -142,6 +142,7 @@ fields:
     type:  oembed
 ```
 
+**Sneak Peek:**  
 ![Panel field preview](docs/field.gif)  
 
 
@@ -175,9 +176,13 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
   </div>
 </article>
 ```
-
+**With a video from Vimeo:**  
 ![Example](docs/example1.png)  
-![Example](docs/example2.png)  
+
+**With a tweet from Twitter:**  
+![Example](docs/example2.png) 
+
+**With a player from Spotify:**   
 ![Example](docs/example3.png)    
 
 
