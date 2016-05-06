@@ -140,7 +140,8 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
 </article>
 ```
 
-![Example](docs/example.png)  
+![YouTube embedded](docs/example.png)  
+![Spotify embedded](docs/example2.png)  
 
 
 ## Help & Improve <a id="Help"></a>
