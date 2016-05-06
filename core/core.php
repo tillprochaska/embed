@@ -5,7 +5,7 @@ namespace Kirby\Plugins\distantnative\oEmbed;
 use A;
 use C;
 
-class oEmbed {
+class Core {
 
   public function __construct($url, $args = []) {
     $this->url      = $url;
@@ -13,9 +13,11 @@ class oEmbed {
 
     $this->load();
 
-    $this->provider   = $this->provider();
-    $this->url        = new Url($this->data()->code);
-    $this->options    = $this->options($args);
+    if($this->data !== false) {
+      $this->provider   = $this->provider();
+      $this->url        = new Url($this->data()->code);
+      $this->options    = $this->options($args);
+    }
   }
 
   // ================================================
@@ -26,9 +28,11 @@ class oEmbed {
     if($this->cache->exists() && c::get('plugin.oembed.caching', true)) {
       $this->data = $this->cache->get();
     } else {
-      $this->data = new Data($this->url);
-      $this->data = $this->data->get();
-      $this->cache->set($this->data, c::get('plugin.oembed.caching.duration', 24) * 60);
+      $this->data = Data::get($this->url);
+
+      if($this->data && c::get('plugin.oembed.caching', true)) {
+        $this->cache->set($this->data, c::get('plugin.oembed.caching.duration', 24) * 60);
+      }
     }
   }
 
@@ -88,6 +92,10 @@ class oEmbed {
   }
 
   public function __toString() {
+    if($this->data === false) {
+      return Html::error($this->url);
+    }
+
     return (string)new Html($this);
   }
 }

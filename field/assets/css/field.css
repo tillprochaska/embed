@@ -18,6 +18,17 @@
   margin-left:  auto;
 }
 
+.field-oembed-preview__bucket .kirby-plugin-oembed--error {
+  padding:     .6em;
+  font-size:   .75em;
+  font-weight: 600;
+}
+
+.field-oembed-preview__bucket .kirby-plugin-oembed--error > span {
+  display:     block;
+  font-weight: 400;
+}
+
 .field-oembed-preview__label {
   display:     none;
   position:    absolute;

@@ -11,7 +11,7 @@ Autoloader::load([
 
   // Core
   'core' => [
-    'oembed',
+    'core',
     'url',
     'html',
   ],

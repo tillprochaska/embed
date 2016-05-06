@@ -6,17 +6,15 @@ use Embed\Embed;
 
 class Data {
 
-  protected $dir;
-
-  public function __construct($url) {
-    $this->data = Embed::create($url, $this->config());
+  public static function get($url) {
+    try {
+      return Embed::create($url, static::config());      
+    } catch (\Exception $e) {
+      return false;
+    }
   }
 
-  public function get() {
-    return $this->data;
-  }
-
-  protected function config() {
+  protected static function config() {
     return [
       'adapter' => [
         'config' => [

@@ -37,6 +37,10 @@ class Html {
     return $this->snippet('wrapper', $this->data);
   }
 
+  public static function error($url) {
+    return tpl::load(dirname(__DIR__) . DS . 'snippets' . DS . 'error.php', ['url' => $url]);
+  }
+
   // ================================================
   //  Types
   // ================================================

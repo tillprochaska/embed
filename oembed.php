@@ -7,7 +7,7 @@ require_once('lib/autoload.php');
 // ================================================
 
 function oembed($url, $args = []) {
-  return new Kirby\Plugins\distantnative\oEmbed\oEmbed($url, $args);
+  return new Kirby\Plugins\distantnative\oEmbed\Core($url, $args);
 }
 
 
