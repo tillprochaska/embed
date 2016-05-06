@@ -2,6 +2,14 @@
 
 require_once('lib/autoload.php');
 
+// ================================================
+//  Global helper
+// ================================================
+
+function oembed($url, $args = []) {
+  return new Kirby\Plugins\distantnative\oEmbed\oEmbed($url, $args);
+}
+
 
 // ================================================
 //  $page->video()->oembed()
@@ -41,12 +49,3 @@ $kirby->set('tag', 'oembed', [
     return oembed($tag->attr('oembed'), $args);
   }
 ]);
-
-
-// ================================================
-//  Global helper
-// ================================================
-
-function oembed($url, $args = []) {
-  return new Kirby\Plugins\distantnative\oEmbed\Core($url, $args);
-}

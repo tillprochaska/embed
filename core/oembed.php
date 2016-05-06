@@ -5,7 +5,7 @@ namespace Kirby\Plugins\distantnative\oEmbed;
 use A;
 use C;
 
-class Core {
+class oEmbed {
 
   public function __construct($url, $args = []) {
     $this->url      = $url;
