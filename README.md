@@ -66,6 +66,7 @@ Twist your head around. It's all around you. All is full of love. All around you
 <?= oembed('https://www.youtube.com/watch?v=m2ua3O_fdCY') ?>
 ```
 
+
 ## Options <a id="Options"></a>
 
 #### Per embed
@@ -105,6 +106,7 @@ c::set('plugin.oembed.caching.duration', 24); // in hours
 c::set('plugin.oembed.providers.jsapi', false);
 ```
 
+
 ## Styles & Scripts <a id="StylesScripts"></a>
 The oEmbed plugin comes with very minimal styles, mainly for embedded videos and only a small script necessary when lazyloading videos:
 
@@ -126,6 +128,22 @@ If you want to further customize and work with the embedded media. The following
 .kirby-plugin-oembed__thumb > img
 ```
 
+
+## Advanced <a id="Advanced"></a>
+The oEmbed does not only provide you an easy way to output the embed code, but also gives you access to a whole array of additional information provided by the [oscarotero/Embed](https://github.com/oscarotero/Embed) library. 
+
+```php
+// instead of echoing the field method, use it:
+$page->video()->oembed()->title()
+
+$info = $page->video()->oembed();
+echo $info->description();
+echo $info->authorName();
+```
+
+You can find a full overview of what information can be accessed in the documentation of the [oscarotero/Embed](https://github.com/oscarotero/Embed) library or also just [test your media URL](http://oscarotero.com/embed2/demo) and see what information is available.
+
+
 ## Examples <a id="Examples"></a>
 #### Blog: Featured Video
 Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube or Vimeo) is stored in a field called ´video´ in this example.
@@ -143,21 +161,6 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
 ```
 
 
-## Advanced <a id="Advanced"></a>
-The oEmbed does not only provide you an easy way to output the embed code, but also gives you access to a whole array of additional information provided by the [oscarotero/Embed](https://github.com/oscarotero/Embed) library. 
-
-```php
-// instead of echoing the field method, use it:
-$page->video()->oembed()->title()
-
-$info = $page->video()->oembed();
-echo $info->description();
-echo $info->authorName();
-```
-
-You can find a full overview of what information can be accessed in the documentation of the [oscarotero/Embed](https://github.com/oscarotero/Embed) library or also just [test your media URL](http://oscarotero.com/embed2/demo) and see what information is available.
-
-
 ## Screenshots <a id="Screens"></a>
 ![YouTube embedded](docs/example.png)  
 ![Spotify embedded](docs/example2.png)  
@@ -170,8 +173,10 @@ You can find a full overview of what information can be accessed in the document
 ## Version history <a id="VersionHistory"></a>
 You can find a more or less complete version history in the [changelog](docs/CHANGELOG.md).
 
+
 ## License
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
+
 
 ## Author
 Nico Hoffmann - <https://nhoffmann.com>
