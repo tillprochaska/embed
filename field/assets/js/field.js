@@ -22,11 +22,22 @@
       var $preview  = container.find('.field-oembed-preview__bucket');
       var $label    = container.find('.field-oembed-preview__label');
 
+
+      var timer;
+      $this.bind('input', function() {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(function(){
+          oembedPreviewLoad($this, $preview, $label, true);
+        }, 1000);
+      });
+
       $this.on('blur', function() {
+        window.clearTimeout(timer);
         oembedPreviewLoad($this, $preview, $label, true);
       });
 
       $icon.on('click', function() {
+        window.clearTimeout(timer);
         oembedPreviewLoad($this, $preview, $label, true);
       });
 
