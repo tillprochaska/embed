@@ -118,7 +118,7 @@ The oEmbed plugin comes with very minimal styles, mainly for embedded videos and
 <?= js('assets/plugins/oembed/js/oembed.js') ?>
 ```
 
-If you want to further customize and work with the embedded media. The following CSS classes are applied to the main wrapper:
+If you want to further customize and work with the embedded medium. The following CSS classes are applied to the main wrapper:
 ```
 .kirby-plugin-oembed
 .kirby-plugin-oembed--{TYPE}      // e.g. video, rich
@@ -130,7 +130,7 @@ If you want to further customize and work with the embedded media. The following
 
 
 ## Panel field <a id="Field"></a>
-The oEmbed plugin also includes its own panel field which provides a preview of the embedded media right inside the panel:
+The oEmbed plugin also includes its own panel field which provides a preview of the embedded medium right inside the panel:
 
 ```
 // in your blueprint
@@ -142,9 +142,7 @@ fields:
     type:  oembed
 ```
 
-![Panel preview](docs/field1.png)  
-![Panel preview](docs/field2.png)  
-![Panel preview](docs/field3.png)  
+![Panel field preview](docs/field.gif)  
 
 
 ## Advanced <a id="Advanced"></a>
@@ -178,8 +176,9 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
 </article>
 ```
 
-![YouTube embedded](docs/example.png)  
-![Spotify embedded](docs/example2.png)  
+![Example](docs/example1.png)  
+![Example](docs/example2.png)  
+![Example](docs/example3.png)    
 
 
 ## Help & Improve <a id="Help"></a>

@@ -3,9 +3,10 @@
 ## 2.0.0 (2016-05-06)
 - Requires Kirby 2.3.0
 - Complete rewrite of PHP, CSS, JS
-- Panel field added with embed preview
+- All new panel field with great instant preview
 - Works now with a lot more media (Spotify, pastebin, issu among others)
 - Supports YouTube playlists and timecodes
+- More reliable caching
 - More consistent options
 - Advanced acces to addtional information of the embedded media
 - Using new library for collecting embed information ([oscarotero/Embed](https://github.com/oscarotero/Embed))
