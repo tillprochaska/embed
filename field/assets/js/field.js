@@ -27,52 +27,45 @@
       $this.bind('input', function() {
         window.clearTimeout(timer);
         timer = window.setTimeout(function(){
-          oembedPreviewLoad($this, $preview, $label, true);
+          oembedPreviewLoad($this, $preview, $label);
         }, 1000);
       });
 
       $this.on('blur', function() {
         window.clearTimeout(timer);
-        oembedPreviewLoad($this, $preview, $label, true);
+        oembedPreviewLoad($this, $preview, $label);
       });
 
       $icon.on('click', function() {
         window.clearTimeout(timer);
-        oembedPreviewLoad($this, $preview, $label, true);
+        oembedPreviewLoad($this, $preview, $label);
       });
 
-      oembedPreviewLoad($this, $preview, $label, false);
+      oembedPreviewLoad($this, $preview, $label);
 
     });
   };
 })(jQuery);
 
 
-function oembedPreviewLoad($this, $preview, $label, triggered) {
+function oembedPreviewLoad($this, $preview, $label) {
   var url = $.trim($this.val());
 
   if(url === '') {
+    $preview.css('opacity', '0').html('');
     $label.show();
-    $preview.css('opacity', '0');
-    $preview.html('');
 
   } else if($this.is(':valid')) {
-    if(triggered === true) {
-      $label.show();
-      $preview.css('opacity', '0');
-    }
+    $preview.css('opacity', '0');
+    $label.show();
 
     $.ajax({
-      url:  $this.data('ajax'),
-      type: 'POST',
-      data: {
-        url: url
-      },
+      url:     $this.data('ajax'),
+      type:    'POST',
+      data:    { url: url },
       success: function(data) {
         $label.hide();
-        $preview.html(data[0]);
-        $preview.css('opacity', '1');
-        $preview.find('.kirby-plugin-oembed__thumb').click(oembedLoad);
+        $preview.html(data[0]).css('opacity', '1').find('.kirby-plugin-oembed__thumb').click(oembedLoad);
       },
     });
   }
