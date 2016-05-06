@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.0
+- Panel field: changed icon click behavior (opens now url in new tab)
+
 ## 2.0.0 (2016-05-06)
 - Requires Kirby 2.3.0
 - Complete rewrite of PHP, CSS, JS
