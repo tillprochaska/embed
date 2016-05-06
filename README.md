@@ -14,10 +14,12 @@ It is built on the [oscarotero/Embed](https://github.com/oscarotero/Embed) libra
 2. [Installation & Update](#Installation)
 3. [Usage](#Usage)
 4. [Options](#Options)
-5. [Styles & Scripts](#StylesScripts)
-5. [Examples](#Usage)
-6. [Help & Improve](#Help)
-7. [Version History](#VersionHistory)
+5. [Advanced](#Advanced)
+6. [Styles & Scripts](#StylesScripts)
+7. [Examples](#Examples)
+8. [Screenshots](#Screens)
+9. [Help & Improve](#Help)
+10. [Version History](#VersionHistory)
 
 ## Requirements <a id="Requirements"></a>
 Kirby CMS 2.3.0+ and PHP 5.4+.
@@ -71,7 +73,7 @@ You can set the following options on each embed to apply:
 
 ```php
 // with the field method
-<?= $page->featured_video()->oemebed([
+<?= $page->featured_video()->oembed([
   'lazyvideo' => true
 ]) ?>
 
@@ -140,6 +142,23 @@ Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube 
 </article>
 ```
 
+
+## Advanced <a id="Advanced"></a>
+The oEmbed does not only provide you an easy way to output the embed code, but also gives you access to a whole array of additional information provided by the [oscarotero/Embed](https://github.com/oscarotero/Embed) library. 
+
+```php
+// instead of echoing the field method, use it:
+$page->video()->oembed()->title()
+
+$info = $page->video()->oembed();
+echo $info->description();
+echo $info->authorName();
+```
+
+You can find a full overview of what information can be accessed in the documentation of the [oscarotero/Embed](https://github.com/oscarotero/Embed) library or also just [test your media URL](http://oscarotero.com/embed2/demo) and see what information is available.
+
+
+## Screenshots <a id="Screens"></a>
 ![YouTube embedded](docs/example.png)  
 ![Spotify embedded](docs/example2.png)  
 
