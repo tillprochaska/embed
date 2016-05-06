@@ -18,6 +18,10 @@
   margin-left:  auto;
 }
 
+.field-oembed-preview__bucket .kirby-plugin-oembed--rich {
+  padding: .6em;
+}
+
 .field-oembed-preview__bucket .kirby-plugin-oembed--error {
   padding:     .6em;
   font-size:   .75em;
