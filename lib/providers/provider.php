@@ -23,8 +23,6 @@ class Provider {
   }
 
   protected function parameter($parameter) {
-    if(!is_array($parameter)) $parameter = [$parameter];
-
-    $this->core->parameters = array_merge($this->core->parameters, $parameter);
+    return $this->core->url->parameter($parameter);
   }
 }

@@ -67,17 +67,6 @@ class Html {
   //  Helpers
   // ================================================
 
-  protected function parameters() {
-    $parameters = implode('&', $this->core->parameters);
-
-    $pattern            = '/(src|data-src)(=".*)(\?.*)(")/U';
-    $order              = '$1$2$3&' . $parameters . '$4';
-    $this->data['code'] = preg_replace($pattern, $order, $this->data['code'], -1, $found);
-
-    if($found == 0) {
-      $pattern            = '/(src|data-src)(=".*)(")/U';
-      $order              = '$1$2?' . $parameters . '$3';
-      $this->data['code'] = preg_replace($pattern, $order, $this->data['code']);
     }
   }
 

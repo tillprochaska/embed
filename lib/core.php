@@ -14,8 +14,8 @@ class Core {
     $this->load();
 
     $this->provider   = $this->provider();
+    $this->url        = new Url($this->data()->code);
     $this->options    = $this->options($args);
-    $this->parameters = [];
   }
 
   // ================================================
@@ -42,7 +42,7 @@ class Core {
       'thumb'     => null,
       'autoplay'  => c::get('plugin.oembed.video.autoplay', false),
       'lazyvideo' => c::get('plugin.oembed.video.lazyload', true),
-      'jsapi'     => c::get('plugin.oembed.providers.jsapi', true),
+      'jsapi'     => c::get('plugin.oembed.providers.jsapi', false),
     ];
 
     return a::merge($defaults, $options);
