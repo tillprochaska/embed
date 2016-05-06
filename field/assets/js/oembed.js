@@ -1,0 +1,1 @@
+var oembedLoad=function(){var e=this.parentNode,t=e.children[0];t.src=t.dataset.src,this.remove()};document.addEventListener("DOMContentLoaded",function(e){for(var t=document.getElementsByClassName("kirby-plugin-oembed__thumb"),n=0;n<t.length;n++)t[n].addEventListener("click",oembedLoad,!1)});

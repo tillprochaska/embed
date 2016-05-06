@@ -1,64 +1,65 @@
 <?php
 
-require 'core/oembed.php';
+require_once('lib/autoload.php');
 
-/**
- * oEmbed field method: $page->video()->oembed()
- */
-field::$methods['oembed'] = function($field, $args = array()) {
-  $oembed = new OEmbed($field->value);
+// ================================================
+//  Global helper
+// ================================================
 
-  // autoplay setting
-  if((isset($args['autoplay']) and $args['autoplay'] == true) or c::get('oembed.autoplay', false)) {
-    $oembed->autoplay = true;
-  }
-
-  // custom thumbnail
-  if (isset($args['thumbnail'])) {
-    $oembed->thumb->set($args['thumbnail']);
-  }
-
-  return $oembed->get($args);
-};
+function oembed($url, $args = []) {
+  return new Kirby\Plugins\distantnative\oEmbed\Core($url, $args);
+}
 
 
-/**
- * oEmbed Kirbytext tag: (oembed: https://youtube.com/watch?v=wZZ7oFKsKzY)
- */
-kirbytext::$tags['oembed'] = array(
-  'attr' => array(
-      'class',
-      'thumb',
-      'autoplay',
-      'artwork',
-      'visual',
-      'size',
-      'color',
-      'jsapi',
-  ),
-  'html' => function($tag) {
-    $args = array(
-      'class'   => $tag->attr('class', false),
-      'artwork' => $tag->attr('artwork', c::get('oembed.defaults.artwork', 'true')),
-      'visual'  => $tag->attr('visual', c::get('oembed.defaults.visual', 'true')),
-      'size'    => $tag->attr('size', c::get('oembed.defaults.size', 'default')),
-      'jsapi'   => $tag->attr('jsapi', false)
-    );
+// ================================================
+//  $page->video()->oembed()
+// ================================================
 
-    $oembed = new OEmbed($tag->attr('oembed'));
+$kirby->set('field::method', 'oembed', function($field, $args = []) {
+  return oembed($field->value, $args);
+});
 
-    // autoplay setting
-    if($tag->attr('autoplay', c::get('oembed.autoplay', false)) == 'true') {
-      $oembed->autoplay = true;
+
+// ================================================
+//  (oembed: …)
+// ================================================
+
+$options = [
+  'class'     => 'string',
+  'thumb'     => 'string',
+  'autoload'  => 'bool',
+  'lazyvideo' => 'bool',
+  'jsapi'     => 'bool',
+];
+
+$kirby->set('tag', 'oembed', [
+  'attr' => array_keys($options),
+  'html' => function($tag) use($options) {
+    $args = [];
+
+    foreach($options as $option => $mode) {
+      if($mode === 'bool') {
+        if($tag->attr($option) === 'true')  $args[$option] = true;
+        if($tag->attr($option) === 'false') $args[$option] = false;
+      } elseif ($mode === 'string') {
+        $args['option'] = $tag->attr($option);
+      }
     }
 
-    // custom thumbnail
-    if($tag->attr('thumb', false)) {
-      $oembed->thumb->set($tag->file($tag->attr('thumb'))->url());
-    }
-
-    return $oembed->get($args);
+    return oembed($tag->attr('oembed'), $args);
   }
-);
+]);
 
 
+// ================================================
+//  Register panel field
+// ================================================
+
+$kirby->set('field', 'oembed', __DIR__ . DS . 'field');
+$kirby->set('route', [
+  'pattern' => 'api/plugin/oembed/preview',
+  'action'  => function() {
+    return response::json([(string)oembed(get('url'))]);
+  },
+  'method'  => 'POST'
+]);

@@ -1,0 +1,3 @@
+[submodule "vendor/Embed"]
+	path = vendor/Embed
+	url = https://github.com/oscarotero/Embed
