@@ -8,15 +8,15 @@ use C;
 class Core {
 
   public function __construct($url, $args = []) {
-    $this->url      = $url;
-    $this->cache    = new Cache($url);
+    $this->input = $url;
+    $this->cache = new Cache($url);
 
     $this->load();
 
     if($this->data !== false) {
-      $this->provider   = $this->provider();
-      $this->url        = new Url($this->data()->code);
-      $this->options    = $this->options($args);
+      $this->provider = $this->provider();
+      $this->url      = new Url($this->data()->code);
+      $this->options  = $this->options($args);
     }
   }
 
@@ -28,7 +28,7 @@ class Core {
     if($this->cache->exists() && c::get('plugin.oembed.caching', true)) {
       $this->data = $this->cache->get();
     } else {
-      $this->data = Data::get($this->url);
+      $this->data = Data::get($this->input);
 
       if($this->data && c::get('plugin.oembed.caching', true)) {
         $this->cache->set($this->data, c::get('plugin.oembed.caching.duration', 24) * 60);
@@ -71,7 +71,7 @@ class Core {
     $namespace = 'Kirby\Plugins\distantnative\oEmbed\Providers\\';
     $class     =  $namespace . $this->data()->providerName;
     $class     =  class_exists($class) ? $class : $namespace . 'Provider';
-    return new $class($this, $this->url);
+    return new $class($this, $this->input);
   }
 
 
