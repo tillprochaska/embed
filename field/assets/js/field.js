@@ -36,12 +36,16 @@
         oembedPreviewLoad($this, $preview, $label);
       });
 
-      $icon.on('click', function() {
-        window.clearTimeout(timer);
-        oembedPreviewLoad($this, $preview, $label);
-      });
-
       oembedPreviewLoad($this, $preview, $label);
+
+      $icon.on('click', function() {
+        var url = $.trim($this.val());
+        if(url !== '' && $this.is(':valid')) {
+          window.open(url);
+        } else {
+          $this.focus();
+        }
+      });
 
     });
   };
