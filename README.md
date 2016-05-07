@@ -51,6 +51,7 @@ Use the method on fields that contain a url that points to a supported medium (e
 <?= $page->featured_tweet()->oembed(); ?>
 ```
 
+You can use any text field containing a valid URL, but you might want to use the designated [oEmbed panel field](#Field).
 
 **As Kirbytext tag:**  
 ```
