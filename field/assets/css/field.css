@@ -5,6 +5,7 @@
   background-color: #ddd;
   border:           2px solid #ddd;
   border-top-width: 0;
+  overflow-y:       auto;
 }
 
 .field-oembed-preview__bucket {

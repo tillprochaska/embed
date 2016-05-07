@@ -3,6 +3,7 @@
 class OembedField extends UrlField {
 
   public $preview = true;
+  public $height  = 'none';
 
   public static $assets = [
     'css' => [
@@ -35,7 +36,9 @@ class OembedField extends UrlField {
     $template = parent::template();
 
     if($this->preview) {
-      $template->append(tpl::load(__DIR__ . DS . 'oembed.html.php'));
+      $template->append(tpl::load(__DIR__ . DS . 'oembed.html.php', [
+        'height' => $this->height,
+      ]));
     }
 
     return $template;

@@ -20,23 +20,21 @@
 
       var container = $this.parent().next();
       var $preview  = container.find('.field-oembed-preview__bucket');
-      var $label    = container.find('.field-oembed-preview__label');
-
 
       var timer;
       $this.bind('input', function() {
         window.clearTimeout(timer);
         timer = window.setTimeout(function(){
-          oembedPreviewLoad($this, $preview, $label);
+          oembedPreviewLoad($this, $preview);
         }, 1000);
       });
 
       $this.on('blur', function() {
         window.clearTimeout(timer);
-        oembedPreviewLoad($this, $preview, $label);
+        oembedPreviewLoad($this, $preview);
       });
 
-      oembedPreviewLoad($this, $preview, $label);
+      oembedPreviewLoad($this, $preview);
 
       $icon.on('click', function() {
         var url = $.trim($this.val());
@@ -52,23 +50,20 @@
 })(jQuery);
 
 
-function oembedPreviewLoad($this, $preview, $label) {
+function oembedPreviewLoad($this, $preview) {
   var url = $.trim($this.val());
 
   if(url === '') {
     $preview.css('opacity', '0').html('');
-    $label.show();
 
   } else if($this.is(':valid')) {
     $preview.css('opacity', '0');
-    $label.show();
 
     $.ajax({
       url:     $this.data('ajax'),
       type:    'POST',
       data:    { url: url },
       success: function(data) {
-        $label.hide();
         $preview.html(data[0]).css('opacity', '1').find('.kirby-plugin-oembed__thumb').click(oembedLoad);
       },
     });
