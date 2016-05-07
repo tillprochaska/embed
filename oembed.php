@@ -65,3 +65,24 @@ $kirby->set('route', [
   },
   'method'  => 'POST'
 ]);
+$kirby->set('route', [
+  'pattern' => 'api/plugin/oembed/info',
+  'action'  => function() {
+    $oembed = oembed(get('url'));
+
+    if($oembed->data === false) {
+      return response::json(['false']);
+    } else {
+      return response::json([
+        'title'        => trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', '',
+      mb_convert_encoding($oembed->title(), "UTF-8"))),
+        'authorName'   => $oembed->authorName(),
+        'authorUrl'    => $oembed->authorUrl(),
+        'providerName' => $oembed->providerName(),
+        'providerUrl'  => $oembed->url(),
+        'type'         => ucfirst($oembed->type())
+      ]);
+    }
+  },
+  'method'  => 'POST'
+]);

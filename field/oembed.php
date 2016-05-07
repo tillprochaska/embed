@@ -3,6 +3,7 @@
 class OembedField extends UrlField {
 
   public $preview = true;
+  public $info    = true;
   public $height  = 'none';
 
   public static $assets = [
@@ -28,7 +29,7 @@ class OembedField extends UrlField {
   public function input() {
     $input = parent::input();
     $input->data('field', 'oembedfield');
-    $input->data('ajax', url('api/plugin/oembed/preview'));
+    $input->data('ajax', url('api/plugin/oembed/'));
     return $input;
   }
 
@@ -36,9 +37,12 @@ class OembedField extends UrlField {
     $template = parent::template();
 
     if($this->preview) {
-      $template->append(tpl::load(__DIR__ . DS . 'oembed.html.php', [
+      $template->append(tpl::load(__DIR__ . DS . 'templates' . DS . 'preview.php', [
         'height' => $this->height,
       ]));
+    }
+    if($this->info) {
+      $template->append(tpl::load(__DIR__ . DS . 'templates' . DS . 'info.php'));
     }
 
     return $template;
