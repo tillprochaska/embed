@@ -1,7 +1,9 @@
 # Changelog
 
-## 2.1.0
+## 2.0.1 (2016-05-07)
 - Panel field: changed icon click behavior (opens now url in new tab)
+- Fixed: access to thumb location
+- Fixed: Included vendor files instead using git submodules
 
 ## 2.0.0 (2016-05-06)
 - Requires Kirby 2.3.0
