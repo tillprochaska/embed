@@ -2,6 +2,8 @@
 
 class OembedField extends UrlField {
 
+  public $preview = true;
+
   public static $assets = [
     'css' => [
       'oembed.css',
@@ -31,13 +33,21 @@ class OembedField extends UrlField {
 
   public function template() {
     $template = parent::template();
-    $template->append(tpl::load(__DIR__ . DS . 'oembed.html.php'));
+
+    if($this->preview) {
+      $template->append(tpl::load(__DIR__ . DS . 'oembed.html.php'));
+    }
+
     return $template;
   }
 
   protected function translations() {
     $root = dirname(__DIR__) . DS . 'translations' . DS;
+
+    // Default (English)
     require($root . 'en.php');
+
+    // Current panel language
     if(file_exists($root . panel()->language()->code() . '.php')) {
       require($root . panel()->language()->code() . '.php');
     }
