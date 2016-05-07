@@ -23,6 +23,12 @@ Autoloader::load([
     'thumb',
   ],
 
+  // Translations
+  'translations' => [
+    'en',
+    kirby()->site()->language() ? kirby()->site()->language()->code() : null
+  ],
+
   // Providers
   'providers' => [
     'provider',
@@ -46,6 +52,9 @@ class Autoloader {
   }
 
   protected static function loadFile($path) {
-    require_once(dirname(__DIR__) . DS . str_replace('/', DS, $path) . '.php');
+    $file = dirname(__DIR__) . DS . str_replace('/', DS, $path) . '.php';
+    if(file_exists($file)) {
+      require_once($file);
+    }
   }
 }
