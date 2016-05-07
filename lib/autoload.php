@@ -23,6 +23,12 @@ Autoloader::load([
     'thumb',
   ],
 
+  // Translations
+  'translations' => [
+    'en',
+    kirby()->site()->language() ? kirby()->site()->language()->code() : null
+  ],
+
   // Providers
   'providers' => [
     'provider',

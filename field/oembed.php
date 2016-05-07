@@ -18,6 +18,8 @@ class OembedField extends UrlField {
 
     $this->type        = 'oembed';
     $this->icon        = 'object-group';
+
+    $this->translations();
   }
 
   public function input() {
@@ -31,6 +33,14 @@ class OembedField extends UrlField {
     $template = parent::template();
     $template->append(tpl::load(__DIR__ . DS . 'oembed.html.php'));
     return $template;
+  }
+
+  protected function translations() {
+    $root = dirname(__DIR__) . DS . 'translations' . DS;
+    require($root . 'en.php');
+    if(file_exists($root . panel()->language()->code() . '.php')) {
+      require($root . panel()->language()->code() . '.php');
+    }
   }
 
 }
