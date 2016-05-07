@@ -74,7 +74,7 @@
 .field-oembed-info > span:not(:first-child):not(:last-child):after {
   content: " / "
 }
-.field-content ~ .field-oembed-info {
+.field-content + .field-oembed-info {
   border-top-width: 1px;
   border-top-color: #ddd !important;
 }
