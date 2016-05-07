@@ -2,6 +2,7 @@
 
 namespace Kirby\Plugins\distantnative\oEmbed;
 
+use L;
 use Tpl;
 
 class Html {
@@ -10,8 +11,10 @@ class Html {
     $this->core    = $core;
     $this->options = $this->core->options;
 
+    $code = $this->core->code() ? $this->core->code() : $this->error($this->core->input, 'nocode');
+
     $this->data    = [
-      'code'     => $this->core->code(),
+      'code'     => $code,
       'class'    => $this->core->options['class'],
       'type'     => $this->core->type(),
       'provider' => $this->core->providerName(),
@@ -37,8 +40,9 @@ class Html {
     return $this->snippet('wrapper', $this->data);
   }
 
-  public static function error($url) {
-    return tpl::load(dirname(__DIR__) . DS . 'snippets' . DS . 'error.php', ['url' => $url]);
+  public static function error($url, $msg = null) {
+    $msg = l::get('plugin.oembed.error.' . ($msg ? $msg : 'noembed'));
+    return tpl::load(dirname(__DIR__) . DS . 'snippets' . DS . 'error.php', ['url' => $url, 'msg' => $msg]);
   }
 
   // ================================================
