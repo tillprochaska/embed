@@ -18,14 +18,9 @@ class Data {
   protected static function config() {
     return [
       'adapter' => [
-        'config' => [
-          'getBiggerImage' => true,
-        ]
+        'config' => ['getBiggerImage' => true]
       ],
       'providers' => [
-        'oembed' => [
-          'parameters' => [],
-        ],
         'facebook' => [
           'key' => c::get('plugin.oembed.providers.facebook.key', null)
         ],

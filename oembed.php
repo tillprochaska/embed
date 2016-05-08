@@ -1,7 +1,8 @@
 <?php
 
-require_once('lib/autoload.php');
+namespace Kirby\Plugins\distantnative\oEmbed;
 
+require_once('lib/autoload.php');
 
 $kirby    = kirby();
 $language = $kirby->site()->language();
@@ -11,7 +12,7 @@ $language = $language ? $language->code() : null;
 //  Load components
 // ================================================
 
-Kirby\Plugins\distantnative\oEmbed\Autoloader::load([
+Autoloader::load([
   'vendor'       => ['Embed/src/autoloader'],
   'core'         => ['core', 'url', 'html'],
   'lib'          => ['data', 'cache', 'thumb'],
@@ -25,7 +26,7 @@ Kirby\Plugins\distantnative\oEmbed\Autoloader::load([
 // ================================================
 
 function oembed($url, $args = []) {
-  return new Kirby\Plugins\distantnative\oEmbed\Core($url, $args);
+  return new Core($url, $args);
 }
 
 
@@ -77,25 +78,20 @@ $kirby->set('field', 'oembed', __DIR__ . DS . 'field');
 $kirby->set('route', [
   'pattern' => 'api/plugin/oembed/preview',
   'action'  => function() {
-    return response::json([
-      (string)oembed(get('url'), [
-        'lazyvideo' => true
-      ])
+    $oembed = oembed(get('url'), [
+      'lazyvideo' => true
     ]);
-  },
-  'method'  => 'POST'
-]);
-$kirby->set('route', [
-  'pattern' => 'api/plugin/oembed/info',
-  'action'  => function() {
-    $oembed = oembed(get('url'));
 
     if($oembed->data === false) {
-      return response::json(['false']);
+      return \response::json([
+        'success' => 'false',
+        'code'    => (string)$oembed,
+      ]);
     } else {
-      return response::json([
-        'title'        => trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', '',
-      mb_convert_encoding($oembed->title(), "UTF-8"))),
+      return \response::json([
+        'success'      => 'true',
+        'code'         => (string)$oembed,
+        'title'        => Html::removeEmojis($oembed->title()),
         'authorName'   => $oembed->authorName(),
         'authorUrl'    => $oembed->authorUrl(),
         'providerName' => $oembed->providerName(),

@@ -19,88 +19,87 @@
       });
     };
 
+    var showPreview = function($bucket, data) {
+      $bucket.html(data.code);
+      $bucket.css('opacity', '1');
+      $bucket.find('.kirby-plugin-oembed__thumb').click(pluginOembedLoadLazyVideo);
+    };
+
+    var clearPreview = function($bucket, $label) {
+      $bucket.css('opacity', '0');
+      $label.css('opacity', '0');
+    };
+
+    var hidePreview = function($bucket, $label) {
+      $bucket.css('opacity', '0').html('');
+      $label.css('opacity', '1');
+    };
+
+    var showInfo = function($info, data) {
+      if(data.title) {
+        $info.title.html(data.title).show();
+      } else {
+        $info.title.hide();
+      }
+
+      if(data.authorName) {
+        $info.author.show().find('a').attr('href', data.authorUrl ).html(data.authorName);
+      } else {
+        $info.author.hide();
+      }
+
+      if(data.providerName) {
+        $info.provider.show().find('a').attr('href', data.providerUrl ).html(data.providerName);
+      } else {
+        $info.provider.hide();
+      }
+
+      if(data.type) {
+        $info.type.show().html(data.type);
+      } else {
+        $info.type.hide();
+      }
+
+      if($info.wrapper.prop('style').display === '') {
+        $info.wrapper.show();
+      } else {
+        $info.wrapper.slideDown();
+      }
+    };
+
+    var hideInfo = function($info) {
+      $info.wrapper.slideUp();
+    };
+
     var updateEmbed = function($this, $bucket, $label, $info) {
       var url = $.trim($this.val());
 
       if(!$this.data('oembedurl') || url !== $this.data('oembedurl')) {
-        if($bucket)       updatePreview($this, $bucket, $label, url);
-        if($info.wrapper) updateInfo($this, $info, url);
         $this.data('oembedurl', url);
-      }
-    };
 
-    var updatePreview = function($this, $bucket, $label, url) {
-      if(url === '') {
-        $bucket.css('opacity', '0').html('');
-        $label.css('opacity', '1');
+        if(url === '') {
+          hidePreview($bucket, $label);
+          hideInfo($info);
 
-      } else if($this.is(':valid')) {
-        $bucket.css('opacity', '0');
-        $label.css('opacity', '1');
+        } else if($this.is(':valid')) {
+          clearPreview($bucket, $label);
 
-        $.ajax({
-          url:     $this.data('ajax') + 'preview',
-          type:    'POST',
-          data:    { url: url },
-          success: function(data) {
-            $label.css('opacity', '0');
-            $bucket.html(data[0]);
-            $bucket.css('opacity', '1');
-            $bucket.find('.kirby-plugin-oembed__thumb').click(pluginOembedLoadLazyVideo);
-          },
-        });
-      }
-    };
+          $.ajax({
+            url:     $this.data('ajax') + 'preview',
+            type:    'POST',
+            data:    { url: url },
+            success: function(data) {
+              showPreview($bucket, data);
 
-
-    var updateInfo = function($this, $info, url) {
-      if(url === '') {
-        $info.wrapper.slideUp();
-
-      } else if($this.is(':valid')) {
-
-        $.ajax({
-          url:     $this.data('ajax') + 'info',
-          type:    'POST',
-          data:    { url: url },
-          success: function(data) {
-            if(data[0]!=='false') {
-
-              if(data.title) {
-                $info.title.html(data.title).show();
+              if(data.success !== 'false') {
+                showInfo($info, data);
               } else {
-                $info.title.hide();
+                hideInfo($info);
               }
+            },
+          });
+        }
 
-              if(data.authorName) {
-                $info.author.show().find('a').attr('href', data.authorUrl ).html(data.authorName);
-              } else {
-                $info.author.hide();
-              }
-
-              if(data.providerName) {
-                $info.provider.show().find('a').attr('href', data.providerUrl ).html(data.providerName);
-              } else {
-                $info.provider.hide();
-              }
-
-              if(data.type) {
-                $info.type.show().html(data.type);
-              } else {
-                $info.type.hide();
-              }
-
-              if($info.wrapper.prop('style').display === '') {
-                $info.wrapper.show();
-              } else {
-                $info.wrapper.slideDown();
-              }
-
-            } else {
-              $info.wrapper.slideUp();
-            }
-          },
-        });
       }
     };
 

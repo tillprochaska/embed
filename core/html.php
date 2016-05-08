@@ -123,4 +123,8 @@ class Html {
     return tpl::load(dirname(__DIR__) . DS . 'snippets' . DS . $name . '.php', $data);
   }
 
+  public static function removeEmojis($string) {
+    return trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', '',   mb_convert_encoding($string, "UTF-8")));
+  }
+
 }
