@@ -11,10 +11,8 @@ class Html {
     $this->core    = $core;
     $this->options = $this->core->options;
 
-    $code = $this->core->code() ? $this->core->code() : $this->error($this->core->input, 'nocode');
-
     $this->data    = [
-      'code'     => $code,
+      'code'     => $this->core->code(),
       'class'    => $this->core->options['class'],
       'type'     => $this->core->type(),
       'provider' => $this->core->providerName(),
@@ -25,7 +23,7 @@ class Html {
 
 
   // ================================================
-  //  Output
+  //  Outputs
   // ================================================
 
   public function __toString() {
@@ -41,8 +39,14 @@ class Html {
   }
 
   public static function error($url, $msg = null) {
-    $msg = l::get('plugin.oembed.error.' . ($msg ? $msg : 'noembed'));
-    return tpl::load(dirname(__DIR__) . DS . 'snippets' . DS . 'error.php', ['url' => $url, 'msg' => $msg]);
+    if(!$msg) $msg = 'noembed';
+    $msg  = l::get('plugin.oembed.error.' . $msg);
+    $path = dirname(__DIR__) . DS . 'snippets' . DS . 'error.php';
+
+    return tpl::load($path, [
+      'url' => $url,
+      'msg' => $msg
+    ]);
   }
 
   // ================================================
@@ -53,6 +57,10 @@ class Html {
     $prepareType = 'prepare' . ucfirst($this->core->type());
     if(method_exists($this, $prepareType)) {
       $this->{$prepareType}();
+    }
+
+    if(!$this->data['code']) {
+      $this->data['code'] = $this->error($this->core->input, 'nocode');
     }
   }
 
@@ -83,6 +91,19 @@ class Html {
     $this->data['more'] = $this->snippet('thumb', [
       'url'   => $this->core->thumb(),
     ]);
+  }
+
+  // ================================================
+  //  Links
+  // ================================================
+
+  protected function prepareLink() {
+    if(!$this->data['code']) {
+      $this->updateData('code', $this->snippet('typeLink', [
+        'url'  => $this->core->url(),
+        'text' => $this->core->title()
+      ]));
+    }
   }
 
 

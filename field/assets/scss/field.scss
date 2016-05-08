@@ -1,9 +1,15 @@
 
 $bgcolor: #ddd;
+$link:    #bbb;
 $green:   #8dad28;
 $white:   #fff;
 
 .field-oembed {
+
+  // ================================================
+  //  Preview
+  // ================================================
+
   &-preview {
     position:         relative;
     min-height:       45px;
@@ -26,6 +32,15 @@ $white:   #fff;
       .kirby-plugin-oembed {
         &--rich {
           padding: .6em;
+        }
+
+        &--link > .kirby-plugin-oembed--link__fallback {
+          display: inline-block;
+          padding: .6em;
+
+          > a {
+            border-bottom: 2px solid $link;
+          }
         }
 
         &--error {
@@ -51,6 +66,10 @@ $white:   #fff;
       font-weight: 600;
     }
   }
+
+  // ================================================
+  //  Info
+  // ================================================
 
   &-info {
     display:          none;
