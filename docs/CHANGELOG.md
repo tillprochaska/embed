@@ -20,18 +20,18 @@
 - Safer autoloading of plugin components
 
 
-## 2.0.2 (2016-05-08)
+## [2.0.2](https://github.com/distantnative/oembed/releases/tag/2.0.2) (2016-05-08)
 - Fixed: YouTube timecode handling
 - Fixed: more secure use of `$kirby`
 
 
-## 2.0.1 (2016-05-07)
+## [2.0.1](https://github.com/distantnative/oembed/releases/tag/2.0.1) (2016-05-07)
 - Panel field: changed icon click behavior (opens now url in new tab)
 - Fixed: access to thumb location
 - Fixed: Included vendor files instead using git submodules
 
 
-## 2.0.0 (2016-05-06)
+## [2.0.0](https://github.com/distantnative/oembed/releases/tag/2.0.0) (2016-05-06)
 - Requires Kirby 2.3.0
 - Complete rewrite of PHP, CSS, JS
 - All new panel field with great instant preview
@@ -43,7 +43,7 @@
 - Using new library for collecting embed information ([oscarotero/Embed](https://github.com/oscarotero/Embed))
 
 
-## 1.0.0
+## [1.0.0](https://github.com/distantnative/oembed/releases/tag/v1.0) (2015-06-19)
 - Restructured plugin files and renamed repository to oembed
 - Updated Essence library to v3
 - Added custom class option and default container classes
@@ -55,6 +55,6 @@
 - Enhanced CSS browser support
 
 
-## 0.7.0
+## [0.7.0](https://github.com/distantnative/oembed/releases/tag/v0.7) (2015-05-27)
 - File structure of plugin repository changed
 - Improved HTML validation of plugin output
