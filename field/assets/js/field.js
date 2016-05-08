@@ -19,15 +19,16 @@
       });
     };
 
-    var showPreview = function($bucket, data) {
-      $bucket.html(data.code);
-      $bucket.css('opacity', '1');
+    var showPreview = function($bucket, $loading, data) {
+      $loading.css('opacity', '0');
+      $bucket.html(data.code).css('opacity', '1');
       $bucket.find('.kirby-plugin-oembed__thumb').click(pluginOembedLoadLazyVideo);
     };
 
-    var clearPreview = function($bucket, $label) {
+    var clearPreview = function($bucket, $label, $loading) {
       $bucket.css('opacity', '0');
       $label.css('opacity', '0');
+      $loading.css('opacity', '1');
     };
 
     var hidePreview = function($bucket, $label) {
@@ -71,7 +72,7 @@
       $info.wrapper.slideUp();
     };
 
-    var updateEmbed = function($this, $bucket, $label, $info) {
+    var updateEmbed = function($this, $bucket, $label, $loading, $info) {
       var url = $.trim($this.val());
 
       if(!$this.data('oembedurl') || url !== $this.data('oembedurl')) {
@@ -82,14 +83,14 @@
           hideInfo($info);
 
         } else if($this.is(':valid')) {
-          clearPreview($bucket, $label);
+          clearPreview($bucket, $label, $loading);
 
           $.ajax({
             url:     $this.data('ajax') + 'preview',
             type:    'POST',
             data:    { url: url },
             success: function(data) {
-              showPreview($bucket, data);
+              showPreview($bucket, $loading, data);
 
               if(data.success !== 'false') {
                 showInfo($info, data);
@@ -118,8 +119,9 @@
       var $preview = $this.parent().nextAll('.field-oembed-preview');
       var $bucket  = $preview.find('.field-oembed-preview__bucket');
       var $label   = $preview.find('.field-oembed-preview__label');
+      var $loading = $preview.find('.field-oembed-preview__loading');
       var $info    = $this.parent().nextAll('.field-oembed-info');
-      $info    = {
+      $info        = {
         wrapper:  $info,
         title:    $info.find('.field-oembed-info__title'),
         author:   $info.find('.field-oembed-info__author'),
@@ -130,16 +132,16 @@
       $this.bind('input', function() {
         window.clearTimeout(inputTimer);
         inputTimer = window.setTimeout(function(){
-          updateEmbed($this, $bucket, $label, $info);
+          updateEmbed($this, $bucket, $label, $loading, $info);
         }, 1000);
       });
 
       $this.on('blur', function() {
         window.clearTimeout(inputTimer);
-        updateEmbed($this, $bucket, $label, $info);
+        updateEmbed($this, $bucket, $label, $loading, $info);
       });
 
-      updateEmbed($this, $bucket, $label, $info);
+      updateEmbed($this, $bucket, $label, $loading, $info);
 
       $this.focus(function(){
         if(!$this.parents('.field').hasClass('field-with-error')) {
