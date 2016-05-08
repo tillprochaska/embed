@@ -61,7 +61,11 @@ $kirby->set('field', 'oembed', __DIR__ . DS . 'field');
 $kirby->set('route', [
   'pattern' => 'api/plugin/oembed/preview',
   'action'  => function() {
-    return response::json([(string)oembed(get('url'))]);
+    return response::json([
+      (string)oembed(get('url'), [
+        'lazyvideo' => true
+      ])
+    ]);
   },
   'method'  => 'POST'
 ]);
