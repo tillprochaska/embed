@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.2 (2016-05-08)
+- Fixed: YouTube timecode handling
+- Fixed: more secure use of `$kirby`
+
 ## 2.0.1 (2016-05-07)
 - Panel field: changed icon click behavior (opens now url in new tab)
 - Fixed: access to thumb location
