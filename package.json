@@ -2,7 +2,7 @@
   "name": "oembed",
   "description": "Kirby oEmbed Plugin",
   "author": "Nico Hoffmann <nico@getkirby.com>",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "type": "kirby-plugin",
   "license": "MIT",
   "repository": {
