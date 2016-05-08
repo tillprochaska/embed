@@ -25,11 +25,16 @@ class Core {
   // ================================================
 
   protected function load() {
+
+    // get data from cache
     if($this->cache->exists() && c::get('plugin.oembed.caching', true)) {
       $this->data = $this->cache->get();
+
+    // load data from source
     } else {
       $this->data = Data::get($this->input);
 
+      // cache the data
       if($this->data && c::get('plugin.oembed.caching', true)) {
         $this->cache->set($this->data, c::get('plugin.oembed.caching.duration', 24) * 60);
       }
@@ -58,7 +63,9 @@ class Core {
   // ================================================
 
   public function thumb() {
+    // if custom thumbnail is set
     $thumb = $this->options['thumb'] ? $this->options['thumb'] : $this->image();
+
     return new Thumb($thumb);
   }
 
