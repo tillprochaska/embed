@@ -57,11 +57,14 @@
 }
 
 .field-oembed-info a {
-  color:       #8dae28;
   font-weight: 600;
 }
 
-.field-oembed-info a:hover {
+.field-oembed-info a[href] {
+  color: #8dae28;
+}
+
+.field-oembed-info a[href]:hover {
   opacity: .75;
 }
 
