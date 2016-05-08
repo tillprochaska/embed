@@ -1,6 +1,10 @@
 (function($) {
   $.fn.oembedfield = function() {
 
+    // ================================================
+    //  Make icon clickable
+    // ================================================
+
     var setupIcon = function($this) {
       var $icon = $this.next('.field-icon');
 
@@ -19,6 +23,48 @@
       });
     };
 
+
+    // ================================================
+    //  Update embed
+    // ================================================
+
+    var updateEmbed = function($this, $bucket, $label, $loading, $info) {
+      var url = $.trim($this.val());
+
+      if(!$this.data('oembedurl') || url !== $this.data('oembedurl')) {
+        $this.data('oembedurl', url);
+
+        if(url === '') {
+          hidePreview($bucket, $label);
+          hideInfo($info);
+
+        } else if($this.is(':valid')) {
+          clearPreview($bucket, $label, $loading);
+
+          $.ajax({
+            url:     $this.data('ajax') + 'preview',
+            type:    'POST',
+            data:    { url: url },
+            success: function(data) {
+              showPreview($bucket, $loading, data);
+
+              if(data.success !== 'false') {
+                showInfo($info, data);
+              } else {
+                hideInfo($info);
+              }
+            },
+          });
+        }
+
+      }
+    };
+
+
+    // ================================================
+    //  Set preview section
+    // ================================================
+
     var showPreview = function($bucket, $loading, data) {
       $loading.css('opacity', '0');
       $bucket.html(data.code).css('opacity', '1');
@@ -35,6 +81,11 @@
       $bucket.css('opacity', '0').html('');
       $label.css('opacity', '1');
     };
+
+
+    // ================================================
+    //  Set info section
+    // ================================================
 
     var showInfo = function($info, data) {
       if(data.title) {
@@ -72,37 +123,30 @@
       $info.wrapper.slideUp();
     };
 
-    var updateEmbed = function($this, $bucket, $label, $loading, $info) {
-      var url = $.trim($this.val());
 
-      if(!$this.data('oembedurl') || url !== $this.data('oembedurl')) {
-        $this.data('oembedurl', url);
+    // ================================================
+    //  Fix borders
+    // ================================================
 
-        if(url === '') {
-          hidePreview($bucket, $label);
-          hideInfo($info);
-
-        } else if($this.is(':valid')) {
-          clearPreview($bucket, $label, $loading);
-
-          $.ajax({
-            url:     $this.data('ajax') + 'preview',
-            type:    'POST',
-            data:    { url: url },
-            success: function(data) {
-              showPreview($bucket, $loading, data);
-
-              if(data.success !== 'false') {
-                showInfo($info, data);
-              } else {
-                hideInfo($info);
-              }
-            },
-          });
-        }
-
+    var showBorder = function($this, $preview, $info) {
+      if(!$this.parents('.field').hasClass('field-with-error')) {
+        $preview.css('border-color','#8dae28');
+        $info.wrapper.css('border-color','#8dae28');
+      } else {
+        $preview.css('border-color','#000');
+        $info.wrapper.css('border-color','#000');
       }
     };
+
+    var hideBorder = function($preview, $info) {
+      $preview.css('border-color','');
+      $info.wrapper.css('border-color','');
+    };
+
+
+    // ================================================
+    //  Initialization
+    // ================================================
 
     return this.each(function() {
 
@@ -113,8 +157,10 @@
         $this.data('oembedfield', true);
       }
 
+      // make icon clickable
       setupIcon($this);
 
+      // collect all elements
       var inputTimer;
       var $preview = $this.parent().nextAll('.field-oembed-preview');
       var $bucket  = $preview.find('.field-oembed-preview__bucket');
@@ -129,6 +175,13 @@
         type:     $info.find('.field-oembed-info__type')
       };
 
+      // update embed on input blur
+      $this.on('blur', function() {
+        window.clearTimeout(inputTimer);
+        updateEmbed($this, $bucket, $label, $loading, $info);
+      });
+
+      // update embed on input change (delayed)
       $this.bind('input', function() {
         window.clearTimeout(inputTimer);
         inputTimer = window.setTimeout(function(){
@@ -136,25 +189,14 @@
         }, 1000);
       });
 
-      $this.on('blur', function() {
-        window.clearTimeout(inputTimer);
-        updateEmbed($this, $bucket, $label, $loading, $info);
-      });
-
+      // update embed on load
       updateEmbed($this, $bucket, $label, $loading, $info);
 
+      // fix border colors on input focus and blur
       $this.focus(function(){
-        if(!$this.parents('.field').hasClass('field-with-error')) {
-          $preview.css('border-color','#8dae28');
-          $info.wrapper.css('border-color','#8dae28');
-        } else {
-          $preview.css('border-color','#000');
-          $info.wrapper.css('border-color','#000');
-        }
+        showBorder($this, $preview, $info);
       }).blur(function(){
-        $preview.css('border-color','');
-        $info.wrapper.css('border-color','');
-
+        hideBorder($preview, $info);
       });
     });
   };
