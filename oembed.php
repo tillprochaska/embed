@@ -2,7 +2,23 @@
 
 require_once('lib/autoload.php');
 
-$kirby = kirby();
+
+$kirby    = kirby();
+$language = $kirby->site()->language();
+$language = $language ? $language->code() : null;
+
+// ================================================
+//  Load components
+// ================================================
+
+Kirby\Plugins\distantnative\oEmbed\Autoloader::load([
+  'vendor'       => ['Embed/src/autoloader'],
+  'core'         => ['core', 'url', 'html'],
+  'lib'          => ['data', 'cache', 'thumb'],
+  'translations' => ['en', $language],
+  'providers'    => ['provider', true]
+]);
+
 
 // ================================================
 //  Global helper

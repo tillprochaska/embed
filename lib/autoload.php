@@ -2,40 +2,6 @@
 
 namespace Kirby\Plugins\distantnative\oEmbed;
 
-Autoloader::load([
-
-  // Vendor
-  'vendor' => [
-    'Embed/src/autoloader',
-  ],
-
-  // Core
-  'core' => [
-    'core',
-    'url',
-    'html',
-  ],
-
-  // Libraries
-  'lib' => [
-    'data',
-    'cache',
-    'thumb',
-  ],
-
-  // Translations
-  'translations' => [
-    'en',
-    kirby()->site()->language() ? kirby()->site()->language()->code() : null
-  ],
-
-  // Providers
-  'providers' => [
-    'provider',
-    true
-  ]
-]);
-
 use Dir;
 
 class Autoloader {
