@@ -54,7 +54,6 @@
   background-color: #fff;
   border:           2px solid #ddd;
   border-top-width: 0;
-  font-size:        .85em;
 }
 
 .field-oembed-info a {
@@ -68,8 +67,15 @@
 
 .field-oembed-info__title {
   display:     block;
+  font-size:   .95em;
   font-weight: 600;
+
 }
+
+.field-oembed-info > span:not(.field-oembed-info__title) {
+  font-size: .8em;
+}
+
 
 .field-oembed-info > span:not(:first-child):not(:last-child):after {
   content: " / "
