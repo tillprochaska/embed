@@ -3,6 +3,11 @@
   position:    relative;
   padding:     0;
 
+  img {
+    display: block;
+    height:  auto;
+  }
+
   &--video {
     background-color: #ddd;
     overflow:         hidden;
