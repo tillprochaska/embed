@@ -93,7 +93,7 @@ class Core {
 
   public function __toString() {
     if($this->data === false) {
-      return Html::error($this->url);
+      return Html::error($this->input);
     }
 
     return (string)new Html($this);
