@@ -180,20 +180,41 @@ You can also translate the strings used by the oEmbed plugin. Translations for E
 
 
 ## Examples <a id="Examples"></a>
-#### Blog: Featured Video
-Embed featured videos to your blog posts. The URL to the video (e.g. on YouTube or Vimeo) is stored in a field called ´video´ in this example.
+#### Blog: Featured Embed
+Embed featured media to your blog posts. The URL of the embed (e.g. YouTube, Vimeo, Spotify, Flickr, Instagram, Twitter) is stored in a field called ´featured´ in this example:
+```
+// site/blueprints/article.yml
+…
+fields:
+  …
+  cover:
+    Cover photo
+    type: image
+  featured:
+    label: Featured embed (instead of cover photo)
+    type:  oembed
+```
+
 ```php
 // site/snippets/article.php
 <article>
   <aside class="entry-meta">...</aside>
   <div class="entry-main">
-    <?php if($post->video()->isNotEmpty()): ?>
-      <figure class="entry-cover"><?= $post->video()->oembed(); ?></figure>
+    <?php if($page->featured()->isNotEmpty()): ?>
+      <figure class="entry-cover">
+        <?= $page->featured()->oembed() ?>
+      </figure>
+    <?php elseif($page->cover()->isNotEmpty()) : ?>
+      <figure class="entry-cover">
+        <?= $page->cover() ?>
+      </figure>
     <?php endif; ?>
-    <div class="entry-content"><?= $post->text()->kt(); ?></div>
+    <div class="entry-content"><?= $page->text()->kt() ?></div>
   </div>
 </article>
 ```
+
+
 **With a video from Vimeo:**  
 ![Example](docs/example1.png)  
 
