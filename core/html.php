@@ -60,7 +60,8 @@ class Html {
     }
 
     if(!$this->data['code']) {
-      $this->data['code'] = $this->error($this->core->input, 'nocode');
+      $this->updateData('code', $this->error($this->core->input, 'nocode'));
+      $this->updateData('class', false);
     }
   }
 
@@ -70,12 +71,14 @@ class Html {
   // ================================================
 
   protected function prepareVideo() {
-    // Container ratio
-    $this->data['style'] = 'padding-top:'.$this->core->aspectRatio().'%';
+    if($this->data['code']) {
+      // Container ratio
+      $this->data['style'] = 'padding-top:'.$this->core->aspectRatio().'%';
 
-    // Lazy video
-    if($this->options['lazyvideo']) {
-      $this->lazyVideo();
+      // Lazy video
+      if($this->options['lazyvideo']) {
+        $this->lazyVideo();
+      }
     }
   }
 
