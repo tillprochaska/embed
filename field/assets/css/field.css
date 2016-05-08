@@ -14,10 +14,6 @@
   text-align: center;
 }
 
-.field-oembed-preview__bucket .kirby-plugin-oembed {
-  text-align: left;
-}
-
 .field-oembed-preview__bucket iframe,
 .field-oembed-preview__bucket object {
   margin-right: auto;
