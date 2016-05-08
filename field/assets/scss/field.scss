@@ -1,0 +1,97 @@
+
+$bgcolor: #ddd;
+$green:   #8dad28;
+$white:   #fff;
+
+.field-oembed {
+  &-preview {
+    position:         relative;
+    min-height:       45px;
+    margin-top:       -2px;
+    border:           2px solid $bgcolor;
+    border-top-width: 0;
+    background-color: $bgcolor;
+    overflow-y:       auto;
+
+    &__bucket {
+      transition: opacity .5s;
+      text-align: center;
+
+      iframe,
+      object {
+        margin-right: auto;
+        margin-left:  auto;
+      }
+
+      .kirby-plugin-oembed {
+        &--rich {
+          padding: .6em;
+        }
+
+        &--error {
+          padding:     .6em;
+          font-size:   .75em;
+          font-weight: 600;
+
+          > span {
+            display:     block;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+
+    &__label {
+      position:    absolute;
+      top:         50%;
+      left:        50%;
+      transform:   translate(-50%, -50%);
+      transition:  opacity .5s;
+      font-size:   .8em;
+      font-weight: 600;
+    }
+  }
+
+  &-info {
+    display:          none;
+    position:         relative;
+    margin-top:       -2px;
+    padding:          .6em;
+    border:           2px solid $bgcolor;
+    border-top-width: 0;
+    background-color: $white;
+
+    a {
+      font-weight: 600;
+
+      &[href] {
+        color: $green;
+
+        &:hover {
+          opacity: .75;
+        }
+      }
+    }
+
+    &__title {
+      display:     block;
+      font-size:   .95em;
+      font-weight: 600;
+    }
+
+    > span {
+      &:not(.field-oembed-info__title) {
+        font-size: .8em;
+      }
+
+      &:not(:first-child):not(:last-child):after {
+        content: ' / ';
+      }
+    }
+
+    .field-content + & {
+      border-top-width: 1px;
+      border-top-color: $bgcolor !important;
+    }
+  }
+}
