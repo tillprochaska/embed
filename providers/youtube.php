@@ -37,7 +37,7 @@ class YouTube extends Provider {
 
   protected function setTimecode() {
     if($this->timecode !== false) {
-      $this->core->parameters[] = 'start=' . $this->calculateTimecode();
+      $this->parameter('start=' . $this->calculateTimecode());
     }
   }
 
