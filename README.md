@@ -16,7 +16,7 @@ It is built on the [oscarotero/Embed](https://github.com/oscarotero/Embed) libra
 4. [Options](#Options)
 5. [Panel field](#Field)
 6. [Advanced](#Advanced)
-7. [Styles & Scripts](#StylesScripts)
+7. [Styles, Scripts & Translations](#StylesScripts)
 8. [Examples](#Examples)
 9. [Help & Improve](#Help)
 10. [Version History](#VersionHistory)
@@ -108,28 +108,6 @@ c::set('plugin.oembed.providers.jsapi', false);
 ```
 
 
-## Styles & Scripts <a id="StylesScripts"></a>
-The oEmbed plugin comes with very minimal styles, mainly for embedded videos and only a small script necessary when lazyloading videos:
-
-```php
-// Include styles
-<?= css('assets/plugins/oembed/css/oembed.css') ?>
-
-// Include script
-<?= js('assets/plugins/oembed/js/oembed.js') ?>
-```
-
-If you want to further customize and work with the embedded medium. The following CSS classes are applied to the main wrapper:
-```
-.kirby-plugin-oembed
-.kirby-plugin-oembed--{TYPE}      // e.g. video, rich
-.kirby-plugin-oembed--{PROVIDER}  // e.g. YouTube, Vimeo
-
-.kirby-plugin-oembed__thumb
-.kirby-plugin-oembed__thumb > img
-```
-
-
 ## Panel field <a id="Field"></a>
 The oEmbed plugin also includes its own panel field which provides a preview of the embedded medium right inside the panel:
 
@@ -175,6 +153,30 @@ echo $info->authorName();
 ```
 
 You can find a full overview of what information can be accessed in the documentation of the [oscarotero/Embed](https://github.com/oscarotero/Embed) library or also just [test your media URL](http://oscarotero.com/embed2/demo) and see what information is available.
+
+
+## Styles, Scripts & Translations <a id="StylesScripts"></a>
+The oEmbed plugin comes with very minimal styles, mainly for embedded videos and only a small script necessary when lazyloading videos:
+
+```php
+// Include styles
+<?= css('assets/plugins/oembed/css/oembed.css') ?>
+
+// Include script
+<?= js('assets/plugins/oembed/js/oembed.js') ?>
+```
+
+If you want to further customize and work with the embedded medium. The following CSS classes are applied to the main wrapper:
+```
+.kirby-plugin-oembed
+.kirby-plugin-oembed--{TYPE}      // e.g. video, rich
+.kirby-plugin-oembed--{PROVIDER}  // e.g. YouTube, Vimeo
+
+.kirby-plugin-oembed__thumb
+.kirby-plugin-oembed__thumb > img
+```
+
+You can also translate the strings used by the oEmbed plugin. Translations for English and German are already included. To find out what keys to use, check out the [English translation file](translations/en.php).
 
 
 ## Examples <a id="Examples"></a>

@@ -1,13 +1,35 @@
 # Changelog
 
+
+## 2.1.0
+- Lots of panel field improvements:
+  - Added section with information (e.g. title, author, source)
+  - Added options to disable preview and information section
+  - Added option to set a maximum height for the preview section
+  - Added loading indicator for the preview section
+  - Lots of smaller styling and script improvements
+  - Fixed: ensured lazy loading of videos in the panel
+  - Fixed: border colors on input focus
+  - Moved field css assets to scss (using gulp)
+- Added config options for provider API keys (`plugin.oembed.providers.facebook.key`, `plugin.oembed.providers.google.key` and `plugin.oembed.providers.soundcloud.key`)
+- Added fallback for link type with no embed code
+- Fixed: styles for specific providers (e.g. Flickr, phorkie, Meetup)
+- Fixed: error message if information is loaded, but no embed code available
+- Fixed: error display for videos with no embed code
+- Plugin strings are now translatable (English & German already included)
+- Safer autoloading of plugin components
+
+
 ## 2.0.2 (2016-05-08)
 - Fixed: YouTube timecode handling
 - Fixed: more secure use of `$kirby`
+
 
 ## 2.0.1 (2016-05-07)
 - Panel field: changed icon click behavior (opens now url in new tab)
 - Fixed: access to thumb location
 - Fixed: Included vendor files instead using git submodules
+
 
 ## 2.0.0 (2016-05-06)
 - Requires Kirby 2.3.0
@@ -20,6 +42,7 @@
 - Advanced acces to addtional information of the embedded media
 - Using new library for collecting embed information ([oscarotero/Embed](https://github.com/oscarotero/Embed))
 
+
 ## 1.0.0
 - Restructured plugin files and renamed repository to oembed
 - Updated Essence library to v3
@@ -30,6 +53,7 @@
 - Better cache and thumb dir handling
 - Autoplay only on lazyload or with autoplay option
 - Enhanced CSS browser support
+
 
 ## 0.7.0
 - File structure of plugin repository changed
