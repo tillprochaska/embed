@@ -9,8 +9,7 @@ class OembedField extends UrlField {
   public static $assets = [
     'css' => [
       'oembed.css',
-      'field.css',
-      'fixes.css'
+      'field.css'
     ],
     'js' => [
       'oembed.js',
