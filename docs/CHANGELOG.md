@@ -1,7 +1,7 @@
 # Changelog
 
 
-## 2.1.0
+## [2.1.0](https://github.com/distantnative/oembed/releases/tag/2.1.0) (2016-05-10)
 - Lots of panel field improvements:
   - Added section with information (e.g. title, author, source)
   - Added options to disable preview and information section
