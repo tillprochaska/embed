@@ -12,6 +12,7 @@
   - Fixed: border colors on input focus
   - Moved field css assets to scss (using gulp)
 - Added config options for provider API keys (`plugin.oembed.providers.facebook.key`, `plugin.oembed.providers.google.key` and `plugin.oembed.providers.soundcloud.key`)
+- Added config option to enforce W3C validity (`plugin.oembed.w3c.enforce`)
 - Added title to lazy loading video thumbs
 - Added fallback for link type with no embed code
 - Fixed: styles for specific providers (e.g. Flickr, phorkie, Meetup)

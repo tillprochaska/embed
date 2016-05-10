@@ -2,6 +2,7 @@
 
 namespace Kirby\Plugins\distantnative\oEmbed;
 
+use C;
 use L;
 use Tpl;
 
@@ -30,7 +31,10 @@ class Html {
     // call preparation method for type
     $this->prepareType();
 
-    // update embed ifram url
+    // w3c valid code
+    $this->ensureValidCode();
+
+    // update embed iframe url
     $this->updateData('code', function($code) {
       return $this->core->url->update($code);
     });
@@ -110,6 +114,18 @@ class Html {
     }
   }
 
+
+  // ================================================
+  //  Code validity
+  // ================================================
+  protected function ensureValidCode() {
+    if(c::get('plugin.oembed.w3c.enforce', false)) {
+      $this->updateData('code', function($code) {
+        $pattern = '/(frameborder="0"|allowtransparency="true")/';
+        return preg_replace($pattern, '', $code);
+      });
+    }
+  }
 
   // ================================================
   //  Helpers

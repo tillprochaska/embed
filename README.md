@@ -104,7 +104,12 @@ c::set('plugin.oembed.video.lazyload.btn', 'assets/plugins/oembed/images/play.pn
 c::set('plugin.oembed.caching', true);
 c::set('plugin.oembed.caching.duration', 24); // in hours
 
+c::set('plugin.oembed.w3c.enforce', false);
+
 c::set('plugin.oembed.providers.jsapi', false);
+c::set('plugin.oembed.providers.facebook.key', null);
+c::set('plugin.oembed.providers.google.key', null);
+c::set('plugin.oembed.providers.soundcloud.key', null):
 ```
 
 
