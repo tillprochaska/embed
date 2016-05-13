@@ -1,4 +1,4 @@
-![oEmbed for Kirby CMS](docs/logo.png)  
+![oEmbed for Kirby CMS](https://distantnative.com/remote/github/oembed/logo.png)  
 
 [![Release](https://img.shields.io/github/release/distantnative/oembed.svg)](https://github.com/distantnative/oembed/releases) 
 [![Issues](https://img.shields.io/github/issues/distantnative/oembed.svg)](https://github.com/distantnative/oembed/issues) 
@@ -138,11 +138,10 @@ fields:
     height:   250px
 ```
 
-**Sneak Peek:**  
-![Panel field preview](docs/field1.png)  
-![Panel field preview](docs/field2.png)  
-![Panel field preview](docs/field3.png)  
-![Panel field preview](docs/field4.png)  
+![Panel field preview](https://distantnative.com/remote/github/oembed/field1.png)  
+![Panel field preview](https://distantnative.com/remote/github/oembed/field2.png)  
+![Panel field preview](https://distantnative.com/remote/github/oembed/field3.png)  
+![Panel field preview](https://distantnative.com/remote/github/oembed/field4.png)  
 
 
 ## Advanced <a id="Advanced"></a>
@@ -221,13 +220,13 @@ fields:
 
 
 **With a video from Vimeo:**  
-![Example](docs/example1.png)  
+![Example](https://distantnative.com/remote/github/oembed/example1.png)  
 
 **With a tweet from Twitter:**  
-![Example](docs/example2.png) 
+![Example](https://distantnative.com/remote/github/oembed/example2.png) 
 
 **With a player from Spotify:**   
-![Example](docs/example3.png)    
+![Example](https://distantnative.com/remote/github/oembed/example3.png)    
 
 
 ## Help & Improve <a id="Help"></a>

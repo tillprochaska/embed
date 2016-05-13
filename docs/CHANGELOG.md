@@ -2,6 +2,7 @@
 
 ## 2.2.0
 - Added support for Spotify theme and view parameters
+- Removed example images from repository
 
 ## [2.1.0](https://github.com/distantnative/oembed/releases/tag/2.1.0) (2016-05-10)
 - Lots of panel field improvements:
