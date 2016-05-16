@@ -2,6 +2,7 @@
 
 ## [2.2.0](https://github.com/distantnative/oembed/releases/tag/2.2.0) (?)
 - Feature: Support for Spotify theme and view parameters
+- Feature: Set Spotify width and height through url parameters
 - Improved: More specific API calls for the panel field
 - Docs: Removed example images from repository
 
