@@ -17,6 +17,21 @@ class Spotify extends Provider {
     return $code;
   }
 
+
+  // ================================================
+  //  Parameters for Panel Field Cheatsheet
+  // ================================================
+
+  public function providerParameters() {
+    return [
+      ['view', 'Set the view style (list/coverart)'],
+      ['theme', 'Set the theme (white/black)'],
+      ['width', 'Set the width of the embed (e.g. 600)'],
+      ['height', 'Set the height of the embed (e.g. 80)'],
+    ];
+  }
+
+
   // ================================================
   //  Theme
   // ================================================

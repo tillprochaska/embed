@@ -28,28 +28,30 @@
     //  Update embed
     // ================================================
 
-    var updateEmbed = function($this, bucket, label, loading, info) {
+    var updateEmbed = function($this, preview, info, sheet) {
       var url = $.trim($this.val());
 
       if(!$this.data('oembedurl') || url !== $this.data('oembedurl')) {
         $this.data('oembedurl', url);
 
         if(url === '') {
-          hidePreview(bucket, label);
+          hidePreview(preview);
           hideInfo(info);
+          setCheatsheet(sheet, {parameters: ''});
 
         } else if($this.is(':valid')) {
-          clearPreview(bucket, label, loading);
+          clearPreview(preview);
 
           $.ajax({
             url:     $this.data('ajax') + 'preview',
             type:    'POST',
             data:    {
               url:  url,
-              code: bucket.length === 0 ? 'false' : 'true'
+              code: preview.wrapper.length === 0 ? 'false' : 'true'
             },
             success: function(data) {
-              showPreview(bucket, loading, data);
+              showPreview(preview, data);
+              setCheatsheet(sheet, data);
 
               if(data.success !== 'false') {
                 showInfo(info, data);
@@ -68,20 +70,20 @@
     //  Set preview section
     // ================================================
 
-    var showPreview = function(bucket, loading, data) {
-      loading.css('opacity', '0');
-      bucket.html(data.code).css('opacity', '1');
-      bucket.find('.kirby-plugin-oembed__thumb').click(pluginOembedLoadLazyVideo);
+    var showPreview = function(preview, data) {
+      preview.load.css('opacity', '0');
+      preview.bucket.html(data.code).css('opacity', '1');
+      preview.bucket.find('.kirby-plugin-oembed__thumb').click(pluginOembedLoadLazyVideo);
     };
 
-    var clearPreview = function(bucket, label, loading) {
-      bucket.add(label).css('opacity', '0');
-      loading.css('opacity', '1');
+    var clearPreview = function(preview) {
+      preview.bucket.add(preview.label).css('opacity', '0');
+      preview.load.css('opacity', '1');
     };
 
-    var hidePreview = function(bucket, label) {
-      bucket.css('opacity', '0').html('');
-      label.css('opacity', '1');
+    var hidePreview = function(preview) {
+      preview.bucket.css('opacity', '0').html('');
+      preview.label.css('opacity', '1');
     };
 
 
@@ -127,6 +129,19 @@
 
 
     // ================================================
+    //  Set cheatsheet
+    // ================================================
+
+    var setCheatsheet = function(sheet, data) {
+      sheet.bucket.html(data.parameters);
+      if(data.parameters === '') {
+        sheet.icon.hide();
+      } else {
+        sheet.icon.show();
+      }
+    };
+
+    // ================================================
     //  Fix borders
     // ================================================
 
@@ -143,7 +158,7 @@
     };
 
     var setBorder = function(preview, info, color) {
-      preview.add(info.wrapper).css('border-color', color);
+      preview.wrapper.add(info.wrapper).css('border-color', color);
     };
 
 
@@ -167,9 +182,12 @@
       // collect all elements
       var inputTimer;
       var preview = $this.parent().nextAll('.field-oembed-preview');
-      var bucket  = preview.find('.field-oembed-preview__bucket');
-      var label   = preview.find('.field-oembed-preview__label');
-      var loading = preview.find('.field-oembed-preview__loading');
+      preview     = {
+        wrapper: preview,
+        bucket:  preview.find('.field-oembed-preview__bucket'),
+        label:   preview.find('.field-oembed-preview__label'),
+        load:    preview.find('.field-oembed-preview__loading'),
+      };
       var info    = $this.parent().nextAll('.field-oembed-info');
       info        = {
         wrapper:  info,
@@ -178,23 +196,29 @@
         provider: info.find('.field-oembed-info__provider'),
         type:     info.find('.field-oembed-info__type')
       };
+      var sheet   = $this.parent().prev().find('.field-oembed-cheatsheet');
+      sheet       = {
+        wrapper: sheet,
+        icon:    sheet.find('.field-oembed-cheatsheet__icon'),
+        bucket:  sheet.next(),
+      };
 
       // update embed on input blur
       $this.on('blur', function() {
         window.clearTimeout(inputTimer);
-        updateEmbed($this, bucket, label, loading, info);
+        updateEmbed($this, preview, info, sheet);
       });
 
       // update embed on input change (delayed)
       $this.bind('input embed.change', function() {
         window.clearTimeout(inputTimer);
         inputTimer = window.setTimeout(function(){
-          updateEmbed($this, bucket, label, loading, info);
+          updateEmbed($this, preview, info, sheet);
         }, 1000);
       });
 
       // update embed on load
-      updateEmbed($this, bucket, label, loading, info);
+      updateEmbed($this, preview, info, sheet);
 
       // fix border colors on input focus and blur
       $this.focus(function(){

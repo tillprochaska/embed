@@ -95,6 +95,7 @@ $kirby->set('route', [
       $response['providerName'] = $oembed->providerName();
       $response['providerUrl']  = $oembed->url();
       $response['type']         = ucfirst($oembed->type());
+      $response['parameters']   = Html::cheatsheet($oembed->providerParameters());
     }
 
     if(get('code') === 'true') {

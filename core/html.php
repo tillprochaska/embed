@@ -53,6 +53,13 @@ class Html {
     ]);
   }
 
+  public static function cheatsheet($parameters) {
+    $path = dirname(__DIR__) . DS . 'snippets' . DS . 'cheatsheet.php';
+    return tpl::load($path, [
+      'entries' => $parameters
+    ]);
+  }
+
   // ================================================
   //  Types
   // ================================================

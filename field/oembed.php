@@ -48,6 +48,12 @@ class OembedField extends UrlField {
     return $template;
   }
 
+  public function label() {
+    $label = parent::label();
+    $label->append(tpl::load(__DIR__ . DS . 'templates' . DS . 'cheatsheet.php'));
+    return $label;
+  }
+
   protected function translations() {
     $root = dirname(__DIR__) . DS . 'translations' . DS;
 
