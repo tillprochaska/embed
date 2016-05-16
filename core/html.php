@@ -89,7 +89,7 @@ class Html {
   protected function lazyVideo() {
     // src -> data-src
     $this->updateData('code', function($code) {
-      $pattern = '/(iframe.*)(src)(=".*")/U';
+      $pattern = '/(<iframe.*)(src)(="[^[:space:]]*")/';
       $replace = '$1data-src$3';
       return preg_replace($pattern, $replace, $code);
     });

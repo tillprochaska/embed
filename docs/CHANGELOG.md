@@ -5,6 +5,7 @@
 - Feature: Set Spotify width and height through url parameters
 - Improved: More specific API calls for the panel field
 - Fixed: Embeds now respect a max-width of 100%
+- Fixed: More precise code regular expressions
 - Docs: Removed example images from repository
 
 ## [2.1.0](https://github.com/distantnative/oembed/releases/tag/2.1.0) (2016-05-10)
