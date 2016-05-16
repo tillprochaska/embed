@@ -44,7 +44,10 @@
           $.ajax({
             url:     $this.data('ajax') + 'preview',
             type:    'POST',
-            data:    { url: url },
+            data:    {
+              url:  url,
+              code: bucket.length === 0 ? 'false' : 'true'
+            },
             success: function(data) {
               showPreview(bucket, loading, data);
 

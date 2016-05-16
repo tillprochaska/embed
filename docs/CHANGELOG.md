@@ -1,28 +1,29 @@
 # Changelog
 
-## 2.2.0
-- Added support for Spotify theme and view parameters
-- Removed example images from repository
+## [2.2.0](https://github.com/distantnative/oembed/releases/tag/2.2.0) (?)
+- Feature: Support for Spotify theme and view parameters
+- Improved: More specific API calls for the panel field
+- Docs: Removed example images from repository
 
 ## [2.1.0](https://github.com/distantnative/oembed/releases/tag/2.1.0) (2016-05-10)
 - Lots of panel field improvements:
-  - Added section with information (e.g. title, author, source)
-  - Added options to disable preview and information section
-  - Added option to set a maximum height for the preview section
-  - Added loading indicator for the preview section
-  - Lots of smaller styling and script improvements
+  - Feature: Section with information (e.g. title, author, source)
+  - Feature: Options to disable preview and information section
+  - Feature: Option to set a maximum height for the preview section
+  - Improved: Loading indicator for the preview section
+  - Improved: Lots of smaller styling and script improvements
   - Fixed: ensured lazy loading of videos in the panel
   - Fixed: border colors on input focus
   - Moved field css assets to scss (using gulp)
-- Added config options for provider API keys (`plugin.oembed.providers.facebook.key`, `plugin.oembed.providers.google.key` and `plugin.oembed.providers.soundcloud.key`)
-- Added config option to enforce W3C validity (`plugin.oembed.w3c.enforce`)
-- Added title to lazy loading video thumbs
-- Added fallback for link type with no embed code
+- Feature: Config options for provider API keys (`plugin.oembed.providers.facebook.key`, `plugin.oembed.providers.google.key` and `plugin.oembed.providers.soundcloud.key`)
+- Feature: Config option to enforce W3C validity (`plugin.oembed.w3c.enforce`)
+- Improved: Title for lazy loading video thumbs
+- Improved: Fallback for link type with no embed code
+- Feature: Plugin strings are now translatable (English & German already included)
+- Improved: Safer autoloading of plugin components
 - Fixed: styles for specific providers (e.g. Flickr, phorkie, Meetup)
 - Fixed: error message if information is loaded, but no embed code available
 - Fixed: error display for videos with no embed code
-- Plugin strings are now translatable (English & German already included)
-- Safer autoloading of plugin components
 
 
 ## [2.0.2](https://github.com/distantnative/oembed/releases/tag/2.0.2) (2016-05-08)

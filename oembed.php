@@ -82,23 +82,26 @@ $kirby->set('route', [
       'lazyvideo' => true
     ]);
 
+    $response = [];
+
     if($oembed->data === false) {
-      return \response::json([
-        'success' => 'false',
-        'code'    => (string)$oembed,
-      ]);
+      $response['success'] = 'false';
+
     } else {
-      return \response::json([
-        'success'      => 'true',
-        'code'         => (string)$oembed,
-        'title'        => Html::removeEmojis($oembed->title()),
-        'authorName'   => $oembed->authorName(),
-        'authorUrl'    => $oembed->authorUrl(),
-        'providerName' => $oembed->providerName(),
-        'providerUrl'  => $oembed->url(),
-        'type'         => ucfirst($oembed->type())
-      ]);
+      $response['success']      = 'true';
+      $response['title']        = Html::removeEmojis($oembed->title());
+      $response['authorName']   = $oembed->authorName();
+      $response['authorUrl']    = $oembed->authorUrl();
+      $response['providerName'] = $oembed->providerName();
+      $response['providerUrl']  = $oembed->url();
+      $response['type']         = ucfirst($oembed->type());
     }
+
+    if(get('code') === 'true') {
+      $response['code'] = (string)$oembed;
+    }
+
+    return \response::json($response);
   },
   'method'  => 'POST'
 ]);
