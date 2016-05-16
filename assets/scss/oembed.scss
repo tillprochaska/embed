@@ -3,6 +3,11 @@
   position:    relative;
   padding:     0;
 
+  iframe,
+  object {
+    max-width: 100%;
+  }
+
   img {
     display: block;
     height:  auto;
