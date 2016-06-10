@@ -13,6 +13,10 @@ class Provider {
 
   protected function init() {}
 
+  public function providerParameters() {
+    return;
+  }
+
 
   // ================================================
   //  Helpers

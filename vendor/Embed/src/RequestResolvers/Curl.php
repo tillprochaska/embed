@@ -14,6 +14,7 @@ class Curl implements RequestResolverInterface
     protected $result;
     protected $content;
     protected $url;
+    protected $headers;
     protected $config = [
         CURLOPT_MAXREDIRS => 20,
         CURLOPT_CONNECTTIMEOUT => 10,
@@ -89,6 +90,18 @@ class Curl implements RequestResolverInterface
     /**
      * {@inheritdoc}
      */
+    public function getHeaders()
+    {
+        if ($this->headers === null) {
+            $this->resolve();
+        }
+
+        return $this->headers;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getRequestInfo()
     {
         if ($this->result === null) {
@@ -120,6 +133,7 @@ class Curl implements RequestResolverInterface
     protected function resolve()
     {
         $this->content = '';
+        $this->headers = [];
         $this->isBinary = null;
 
         if (!self::$tmpCookies) {
@@ -157,6 +171,10 @@ class Curl implements RequestResolverInterface
 
         curl_close($connection);
 
+        if (is_file(self::$tmpCookies)) {
+            unlink(self::$tmpCookies);
+        }
+
         if (($content_type = $this->getResult('content_type'))) {
             if (strpos($content_type, ';') !== false) {
                 list($mimeType, $charset) = explode(';', $content_type);
@@ -179,7 +197,15 @@ class Curl implements RequestResolverInterface
         if (strpos($string, ':')) {
             list($name, $value) = array_map('trim', explode(':', $string, 2));
 
-            if (strtolower($name) === 'content-type') {
+            $name = strtolower($name);
+
+            if (!isset($this->headers[$name])) {
+                $this->headers[$name] = [];
+            }
+
+            $this->headers[$name][] = $value;
+
+            if ($name === 'content-type') {
                 $this->isBinary = false;
 
                 foreach (self::$binaryContentTypes as $regex) {

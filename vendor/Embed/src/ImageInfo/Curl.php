@@ -5,10 +5,8 @@ namespace Embed\ImageInfo;
 /**
  * Class to retrieve the size and mimetype of images using curl.
  */
-class Curl implements ImageInfoInterface
+class Curl implements ImageInfoInterface, ImagesInfoInterface
 {
-    use UtilsTrait;
-
     protected static $mimetypes = [
         'image/jpeg',
         'image/png',
@@ -18,10 +16,12 @@ class Curl implements ImageInfoInterface
     ];
 
     protected $connection;
+    protected $url;
     protected $finfo;
     protected $mime;
     protected $info;
     protected $content = '';
+    protected $headers = [];
     protected $config = [
         CURLOPT_MAXREDIRS => 20,
         CURLOPT_CONNECTTIMEOUT => 10,
@@ -37,27 +37,24 @@ class Curl implements ImageInfoInterface
     /**
      * {@inheritdoc}
      */
-    public static function getImagesInfo(array $images, array $config = null)
+    public static function getImagesInfo(array $urls, array $config = null)
     {
-        if (empty($images)) {
+        if (empty($urls)) {
             return [];
         }
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $connections = [];
         $curl = curl_multi_init();
         $result = [];
+        $connections = [];
 
-        foreach ($images as $k => $image) {
-            if (strpos($image['value'], 'data:') === 0) {
-                if ($info = static::getEmbeddedImageInfo($image['value'])) {
-                    $result[$k] = array_merge($image, $info);
-                }
-
+        foreach ($urls as $k => $url) {
+            if (strpos($url['value'], 'data:') === 0) {
+                $result[$k] = new EmbeddedImage($url['value']);
                 continue;
             }
 
-            $connections[$k] = new static($image['value'], $finfo, $config);
+            $connections[$k] = new static($url['value'], $finfo, $config);
 
             curl_multi_add_handle($curl, $connections[$k]->getConnection());
         }
@@ -79,17 +76,12 @@ class Curl implements ImageInfoInterface
 
             foreach ($connections as $k => $connection) {
                 curl_multi_remove_handle($curl, $connection->getConnection());
-
-                if (($info = $connection->getInfo())) {
-                    $result[$k] = array_merge($images[$k], $info);
-                }
+                $result[$k] = $connection;
             }
         }
 
         finfo_close($finfo);
         curl_multi_close($curl);
-
-        ksort($result, SORT_NUMERIC);
 
         return $result;
     }
@@ -104,6 +96,7 @@ class Curl implements ImageInfoInterface
     public function __construct($url, $finfo, array $config = null)
     {
         $this->finfo = $finfo;
+        $this->url = $url;
         $this->connection = curl_init();
 
         if ($config) {
@@ -114,6 +107,7 @@ class Curl implements ImageInfoInterface
             CURLOPT_RETURNTRANSFER => false,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_URL => $url,
+            CURLOPT_HEADERFUNCTION => [$this, 'headerCallback'],
             CURLOPT_WRITEFUNCTION => [$this, 'writeCallback'],
         ] + $this->config);
     }
@@ -129,13 +123,52 @@ class Curl implements ImageInfoInterface
     }
 
     /**
-     * Get the image info with the format [$width, $height, $mimetype].
-     *
-     * @return null|array
+     * {@inheritdoc}
      */
     public function getInfo()
     {
-        return $this->info;
+        return $this->info ?: false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Callback used to save the headers.
+     * 
+     * @param resource $connection
+     * @param string   $string
+     * 
+     * @return int
+     */
+    public function headerCallback($connection, $string)
+    {
+        if (strpos($string, ':')) {
+            list($name, $value) = array_map('trim', explode(':', $string, 2));
+
+            $name = strtolower($name);
+
+            if (!isset($this->headers[$name])) {
+                $this->headers[$name] = [];
+            }
+
+            $this->headers[$name][] = $value;
+        }
+
+        return strlen($string);
     }
 
     /**

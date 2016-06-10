@@ -5,13 +5,14 @@ namespace Embed\ImageInfo;
 use GuzzleHttp\Client;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Message\Response;
 
 /**
  * Class to retrieve the size and mimetype of images using Guzzle5.
  */
-class Guzzle5 implements ImageInfoInterface
+class Guzzle5 implements ImageInfoInterface, ImagesInfoInterface
 {
-    use UtilsTrait;
+    protected $response;
 
     protected static $config = [
         'verify' => false,
@@ -35,15 +36,14 @@ class Guzzle5 implements ImageInfoInterface
             'defaults' => static::$config,
         ]);
 
+        $requests = [];
         $result = [];
 
         // Build parallel requests
         $requests = [];
         foreach ($urls as $k => $url) {
             if (strpos($url['value'], 'data:') === 0) {
-                if ($info = static::getEmbeddedImageInfo($url['value'])) {
-                    $result[$k] = array_merge($url, $info);
-                }
+                $result[$k] = new EmbeddedImage($url['value']);
                 continue;
             }
 
@@ -59,18 +59,47 @@ class Guzzle5 implements ImageInfoInterface
                 continue;
             }
 
-            if (($size = getimagesizefromstring($response->getBody())) !== false) {
-                $result[$k] = [
-                    'width' => $size[0],
-                    'height' => $size[1],
-                    'size' => $size[0] * $size[1],
-                    'mime' => $size['mime'],
-                ] + $urls[$k];
-            }
+            $result[$k] = new static($response);
         }
 
-        ksort($result, SORT_NUMERIC);
-
         return $result;
+    }
+
+    public function __construct(Response $response)
+    {
+        $this->response = $response;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getHeaders()
+    {
+        $this->response->getHeaders();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUrl()
+    {
+        $this->response->getEffectiveUrl();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getInfo()
+    {
+        if (($size = getimagesizefromstring($this->response->getBody())) !== false) {
+            return [
+                'width' => $size[0],
+                'height' => $size[1],
+                'size' => $size[0] * $size[1],
+                'mime' => $size['mime'],
+            ];
+        }
+
+        return false;
     }
 }

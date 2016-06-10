@@ -17,6 +17,17 @@ class YouTube extends Provider {
 
 
   // ================================================
+  //  Parameters for Panel Field Cheatsheet
+  // ================================================
+
+  public function providerParameters() {
+    return [
+      ['t', 'Timecode where the video should start (e.g. 1m4s)'],
+    ];
+  }
+
+
+  // ================================================
   //  Autoplay
   // ================================================
 
@@ -32,7 +43,7 @@ class YouTube extends Provider {
   // ================================================
 
   protected function getTimecode() {
-    $this->timecode = preg_match('/t=(.+?)&?/U', $this->url, $t) ? $t[1] : false;
+    $this->timecode = preg_match('/t=([a-zA-Z0-9]*)/', $this->url, $t) ? $t[1] : false;
   }
 
   protected function setTimecode() {

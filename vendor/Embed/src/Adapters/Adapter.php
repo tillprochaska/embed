@@ -46,6 +46,7 @@ abstract class Adapter
 
     protected $imageClass = 'Embed\\ImageInfo\\Curl';
     protected $imageConfig;
+    protected $imageRequests = [];
 
     protected $config = [
         'minImageWidth' => 16,
@@ -112,6 +113,14 @@ abstract class Adapter
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getImagesRequests()
+    {
+        return $this->imageRequests;
     }
 
     /**
@@ -214,17 +223,13 @@ abstract class Adapter
         $choosen = null;
 
         foreach (Utils::getData($this->providers, 'code') as $code) {
-            // <object> and <embed> codes have less priority
+            // <object> and <embed> codes (flash) have less priority
             if (strpos($code['value'], '</object>') !== false || strpos($code['value'], '</embed>') !== false) {
                 if (empty($choosen)) {
                     $choosen = $code;
                 }
 
                 continue;
-            }
-
-            if (strpos($code['value'], '</iframe>') !== false) {
-                $code['value'] = preg_replace('|^.*(<iframe.*</iframe>).*$|Us', '$1', $code['value']);
             }
 
             $choosen = $code;
@@ -303,7 +308,7 @@ abstract class Adapter
      */
     public function getProviderIcons()
     {
-        return call_user_func("{$this->imageClass}::getImagesInfo", $this->getProviderIconsUrls(), $this->imageConfig);
+        return static::imagesInfo($this->getProviderIconsUrls());
     }
 
     /**
@@ -369,7 +374,7 @@ abstract class Adapter
      */
     public function getImages()
     {
-        return call_user_func("{$this->imageClass}::getImagesInfo", $this->getImagesUrls(), $this->imageConfig);
+        return static::imagesInfo($this->getImagesUrls());
     }
 
     /**
@@ -456,5 +461,53 @@ abstract class Adapter
     public function getPublishedTime()
     {
         return Utils::getFirstValue(Utils::getData($this->providers, 'publishedTime'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLicense()
+    {
+        return Utils::getFirstValue(Utils::getData($this->providers, 'license', $this->request));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLinkedData()
+    {
+        $data = [];
+        foreach ($this->providers as $provider) {
+            $data = array_merge($data, $provider->getLinkedData());
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get images info.
+     * 
+     * @param array $urls
+     * 
+     * @return array
+     */
+    protected function imagesInfo($urls)
+    {
+        $requests = call_user_func("{$this->imageClass}::getImagesInfo", $urls, $this->imageConfig);
+        array_replace($this->imageRequests, $requests);
+
+        $result = [];
+
+        foreach ($urls as $url => $value) {
+            $info = isset($requests[$url]) ? $requests[$url]->getInfo() : false;
+
+            if ($info === false) {
+                continue;
+            }
+
+            $result[$url] = array_replace($value, $info);
+        }
+
+        return $result;
     }
 }

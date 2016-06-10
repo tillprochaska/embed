@@ -2,9 +2,10 @@
 
 class OembedField extends UrlField {
 
-  public $preview = true;
-  public $info    = true;
-  public $height  = 'none';
+  public $preview    = true;
+  public $info       = true;
+  public $cheatsheet = false;
+  public $height     = 'none';
 
   public static $assets = [
     'css' => [
@@ -41,11 +42,22 @@ class OembedField extends UrlField {
         'height' => $this->height,
       ]));
     }
+
     if($this->info) {
       $template->append(tpl::load(__DIR__ . DS . 'templates' . DS . 'info.php'));
     }
 
     return $template;
+  }
+
+  public function label() {
+    $label = parent::label();
+
+    if($this->cheatsheet) {
+      $label->append(tpl::load(__DIR__ . DS . 'templates' . DS . 'cheatsheet.php'));
+    }
+
+    return $label;
   }
 
   protected function translations() {

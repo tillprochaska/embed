@@ -53,6 +53,13 @@ class Html {
     ]);
   }
 
+  public static function cheatsheet($parameters) {
+    $path = dirname(__DIR__) . DS . 'snippets' . DS . 'cheatsheet.php';
+    return tpl::load($path, [
+      'entries' => $parameters
+    ]);
+  }
+
   // ================================================
   //  Types
   // ================================================
@@ -77,7 +84,7 @@ class Html {
   protected function prepareVideo() {
     if($this->data['code']) {
       // Container ratio
-      $this->data['style'] = 'padding-top:'.$this->core->aspectRatio().'%';
+      $this->data['style'] = 'padding-top:' . str_replace(',', '.', $this->core->aspectRatio()) . '%';
 
       // Lazy video
       if($this->options['lazyvideo']) {
@@ -89,7 +96,7 @@ class Html {
   protected function lazyVideo() {
     // src -> data-src
     $this->updateData('code', function($code) {
-      $pattern = '/(iframe.*)(src)(=".*")/U';
+      $pattern = '/(<iframe.*)(src)(="[^[:space:]]*")/';
       $replace = '$1data-src$3';
       return preg_replace($pattern, $replace, $code);
     });

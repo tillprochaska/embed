@@ -118,4 +118,49 @@ $white:   #fff;
       border-top-color: $bgcolor !important;
     }
   }
+
+
+  // ================================================
+  //  Cheatsheet
+  // ================================================
+
+  &-cheatsheet {
+    position: absolute;
+    top:      1px;
+    right:    4px;
+
+    &__bucket {
+      display:          none;
+      position:         absolute;
+      width:            100%;
+      margin-top:       8px;
+      padding:          .35em .5em;
+      background-color: rgba($white, .95);
+      z-index:          1;
+
+      .field-oembed-cheatsheet:hover + & {
+        display: block;
+      }
+    }
+
+    &__table {
+      width:       100%;
+      font-size:   .8em;
+      font-weight: 400;
+
+      td {
+        padding: 0 .5em;
+      }
+    }
+
+    &__th {
+      font-weight: 700;
+      td {
+        border-bottom: 1px solid $bgcolor;
+      }
+    }
+
+  }
+
+
 }

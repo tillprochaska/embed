@@ -8,12 +8,23 @@ namespace Embed\ImageInfo;
 interface ImageInfoInterface
 {
     /**
-     * Get the info of multiple images at once.
-     *
-     * @param array      $urls
-     * @param null|array $config
-     *
+     * Returns the headers.
+     * 
      * @return array
      */
-    public static function getImagesInfo(array $urls, array $config = null);
+    public function getHeaders();
+
+    /**
+     * Returns the url.
+     * 
+     * @return string
+     */
+    public function getUrl();
+
+    /**
+     * Returns the image info.
+     * 
+     * @return array|false
+     */
+    public function getInfo();
 }
