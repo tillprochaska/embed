@@ -84,7 +84,7 @@ class Html {
   protected function prepareVideo() {
     if($this->data['code']) {
       // Container ratio
-      $this->data['style'] = 'padding-top:'.$this->core->aspectRatio().'%';
+      $this->data['style'] = 'padding-top:' . str_replace(',', '.', $this->core->aspectRatio()) . '%';
 
       // Lazy video
       if($this->options['lazyvideo']) {
