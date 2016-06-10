@@ -49,7 +49,13 @@ class OEmbed extends Provider implements ProviderInterface
         if (($endPointRequest->getExtension() === 'xml') || ($endPointRequest->getQueryParameter('format') === 'xml')) {
             if ($parameters = $endPointRequest->getXmlContent()) {
                 foreach ($parameters as $element) {
-                    $this->bag->set($element->getName(), (string) $element);
+                    $content = trim((string) $element);
+
+                    if (stripos($content, '<![CDATA[') === 0) {
+                        $content = substr($content, 9, -3);
+                    }
+
+                    $this->bag->set($element->getName(), $content);
                 }
             }
         // extract from json
@@ -177,16 +183,15 @@ class OEmbed extends Provider implements ProviderInterface
             $images[] = $this->bag->get('url');
         }
 
-        if ($this->bag->has('image')) {
-            $images[] = $this->bag->get('image');
-        }
-
-        if ($this->bag->has('thumbnail')) {
-            $images[] = $this->bag->get('thumbnail');
-        }
-
-        if ($this->bag->has('thumbnail_url')) {
-            $images[] = $this->bag->get('thumbnail_url');
+        foreach (['image', 'thumbnail', 'thumbnail_url'] as $type) {
+            if ($this->bag->has($type)) {
+                $ret = $this->bag->get($type);
+                if (is_array($ret)) {
+                    $images = array_merge($images, $ret);
+                } else {
+                    $images[] = $ret;
+                }
+            }
         }
 
         return $images;
@@ -206,6 +211,14 @@ class OEmbed extends Provider implements ProviderInterface
     public function getHeight()
     {
         return $this->bag->get('height');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLicense()
+    {
+        return $this->bag->get('license_url');
     }
 
     /**

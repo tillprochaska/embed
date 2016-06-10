@@ -10,6 +10,7 @@ class Url
     protected $info;
 
     public static $validate = false;
+    private static $public_suffix_list;
 
     /**
      * Constructor. Sets the url.
@@ -181,11 +182,14 @@ class Url
                 return $first_level ? ($host[1].'.'.$host[0]) : $host[1];
 
             default:
-                if ($first_level) {
-                    return ($host[1] === 'co' || $host[1] === 'com') ? ($host[2].'.'.$host[1].'.'.$host[0]) : ($host[1].'.'.$host[0]);
+                $tld = $host[1].'.'.$host[0];
+                $suffixes = self::getSuffixes();
+
+                if (in_array($tld, $suffixes, true)) {
+                    return $first_level ? $host[2].'.'.$tld : $host[2];
                 }
 
-                return ($host[1] === 'co' || $host[1] === 'com') ? $host[2] : $host[1];
+                return $first_level ? $host[1].'.'.$host[0] : $host[1];
         }
     }
 
@@ -415,8 +419,18 @@ class Url
             $url .= $this->info['scheme'].'://';
         }
 
+        $user = isset($this->info['user']) ? $this->info['user'] : '';
+        $pass = isset($this->info['pass']) ? ':'.$this->info['pass']  : '';
+        if ($user || $pass) {
+            $url .= $user.$pass.'@';
+        }
+
         if (isset($this->info['host'])) {
             $url .= $this->info['host'];
+        }
+
+        if (isset($this->info['port'])) {
+            $url .= ':'.$this->info['port'];
         }
 
         $url .= $this->getPath();
@@ -548,5 +562,14 @@ class Url
                 $this->info['path'][] = $dir;
             }
         }
+    }
+
+    private function getSuffixes()
+    {
+        if (self::$public_suffix_list === null) {
+            self::$public_suffix_list = include __DIR__.'/resources/public_suffix_list.php';
+        }
+
+        return self::$public_suffix_list;
     }
 }

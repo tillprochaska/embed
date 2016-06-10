@@ -122,4 +122,18 @@ interface DataInterface
      * @return string|null
      */
     public function getPublishedTime();
+
+    /**
+     * Gets the license info.
+     *
+     * @return string|null
+     */
+    public function getLicense();
+
+    /**
+     * Returns all linked data found.
+     *
+     * @return array
+     */
+    public function getLinkedData();
 }

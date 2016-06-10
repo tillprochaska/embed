@@ -63,15 +63,17 @@ $info->width; //The width of the embed code
 $info->height; //The height of the embed code
 $info->aspectRatio; //The aspect ratio (width/height)
 
-$info->authorName; //The (video/article/image/whatever) author 
+$info->authorName; //The resource author 
 $info->authorUrl; //The author url
 
-$info->providerName; //The provider name of the page (youtube, twitter, instagram, etc)
+$info->providerName; //The provider name of the page (Youtube, Twitter, Instagram, etc)
 $info->providerUrl; //The provider url
 $info->providerIcons; //All provider icons found in the page
 $info->providerIcon; //The icon choosen as main icon
 
-$info->publishedDate; //The (video/article/image/whatever) published date
+$info->publishedDate; //The published date of the resource
+$info->license; //The license url of the resource
+$info->linkedData; //The linked-data info (http://json-ld.org/)
 ```
 
 ## Customization
@@ -128,12 +130,7 @@ Used to get data from oembed api if it's available. It accepts two options:
 Used to get data directly from the html code of the page:
 
 * maxImages (int): Max number of images fetched from the html code (searching for the `<img>` elements). By default is -1 (no limit). Use 0 to no get images.
-
-#### facebook
-
-This provider is used only for facebook pages, to get information from the [graph api](https://developers.facebook.com/docs/graph-api)
-
-* key (string): the key used
+* externalImages (bool|array): By default is false, this means that images located in other domains are not allowed. You can set true (allow all) or provide an array of url patterns.
 
 #### google
 
@@ -301,3 +298,34 @@ echo $oembed->getTitle();
 //Get any value returned by oembed api
 echo $oembed->bag->get('author_name');
 ```
+
+In versions >= 2.7, you can access also to the data returned by the requests:
+
+```php
+use Embed\Embed;
+
+//Get the info
+$info = Embed::create('https://www.youtube.com/watch?v=PP1xn5wHtxE');
+
+//Get the request instance
+$request = $info->getRequest();
+
+//Get the info returned by curl
+$request->getRequestInfo();
+
+//Get all http headers
+$request->getHeaders();
+
+//Get all images requests
+foreach ($info->getImagesRequests() as $url => $request) {
+    $request->getHeaders();
+}
+```
+
+## Donations
+
+If this library is useful for you, consider to donate to the author.
+
+[Buy me a beer :beer:](https://www.paypal.me/oscarotero)
+
+Thanks in advance!
