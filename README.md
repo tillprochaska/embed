@@ -126,16 +126,17 @@ fields:
     type:  oembed
 ```
 
-With its additional options you can also disable the preview section as well as the information section or set a max-height for the preview:
+With its additional options you can also disable the preview section, the information section as well as the cheatsheet or set a max-height for the preview:
 ```
 fields:
   …
   featured_video:
-    label:    Featured video
-    type:     oembed
-    preview:  false
-    info:     false
-    height:   250px
+    label:      Featured video
+    type:       oembed
+    preview:    false
+    info:       false
+    cheatsheet: false
+    height:     250px
 ```
 
 ![Panel field preview](https://distantnative.com/remote/github/oembed/field1.png)  

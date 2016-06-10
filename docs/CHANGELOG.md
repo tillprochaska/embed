@@ -4,6 +4,7 @@
 - Feature: Support for Spotify theme and view parameters
 - Feature: Set Spotify width and height through url parameters
 - Feature: Parameter cheatsheet for the panel field
+- Improved: Updated Embed vendor library
 - Improved: More specific API calls for the panel field
 - Fixed: Embeds now respect a max-width of 100%
 - Fixed: More precise code regular expressions
