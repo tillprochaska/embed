@@ -1,6 +1,12 @@
 # Changelog
 
-## [2.2.0](https://github.com/distantnative/oembed/releases/tag/2.2.0) (?)
+## [2.3.0](https://github.com/distantnative/oembed/releases/tag/2.3.0) (2016-09-03)
+- Feature: Support various Vimeo url parameters
+- Improved: Getting and setting custom url parameters
+- Improved: Cheatsheet for the panel field is active by default
+- Fixed: Global helper function was not working
+
+## [2.2.0](https://github.com/distantnative/oembed/releases/tag/2.2.0) (2016-06-10)
 - Feature: Support for Spotify theme and view parameters
 - Feature: Set Spotify width and height through url parameters
 - Feature: Parameter cheatsheet for the panel field

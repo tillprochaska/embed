@@ -87,7 +87,7 @@ You can set the following options on each embed to apply:
 |-------------|----------------|-------------------------------------------|
 | `class`     | (string)       | Class to be added to the embed wrapper    |
 | `thumb`     | (string)       | Custom thumbnail (URL)                    |
-| `autoload`  | `true`/`false` | Starts the embedded video automatically   |
+| `autoplay`  | `true`/`false` | Starts the embedded video automatically   |
 | `lazyvideo` | `true`/`false` | Lazyload the embedded video               |
 | `jsapi`     | `true`/`false` | Activates the JS API of certain providers |
 
@@ -111,6 +111,9 @@ c::set('plugin.oembed.providers.facebook.key', null);
 c::set('plugin.oembed.providers.google.key', null);
 c::set('plugin.oembed.providers.soundcloud.key', null):
 ```
+
+#### URL parameters
+The oEmbed plugin support various URL parameters of provider that usually get lost during the oembed call. To see which parameters are supported, please use the panel field and switch on the cheatsheer option.
 
 
 ## Panel field <a id="Field"></a>
@@ -235,7 +238,7 @@ fields:
 
 
 ## Version history <a id="VersionHistory"></a>
-You can find a more or less complete version history in the [changelog](docs/CHANGELOG.md).
+You can find a more or less complete version history in the [changelog](CHANGELOG.md).
 
 
 ## License

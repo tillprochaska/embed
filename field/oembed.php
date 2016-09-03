@@ -4,7 +4,7 @@ class OembedField extends UrlField {
 
   public $preview    = true;
   public $info       = true;
-  public $cheatsheet = false;
+  public $cheatsheet = true;
   public $height     = 'none';
 
   public static $assets = [

@@ -5,7 +5,7 @@ namespace Kirby\Plugins\distantnative\oEmbed\Providers;
 class YouTube extends Provider {
 
   protected function init() {
-    $this->getTimecode();
+    $this->getAll('t');
   }
 
   public function code($code) {
@@ -41,10 +41,6 @@ class YouTube extends Provider {
   // ================================================
   //  Timecode
   // ================================================
-
-  protected function getTimecode() {
-    $this->timecode = preg_match('/t=([a-zA-Z0-9]*)/', $this->url, $t) ? $t[1] : false;
-  }
 
   protected function setTimecode() {
     if($this->timecode !== false) {

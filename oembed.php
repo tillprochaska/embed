@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed;
+namespace Kirby\Plugins\distantnative\oEmbed {
 
 require_once('lib/autoload.php');
 
@@ -20,14 +20,6 @@ Autoloader::load([
   'providers'    => ['provider', true]
 ]);
 
-
-// ================================================
-//  Global helper
-// ================================================
-
-function oembed($url, $args = []) {
-  return new Core($url, $args);
-}
 
 
 // ================================================
@@ -106,3 +98,15 @@ $kirby->set('route', [
   },
   'method'  => 'POST'
 ]);
+
+}
+
+namespace {
+  // ================================================
+  //  Global helper
+  // ================================================
+
+  function oembed($url, $args = []) {
+    return new Kirby\Plugins\distantnative\oEmbed\Core($url, $args);
+  }
+}
