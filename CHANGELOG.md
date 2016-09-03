@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.3.1](https://github.com/distantnative/oembed/releases/tag/2.3.1) (2016-09-03)
+- Fixed: Adding a custom CSS class via the Kirbytag was not working
+
 ## [2.3.0](https://github.com/distantnative/oembed/releases/tag/2.3.0) (2016-09-03)
 - Feature: Support various Vimeo url parameters
 - Improved: Getting and setting custom url parameters
