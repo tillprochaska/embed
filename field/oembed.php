@@ -9,11 +9,11 @@ class OembedField extends UrlField {
 
   public static $assets = [
     'css' => [
-      'oembed.css',
+      '../../../assets/css/oembed.css',
       'field.css'
     ],
     'js' => [
-      'oembed.js',
+      '../../../assets/js/oembed.js',
       'field.js'
     ]
   ];
