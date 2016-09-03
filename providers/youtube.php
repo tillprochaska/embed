@@ -43,7 +43,7 @@ class YouTube extends Provider {
   // ================================================
 
   protected function setTimecode() {
-    if($this->timecode !== false) {
+    if($this->t !== false) {
       $this->parameter('start=' . $this->calculateTimecode());
     }
   }
@@ -56,7 +56,7 @@ class YouTube extends Provider {
   }
 
   protected function disectTimecode($identifier) {
-    return preg_match('/([0-9]+)' . $identifier . '/i', $this->timecode, $match) ? $match[0] : 0;
+    return preg_match('/([0-9]+)' . $identifier . '/i', $this->t, $match) ? $match[0] : 0;
   }
 
 
