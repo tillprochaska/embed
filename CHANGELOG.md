@@ -1,11 +1,12 @@
 # Changelog
 
 ## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.00) (?)
-- Improved: Hide play button overlay for vimeo (as Vimeo includes it in their thumbs already)
+- Improved: LazyVideo support and display for certain providers
 - Improved: Panel field cheatsheet hidden by default, better cursor on hover
 - Improved: Removed duplicate assets for panel field
 - Improved: Updated vendor lib Embed to version 2.7
 - Improved: Internal file structure
+- Fixed: Thumb caching for thumbs with url parameter
 
 ## [2.3.2](https://github.com/distantnative/oembed/releases/tag/2.3.2) (2016-09-03)
 - Fixed: YouTube timecode URL parameter 't' did not work

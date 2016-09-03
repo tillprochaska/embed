@@ -87,7 +87,7 @@ class Html {
       $this->data['style'] = 'padding-top:' . str_replace(',', '.', $this->core->aspectRatio()) . '%';
 
       // Lazy video
-      if($this->options['lazyvideo']) {
+      if($this->options['lazyvideo'] && $this->core->supportsLazyVideo()) {
         $this->lazyVideo();
       }
     }
@@ -105,7 +105,7 @@ class Html {
     $this->data['more'] = $this->snippet('thumb', [
       'url' => $this->core->thumb(),
       'alt' => $this->core->title() . ($this->core->authorName() ? ' (by ' . $this->core->authorName() . ')' : ''),
-      'overlay' => $this->core->thumbOverlay()
+      'overlay' => $this->core->supportsPlayBtn()
     ]);
   }
 

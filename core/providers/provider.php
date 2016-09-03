@@ -16,8 +16,10 @@ class Provider {
   //  Placeholder methods
   // ================================================
 
-  protected function init()          {}
-  public    function thumbOverlay()  { return true; }
+  protected function init() {}
+
+  public function supportsLazyVideo() { return $this->core->type() === 'video'; }
+  public function supportsPlayBtn()   { return true; }
 
 
   // ================================================
