@@ -238,7 +238,7 @@ fields:
 
 
 ## Version history <a id="VersionHistory"></a>
-You can find a more or less complete version history in the [changelog](docs/CHANGELOG.md).
+You can find a more or less complete version history in the [changelog](CHANGELOG.md).
 
 
 ## License
