@@ -61,4 +61,13 @@ class Vimeo extends Provider {
     }
   }
 
+  // ================================================
+  //  Remove thumbOverlay
+  // ================================================
+
+  public function thumbOverlay() {
+    return false;
+  }
+
+
 }

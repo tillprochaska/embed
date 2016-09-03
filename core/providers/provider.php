@@ -11,15 +11,17 @@ class Provider {
     $this->init();
   }
 
-  protected function init() {}
 
-  public function providerParameters() {
-    return;
-  }
+  // ================================================
+  //  Playholder methods
+  // ================================================
+
+  protected function init()         {}
+  public    function thumbOverlay() { return true; }
 
 
   // ================================================
-  //  Custom parameters
+  //  Custom URL parameter helpers
   // ================================================
 
   protected function set($paramenter) {
@@ -51,7 +53,7 @@ class Provider {
 
 
   // ================================================
-  //  Helpers
+  //  General helpers
   // ================================================
 
   protected function option($option) {
