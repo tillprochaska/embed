@@ -53,7 +53,7 @@ $kirby->set('tag', 'oembed', [
         if($tag->attr($option) === 'true')  $args[$option] = true;
         if($tag->attr($option) === 'false') $args[$option] = false;
       } elseif ($mode === 'string') {
-        $args['option'] = $tag->attr($option);
+        if($tag->attr($option)) $args[$option] = $tag->attr($option);
       }
     }
 
