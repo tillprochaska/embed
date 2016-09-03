@@ -20,7 +20,7 @@ class YouTube extends Provider {
   //  Parameters for Panel Field Cheatsheet
   // ================================================
 
-  public function providerParameters() {
+  public function urlParameters() {
     return [
       ['t', 'Timecode where the video should start (e.g. 1m4s)'],
     ];

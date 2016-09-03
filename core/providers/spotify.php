@@ -23,7 +23,7 @@ class Spotify extends Provider {
   //  Parameters for Panel Field Cheatsheet
   // ================================================
 
-  public function providerParameters() {
+  public function urlParameters() {
     return [
       ['view', 'Set the view style (list/coverart)'],
       ['theme', 'Set the theme (white/black)'],

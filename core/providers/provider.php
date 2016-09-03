@@ -16,8 +16,8 @@ class Provider {
   //  Playholder methods
   // ================================================
 
-  protected function init()         {}
-  public    function thumbOverlay() { return true; }
+  protected function init()          {}
+  public    function thumbOverlay()  { return true; }
 
 
   // ================================================

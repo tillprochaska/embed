@@ -45,7 +45,7 @@ class Html {
   public static function error($url, $msg = null) {
     if(!$msg) $msg = 'noembed';
     $msg  = l::get('plugin.oembed.error.' . $msg);
-    $path = dirname(__DIR__) . DS . 'snippets' . DS . 'error.php';
+    $path = __DIR__ . DS . 'snippets' . DS . 'error.php';
 
     return tpl::load($path, [
       'url' => $url,
@@ -54,7 +54,7 @@ class Html {
   }
 
   public static function cheatsheet($parameters) {
-    $path = dirname(__DIR__) . DS . 'snippets' . DS . 'cheatsheet.php';
+    $path = __DIR__ . DS . 'snippets' . DS . 'cheatsheet.php';
     return tpl::load($path, [
       'entries' => $parameters
     ]);

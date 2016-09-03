@@ -20,7 +20,7 @@ $kirby->set('route', [
       $response['providerName'] = $oembed->providerName();
       $response['providerUrl']  = $oembed->url();
       $response['type']         = ucfirst($oembed->type());
-      $response['parameters']   = Kirby\Plugins\distantnative\oEmbed\Html::cheatsheet($oembed->providerParameters());
+      $response['parameters']   = Kirby\Plugins\distantnative\oEmbed\Html::cheatsheet($oembed->urlParameters());
     }
 
     if(get('code') === 'true') {
