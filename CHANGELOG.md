@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.00) (?)
+- Improved: Updated vendor lib Embed to version 2.7
+
 ## [2.3.2](https://github.com/distantnative/oembed/releases/tag/2.3.2) (2016-09-03)
 - Fixed: YouTube timecode URL parameter 't' did not work
 

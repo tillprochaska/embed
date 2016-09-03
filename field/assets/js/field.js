@@ -50,6 +50,7 @@
               code: preview.wrapper.length === 0 ? 'false' : 'true'
             },
             success: function(data) {
+              console.log(data);
               showPreview(preview, data);
               setCheatsheet(sheet, data);
 

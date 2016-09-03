@@ -147,7 +147,7 @@ class Html {
   }
 
   protected function snippet($name, $data) {
-    return tpl::load(dirname(__DIR__) . DS . 'snippets' . DS . $name . '.php', $data);
+    return tpl::load(__DIR__ . DS . 'snippets' . DS . $name . '.php', $data);
   }
 
   public static function removeEmojis($string) {
