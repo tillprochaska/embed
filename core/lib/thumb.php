@@ -13,7 +13,7 @@ class Thumb {
     $this->url  = $url;
     $this->dir  = kirby()->roots()->thumbs() . DS . '_plugins' . DS . 'oembed';
 
-    $this->file = md5($this->url) . '.' . pathinfo($this->url, PATHINFO_EXTENSION);
+    $this->file = md5($this->url) . '.' . pathinfo(strtok($this->url, '?'), PATHINFO_EXTENSION);
     $this->root = $this->dir . DS . $this->file;
 
     $this->expired();

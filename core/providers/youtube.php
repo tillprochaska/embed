@@ -27,16 +27,6 @@ class YouTube extends Provider {
   }
 
 
-  // ================================================
-  //  Autoplay
-  // ================================================
-
-  protected function setAutoplay() {
-    if($this->option('lazyvideo') || $this->option('autoplay')) {
-      $this->parameter(['rel=0', 'autoplay=1']);
-    }
-  }
-
 
   // ================================================
   //  Timecode

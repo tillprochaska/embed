@@ -13,7 +13,7 @@ class Provider {
 
 
   // ================================================
-  //  Playholder methods
+  //  Placeholder methods
   // ================================================
 
   protected function init()          {}
@@ -50,6 +50,16 @@ class Provider {
     $this->get($paramenter, '[a-zA-Z0-9]*');
   }
 
+
+  // ================================================
+  //  Video Autoplay
+  // ================================================
+
+  protected function setAutoplay() {
+    if($this->option('lazyvideo') || $this->option('autoplay')) {
+      $this->parameter(['rel=0', 'autoplay=1', 'auto=1']);
+    }
+  }
 
 
   // ================================================

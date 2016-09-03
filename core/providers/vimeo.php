@@ -41,17 +41,6 @@ class Vimeo extends Provider {
 
 
   // ================================================
-  //  Autoplay
-  // ================================================
-
-  protected function setAutoplay() {
-    if($this->option('lazyvideo') || $this->option('autoplay')) {
-      $this->parameter('autoplay=1');
-    }
-  }
-
-
-  // ================================================
   //  JS API
   // ================================================
 
