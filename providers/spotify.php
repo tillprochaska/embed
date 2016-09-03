@@ -5,14 +5,15 @@ namespace Kirby\Plugins\distantnative\oEmbed\Providers;
 class Spotify extends Provider {
 
   protected function init() {
-    $this->getSizes();
-    $this->getTheme();
-    $this->getView();
+    $this->getString('theme');
+    $this->getString('view');
+    $this->getNumber('width');
+    $this->getNumber('height');
   }
 
   public function code($code) {
-    $this->setTheme();
-    $this->setView();
+    $this->set('theme');
+    $this->set('view');
     $code = $this->setSizes($code);
     return $code;
   }
@@ -31,45 +32,9 @@ class Spotify extends Provider {
     ];
   }
 
-
-  // ================================================
-  //  Theme
-  // ================================================
-
-  protected function getTheme() {
-    $this->theme = preg_match('/theme=([a-zA-Z]*)/', $this->url, $t) ? $t[1] : false;
-  }
-
-  protected function setTheme() {
-    if($this->theme !== false) {
-      $this->parameter('theme=' . $this->theme);
-    }
-  }
-
-
-  // ================================================
-  //  View
-  // ================================================
-
-  protected function getView() {
-    $this->view = preg_match('/view=([a-zA-Z]*)/', $this->url, $t) ? $t[1] : false;
-  }
-
-  protected function setView() {
-    if($this->view !== false) {
-      $this->parameter('view=' . $this->view);
-    }
-  }
-
-
   // ================================================
   //  Sizes
   // ================================================
-
-  protected function getSizes() {
-    $this->width = preg_match('/width=([0-9]*)/', $this->url, $t) ? $t[1] : false;
-    $this->height = preg_match('/height=([0-9]*)/', $this->url, $t) ? $t[1] : false;
-  }
 
   protected function setSizes($code) {
     if($this->width !== false) {
