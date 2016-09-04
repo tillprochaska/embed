@@ -4,14 +4,14 @@ namespace Embed\Providers\OEmbed;
 
 use Embed\Url;
 
-class Scribd extends OEmbedImplementation
+class Jsbin extends OEmbedImplementation
 {
     /**
      * {@inheritdoc}
      */
     public static function getEndPoint(Url $url)
     {
-        return 'http://www.scribd.com/services/oembed';
+        return 'http://jsbin.com/oembed';
     }
 
     /**
@@ -20,7 +20,9 @@ class Scribd extends OEmbedImplementation
     public static function getParams(Url $url)
     {
         return [
-            'url' => $url->createUrl()->withDirectoryPosition(0, 'doc')->getUrl(),
+            'url' => $url->createUrl()
+                ->withDirectoryPosition(2, 'embed')
+                ->getUrl(),
         ];
     }
 
@@ -30,8 +32,7 @@ class Scribd extends OEmbedImplementation
     public static function getPatterns()
     {
         return [
-            'https?://www.scribd.com/doc/*',
-            'https?://www.scribd.com/document/*',
+            'http?://output.jsbin.com/*',
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed;
+namespace Kirby\distantnative\oEmbed;
 
 use C;
 use L;
@@ -45,7 +45,7 @@ class Html {
   public static function error($url, $msg = null) {
     if(!$msg) $msg = 'noembed';
     $msg  = l::get('plugin.oembed.error.' . $msg);
-    $path = dirname(__DIR__) . DS . 'snippets' . DS . 'error.php';
+    $path = __DIR__ . DS . 'snippets' . DS . 'error.php';
 
     return tpl::load($path, [
       'url' => $url,
@@ -54,7 +54,7 @@ class Html {
   }
 
   public static function cheatsheet($parameters) {
-    $path = dirname(__DIR__) . DS . 'snippets' . DS . 'cheatsheet.php';
+    $path = __DIR__ . DS . 'snippets' . DS . 'cheatsheet.php';
     return tpl::load($path, [
       'entries' => $parameters
     ]);
@@ -87,7 +87,7 @@ class Html {
       $this->data['style'] = 'padding-top:' . str_replace(',', '.', $this->core->aspectRatio()) . '%';
 
       // Lazy video
-      if($this->options['lazyvideo']) {
+      if($this->options['lazyvideo'] && $this->core->supportsLazyVideo()) {
         $this->lazyVideo();
       }
     }
@@ -104,7 +104,8 @@ class Html {
     // thumb
     $this->data['more'] = $this->snippet('thumb', [
       'url' => $this->core->thumb(),
-      'alt' => $this->core->title() . ($this->core->authorName() ? ' (by ' . $this->core->authorName() . ')' : '')
+      'alt' => $this->core->title() . ($this->core->authorName() ? ' (by ' . $this->core->authorName() . ')' : ''),
+      'overlay' => $this->core->supportsPlayBtn()
     ]);
   }
 
@@ -147,7 +148,7 @@ class Html {
   }
 
   protected function snippet($name, $data) {
-    return tpl::load(dirname(__DIR__) . DS . 'snippets' . DS . $name . '.php', $data);
+    return tpl::load(__DIR__ . DS . 'snippets' . DS . $name . '.php', $data);
   }
 
   public static function removeEmojis($string) {

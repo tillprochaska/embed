@@ -1,4 +1,6 @@
 
+$col-bg: #ddd;
+
 .kirby-plugin-oembed {
   position:    relative;
   padding:     0;
@@ -14,7 +16,7 @@
   }
 
   &--video {
-    background-color: #ddd;
+    background-color: $col-bg;
     overflow:         hidden;
 
     iframe,
@@ -48,9 +50,12 @@
       position:   absolute;
       top:        50%;
       left:       50%;
+      width:      25%;
+      min-width:  75px;
+      max-width:  175px;
       transform:  translate(-50%, -50%);
-      transition: opacity .5s ease-in-out;
-      opacity:    .7;
+      transition: opacity .3s ease-in-out;
+      opacity:    .65;
     }
 
     &:hover {

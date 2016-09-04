@@ -11,15 +11,19 @@ class Provider {
     $this->init();
   }
 
+
+  // ================================================
+  //  Placeholder methods
+  // ================================================
+
   protected function init() {}
 
-  public function providerParameters() {
-    return;
-  }
+  public function supportsLazyVideo() { return $this->core->type() === 'video'; }
+  public function supportsPlayBtn()   { return true; }
 
 
   // ================================================
-  //  Custom parameters
+  //  Custom URL parameter helpers
   // ================================================
 
   protected function set($paramenter) {
@@ -49,9 +53,19 @@ class Provider {
   }
 
 
+  // ================================================
+  //  Video Autoplay
+  // ================================================
+
+  protected function setAutoplay() {
+    if($this->option('lazyvideo') || $this->option('autoplay')) {
+      $this->parameter(['rel=0', 'autoplay=1', 'auto=1']);
+    }
+  }
+
 
   // ================================================
-  //  Helpers
+  //  General helpers
   // ================================================
 
   protected function option($option) {

@@ -1,14 +1,15 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed;
+namespace Kirby\distantnative;
 
 class Cache {
 
-  public function __construct($url) {
-    $this->key = md5($url);
+  public function __construct($plugin, $url) {
+    $this->plugin = $plugin;
+    $this->key    = md5($url);
 
     // Cache DirectoryIterator
-    $dir = kirby()->roots()->cache() . DS . 'oembed';
+    $dir = kirby()->roots()->cache() . DS . $this->plugin;
     if(!file_exists($dir)) mkdir($dir);
 
     // Cache setup
@@ -20,7 +21,7 @@ class Cache {
     }
   }
 
-  public function __call($name, $args) {
+  public function __call($name, $args = []) {
     return $this->cache->{$name}($this->key, $args);
   }
 

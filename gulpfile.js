@@ -11,8 +11,7 @@ gulp.task('css', function() {
     .pipe(autoprefixer())
     .pipe(rename('oembed.css'))
     .pipe(cssmin())
-    .pipe(gulp.dest('assets/css'))
-    .pipe(gulp.dest('field/assets/css'));
+    .pipe(gulp.dest('assets/css'));
 });
 
 gulp.task('css-field', function() {
@@ -27,8 +26,7 @@ gulp.task('css-field', function() {
 gulp.task('js', function() {
   return gulp.src('assets/js/src/oembed.js')
     .pipe(uglify())
-    .pipe(gulp.dest('assets/js'))
-    .pipe(gulp.dest('field/assets/js'));
+    .pipe(gulp.dest('assets/js'));
 });
 
 gulp.task('watch', function() {

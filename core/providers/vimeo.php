@@ -27,7 +27,7 @@ class Vimeo extends Provider {
     return $code;
   }
 
-  public function providerParameters() {
+  public function urlParameters() {
     return [
       ['autopause', 'Enables or disables pausing this video when another video is played (1/0)'],
       ['badge', 'Enables or disables the badge on the video (1/0)'],
@@ -41,17 +41,6 @@ class Vimeo extends Provider {
 
 
   // ================================================
-  //  Autoplay
-  // ================================================
-
-  protected function setAutoplay() {
-    if($this->option('lazyvideo') || $this->option('autoplay')) {
-      $this->parameter('autoplay=1');
-    }
-  }
-
-
-  // ================================================
   //  JS API
   // ================================================
 
@@ -60,5 +49,12 @@ class Vimeo extends Provider {
       $this->parameter('api=1');
     }
   }
+
+  // ================================================
+  //  Remove thumbOverlay
+  // ================================================
+
+  public function supportsPlayBtn() { return false; }
+
 
 }

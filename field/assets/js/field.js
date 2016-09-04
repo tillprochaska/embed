@@ -77,13 +77,12 @@
     };
 
     var clearPreview = function(preview) {
-      preview.bucket.add(preview.label).css('opacity', '0');
+      preview.bucket.css('opacity', '0');
       preview.load.css('opacity', '1');
     };
 
     var hidePreview = function(preview) {
       preview.bucket.css('opacity', '0').html('');
-      preview.label.css('opacity', '1');
     };
 
 
@@ -124,7 +123,7 @@
     };
 
     var hideInfo = function(info) {
-      info.wrapper.slideUp();
+      info.wrapper.hide();
     };
 
 
@@ -185,7 +184,6 @@
       preview     = {
         wrapper: preview,
         bucket:  preview.find('.field-oembed-preview__bucket'),
-        label:   preview.find('.field-oembed-preview__label'),
         load:    preview.find('.field-oembed-preview__loading'),
       };
       var info    = $this.parent().nextAll('.field-oembed-info');

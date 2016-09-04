@@ -4,16 +4,16 @@ class OembedField extends UrlField {
 
   public $preview    = true;
   public $info       = true;
-  public $cheatsheet = true;
+  public $cheatsheet = false;
   public $height     = 'none';
 
   public static $assets = [
     'css' => [
-      'oembed.css',
+      '../../../assets/css/oembed.css',
       'field.css'
     ],
     'js' => [
-      'oembed.js',
+      '../../../assets/js/oembed.js',
       'field.js'
     ]
   ];
@@ -38,14 +38,12 @@ class OembedField extends UrlField {
     $template = parent::template();
 
     if($this->preview) {
-      $template->append(tpl::load(__DIR__ . DS . 'templates' . DS . 'preview.php', [
+      $template->append($this->tpl('preview', [
         'height' => $this->height,
       ]));
     }
 
-    if($this->info) {
-      $template->append(tpl::load(__DIR__ . DS . 'templates' . DS . 'info.php'));
-    }
+    if($this->info) $template->append($this->tpl('info'));
 
     return $template;
   }
@@ -53,9 +51,7 @@ class OembedField extends UrlField {
   public function label() {
     $label = parent::label();
 
-    if($this->cheatsheet) {
-      $label->append(tpl::load(__DIR__ . DS . 'templates' . DS . 'cheatsheet.php'));
-    }
+    if($this->cheatsheet) $label->append($this->tpl('cheatsheet'));
 
     return $label;
   }
@@ -70,6 +66,10 @@ class OembedField extends UrlField {
     if(file_exists($root . panel()->language()->code() . '.php')) {
       require($root . panel()->language()->code() . '.php');
     }
+  }
+
+  protected function tpl($file, $args = []) {
+    return tpl::load(__DIR__ . DS . 'templates' . DS . $file . '.php', $args);
   }
 
 }

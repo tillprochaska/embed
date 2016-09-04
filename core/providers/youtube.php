@@ -20,22 +20,12 @@ class YouTube extends Provider {
   //  Parameters for Panel Field Cheatsheet
   // ================================================
 
-  public function providerParameters() {
+  public function urlParameters() {
     return [
       ['t', 'Timecode where the video should start (e.g. 1m4s)'],
     ];
   }
 
-
-  // ================================================
-  //  Autoplay
-  // ================================================
-
-  protected function setAutoplay() {
-    if($this->option('lazyvideo') || $this->option('autoplay')) {
-      $this->parameter(['rel=0', 'autoplay=1']);
-    }
-  }
 
 
   // ================================================

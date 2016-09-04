@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed;
+namespace Kirby\distantnative;
 
 use Dir;
 
@@ -18,7 +18,7 @@ class Autoloader {
 
           // load all files from this directory
           if($file === true) {
-            foreach(dir::read(dirname(__DIR__) . DS . $group) as $file) {
+            foreach(dir::read(dirname(dirname(__DIR__)) . DS . $group) as $file) {
               static::loadFile($group . DS . $file);
             }
 
@@ -32,7 +32,7 @@ class Autoloader {
   }
 
   protected static function loadFile($path) {
-    $file = dirname(__DIR__) . DS . str_replace('/', DS, $path);
+    $file = dirname(dirname(__DIR__)) . DS . str_replace('/', DS, $path);
     if(file_exists($file)) {
       require_once($file);
     }
