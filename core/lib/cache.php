@@ -21,7 +21,7 @@ class Cache {
     }
   }
 
-  public function __call($name, $args) {
+  public function __call($name, $args = []) {
     return $this->cache->{$name}($this->key, $args);
   }
 
