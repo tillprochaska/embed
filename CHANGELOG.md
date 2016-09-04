@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.00) (?)
+## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.0) (2016-09-04)
 - Improved: LazyVideo support and display for certain providers
 - Improved: Smarter sizing of LazyVideo play overlay
 - Improved: Preview label hidden in panel field
