@@ -7,7 +7,7 @@ $white:   #fff;
 .field-oembed {
 
   // ================================================
-  //  Preview
+  //  Preview display section
   // ================================================
 
   &-preview {
@@ -29,18 +29,15 @@ $white:   #fff;
         margin-left:  auto;
       }
 
+      // actual embed
       .kirby-plugin-oembed {
-        &--rich {
-          padding: .6em;
-        }
+        &--rich { padding: .6em; }
 
         &--link > .kirby-plugin-oembed--link__fallback {
           display: inline-block;
           padding: .6em;
 
-          > a {
-            border-bottom: 2px solid $link;
-          }
+          > a { border-bottom: 2px solid $link; }
         }
 
         &--error {
@@ -67,13 +64,11 @@ $white:   #fff;
       font-weight: 600;
     }
 
-    &__loading {
-      opacity: 0;
-    }
+    &__loading { opacity: 0; }
   }
 
   // ================================================
-  //  Info
+  //  Info section
   // ================================================
 
   &-info {
@@ -91,26 +86,22 @@ $white:   #fff;
       &[href] {
         color: $green;
 
-        &:hover {
-          opacity: .75;
-        }
+        &:hover { opacity: .75; }
       }
     }
 
     &__title {
-      display:     block;
-      font-size:   .95em;
-      font-weight: 600;
+      display:       block;
+      font-size:     .95em;
+      font-weight:   600;
+      text-overflow: ellipsis;
+      white-space:   nowrap;
+      overflow:      hidden;
     }
 
     > span {
-      &:not(.field-oembed-info__title) {
-        font-size: .8em;
-      }
-
-      &:not(:first-child):not(:last-child):after {
-        content: ' / ';
-      }
+      &:not(.field-oembed-info__title) { font-size: .8em; }
+      &:not(:first-child):not(:last-child)::after { content: ' / '; }
     }
 
     .field-content + & {
@@ -121,7 +112,7 @@ $white:   #fff;
 
 
   // ================================================
-  //  Cheatsheet
+  //  Cheatsheet overlay
   // ================================================
 
   &-cheatsheet {
@@ -129,9 +120,7 @@ $white:   #fff;
     top:      1px;
     right:    4px;
 
-    &__icon {
-      cursor: help;
-    }
+    &__icon { cursor: help; }
 
     &__bucket {
       display:          none;
@@ -142,9 +131,7 @@ $white:   #fff;
       background-color: rgba($white, .95);
       z-index:          1;
 
-      .field-oembed-cheatsheet:hover + & {
-        display: block;
-      }
+      .field-oembed-cheatsheet:hover + & { display: block; }
     }
 
     &__table {
@@ -152,16 +139,13 @@ $white:   #fff;
       font-size:   .8em;
       font-weight: 400;
 
-      td {
-        padding: 0 .5em;
-      }
+      td { padding: 0 .5em; }
     }
 
     &__th {
       font-weight: 700;
-      td {
-        border-bottom: 1px solid $bgcolor;
-      }
+
+      td { border-bottom: 1px solid $bgcolor; }
     }
 
   }
