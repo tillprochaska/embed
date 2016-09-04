@@ -1,15 +1,18 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed;
+namespace Kirby\distantnative\oEmbed;
 
 use A;
 use C;
+
+use Kirby\distantnative\Cache;
+use Kirby\distantnative\Thumb;
 
 class Core {
 
   public function __construct($url, $args = []) {
     $this->input = $url;
-    $this->cache = new Cache($url);
+    $this->cache = new Cache('oembed', $url);
 
     $this->load();
 
@@ -66,7 +69,11 @@ class Core {
     // if custom thumbnail is set
     $thumb = $this->options['thumb'] ? $this->options['thumb'] : $this->image();
 
-    return new Thumb($thumb);
+    return c::set('plugin.oembed.caching', true) ? new Thumb(
+      'oembed',
+      $thumb,
+      (c::get('plugin.oembed.caching.duration', 24) * 60 * 60)
+    ) : $thumb;
   }
 
 

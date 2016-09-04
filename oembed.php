@@ -1,7 +1,8 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed {
+namespace Kirby\distantnative\oEmbed {
 
+  use Kirby\distantnative\Autoloader;
   require_once('core/lib/autoloader.php');
 
   $kirby    = kirby();
@@ -10,8 +11,8 @@ namespace Kirby\Plugins\distantnative\oEmbed {
   Autoloader::load([
     'vendor'         => ['Embed/src/autoloader'],
     'translations'   => ['en', $language ? $language->code() : null],
-    'core'           => ['core', 'url', 'html'],
-    'core/lib'       => ['data', 'cache', 'thumb'],
+    'core'           => ['core', 'data', 'url', 'html'],
+    'core/lib'       => ['cache', 'thumb'],
     'core/providers' => ['provider', true],
   ]);
 
@@ -29,6 +30,6 @@ namespace Kirby\Plugins\distantnative\oEmbed {
 
 namespace {
   function oembed($url, $args = []) {
-    return new Kirby\Plugins\distantnative\oEmbed\Core($url, $args);
+    return new Kirby\distantnative\oEmbed\Core($url, $args);
   }
 }

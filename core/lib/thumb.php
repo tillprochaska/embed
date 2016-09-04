@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed;
+namespace Kirby\distantnative;
 
 use C;
 use F;
@@ -9,9 +9,11 @@ class Thumb {
 
   protected $dir;
 
-  public function __construct($url) {
-    $this->url  = $url;
-    $this->dir  = kirby()->roots()->thumbs() . DS . '_plugins' . DS . 'oembed';
+  public function __construct($plugin, $url, $lifetime) {
+    $this->plugin = $plugin;
+    $this->lifetime = $lifetime;
+    $this->url    = $url;
+    $this->dir    = kirby()->roots()->thumbs() . DS . '_plugins' . DS . $this->plugin;
 
     $this->file = md5($this->url) . '.' . pathinfo(strtok($this->url, '?'), PATHINFO_EXTENSION);
     $this->root = $this->dir . DS . $this->file;
@@ -21,7 +23,7 @@ class Thumb {
   }
 
   protected function expired() {
-    if(f::modified($this->root) + (c::get('plugin.oembed.caching.duration', 24) * 60 * 60) < time()) {
+    if((f::modified($this->root) + $this->lifetime) < time()) {
       f::remove($this->root);
     }
   }
@@ -34,7 +36,7 @@ class Thumb {
   }
 
   public function __toString() {
-    return c::set('plugin.oembed.caching', true) ? url('thumbs/_plugins/oembed/' . $this->file) : $this->url;
+    return url('thumbs/_plugins/' . $this->plugin . '/' . $this->file);
   }
 
 

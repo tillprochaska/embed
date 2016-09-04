@@ -6,6 +6,7 @@
 - Improved: Removed duplicate assets for panel field
 - Improved: Updated vendor lib Embed to version 2.7
 - Improved: Internal file structure
+- Improved: Clearer namespacing, separation between plugin and lib
 - Fixed: Thumb caching for thumbs with url parameter
 
 ## [2.3.2](https://github.com/distantnative/oembed/releases/tag/2.3.2) (2016-09-03)

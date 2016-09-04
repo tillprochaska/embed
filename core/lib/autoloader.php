@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed;
+namespace Kirby\distantnative;
 
 use Dir;
 
