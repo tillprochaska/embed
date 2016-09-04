@@ -51,9 +51,7 @@ class OembedField extends UrlField {
   public function label() {
     $label = parent::label();
 
-    if($this->cheatsheet) {
-      $label->append($this->tpl('cheatsheet'));
-    }
+    if($this->cheatsheet) $label->append($this->tpl('cheatsheet'));
 
     return $label;
   }
