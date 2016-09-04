@@ -12,7 +12,6 @@ $white:   #fff;
 
   &-preview {
     position:         relative;
-    min-height:       45px;
     margin-top:       -2px;
     border:           2px solid $bgcolor;
     border-top-width: 0;
@@ -53,7 +52,6 @@ $white:   #fff;
       }
     }
 
-    &__label,
     &__loading {
       position:    absolute;
       top:         50%;
@@ -62,9 +60,9 @@ $white:   #fff;
       transition:  opacity .5s;
       font-size:   .8em;
       font-weight: 600;
+      opacity:     0;
     }
 
-    &__loading { opacity: 0; }
   }
 
   // ================================================

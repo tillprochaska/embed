@@ -3,6 +3,7 @@
 ## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.00) (?)
 - Improved: LazyVideo support and display for certain providers
 - Improved: Smarter sizing of LazyVideo play overlay
+- Improved: Preview label hidden in panel field
 - Improved: Panel field cheatsheet hidden by default, better cursor on hover
 - Improved: Removed duplicate assets for panel field
 - Improved: Updated vendor lib Embed to version 2.7
