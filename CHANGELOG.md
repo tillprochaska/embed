@@ -8,6 +8,7 @@
 - Improved: Internal file structure
 - Improved: Clearer namespacing, separation between plugin and lib
 - Fixed: Thumb caching for thumbs with url parameter
+- Fixed: Correct permissions for thumbs directories
 
 ## [2.3.2](https://github.com/distantnative/oembed/releases/tag/2.3.2) (2016-09-03)
 - Fixed: YouTube timecode URL parameter 't' did not work
