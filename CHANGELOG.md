@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.0) (2016-12-?)
+- Updated: Embed library to v2.7.7
+
 ## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.0) (2016-09-04)
 - Improved: LazyVideo support and display for certain providers
 - Improved: Smarter sizing of LazyVideo play overlay
