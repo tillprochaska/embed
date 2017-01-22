@@ -1,1 +1,1 @@
-<div class="kirby-plugin-oembed kirby-plugin-oembed--error"><?= $msg ?> <span><?= $url ?></span></div>
+<figure class="oembed oembed--error"><?= $msg ?> <span><?= $url ?></span></figure>

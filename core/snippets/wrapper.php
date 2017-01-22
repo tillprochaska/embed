@@ -1,1 +1,1 @@
-<div class="kirby-plugin-oembed <?php e($class !== false, 'kirby-plugin-oembed--' . $type) ?> kirby-plugin-oembed--<?= $provider ?> <?= $class ?>" style="<?= $style ?>"><?= $code ?><?= $more ?></div>
+<figure class="oembed <?php e($class !== false, 'oembed--' . $type) ?> oembed--<?= $provider ?> <?= $class ?>" style="<?= $style ?>"><?= $code ?><?= $more ?></figure>

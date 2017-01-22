@@ -73,7 +73,7 @@
     var showPreview = function(preview, data) {
       preview.load.css('opacity', '0');
       preview.bucket.html(data.code).css('opacity', '1');
-      preview.bucket.find('.kirby-plugin-oembed__thumb').click(pluginOembedLoadLazyVideo);
+      preview.bucket.find('.oembed__thumb').click(pluginOembedLoadLazyVideo);
     };
 
     var clearPreview = function(preview) {

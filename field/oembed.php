@@ -21,8 +21,8 @@ class OembedField extends UrlField {
   public function __construct() {
     parent::__construct();
 
-    $this->type        = 'oembed';
-    $this->icon        = 'object-group';
+    $this->type = 'oembed';
+    $this->icon = 'object-group';
 
     $this->translations();
   }

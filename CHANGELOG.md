@@ -1,6 +1,9 @@
 # Changelog
 
-## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.0) (2016-12-?)
+
+## [2.5.0](https://github.com/distantnative/oembed/releases/tag/2.5.0) (2017-01-22)
+- Improved: simplified CSS classes to `oembed` root
+- Fixed: Vimeo play button support
 - Updated: Embed library to v2.7.7
 
 ## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.0) (2016-09-04)

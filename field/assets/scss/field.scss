@@ -29,10 +29,10 @@ $white:   #fff;
       }
 
       // actual embed
-      .kirby-plugin-oembed {
+      .oembed {
         &--rich { padding: .6em; }
 
-        &--link > .kirby-plugin-oembed--link__fallback {
+        &--link > .oembed--link__fallback {
           display: inline-block;
           padding: .6em;
 
