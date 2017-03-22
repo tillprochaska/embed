@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\distantnative\oEmbed;
+namespace Kirby\Embed;
 
 use C;
 use Embed\Embed;
@@ -19,10 +19,10 @@ class Data {
     return [
       'choose_bigger_image' => true,
       'google' => [
-        'key' => c::get('plugin.oembed.providers.google.key', null)
+        'key' => c::get('plugin.embed.providers.google.key', null)
       ],
       'soundcloud' => [
-        'key' => c::get('plugin.oembed.providers.soundcloud.key', null)
+        'key' => c::get('plugin.embed.providers.soundcloud.key', null)
       ]
     ];
   }

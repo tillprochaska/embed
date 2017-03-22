@@ -1,1 +1,1 @@
-<figure class="oembed oembed--error"><?= $msg ?> <span><?= $url ?></span></figure>
+<figure class="embed embed--error"><?= $msg ?> <span><?= $url ?></span></figure>

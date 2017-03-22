@@ -1,29 +1,29 @@
 <?php
 
-use Kirby\distantnative\oEmbed\Html;
+use Kirby\Embed\Html;
 
 $kirby->set('route', [
-  'pattern' => 'api/plugin/oembed/preview',
+  'pattern' => 'api/plugin/embed/preview',
   'action'  => function() {
-    $oembed   = oembed(get('url'), ['lazyvideo' => true]);
+    $embed   = embed(get('url'), ['lazyvideo' => true]);
     $response = [];
 
-    if($oembed->data === false) {
+    if($embed->data === false) {
       $response['success'] = 'false';
 
     } else {
       $response['success']      = 'true';
-      $response['title']        = Html::removeEmojis($oembed->title());
-      $response['authorName']   = $oembed->authorName();
-      $response['authorUrl']    = $oembed->authorUrl();
-      $response['providerName'] = $oembed->providerName();
-      $response['providerUrl']  = $oembed->url();
-      $response['type']         = ucfirst($oembed->type());
-      $response['parameters']   = Html::cheatsheet($oembed->urlParameters());
+      $response['title']        = Html::removeEmojis($embed->title());
+      $response['authorName']   = $embed->authorName();
+      $response['authorUrl']    = $embed->authorUrl();
+      $response['providerName'] = $embed->providerName();
+      $response['providerUrl']  = $embed->url();
+      $response['type']         = ucfirst($embed->type());
+      $response['parameters']   = Html::cheatsheet($embed->urlParameters());
     }
 
     if(get('code') === 'true') {
-      $response['code'] = (string)$oembed;
+      $response['code'] = (string)$embed;
     }
 
     return \response::json($response);

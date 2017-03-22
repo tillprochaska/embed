@@ -1,6 +1,6 @@
 <?php if(is_array($entries)) : ?>
-  <table class="field-oembed-cheatsheet__table">
-    <tr class="field-oembed-cheatsheet__th">
+  <table class="field-embed-cheatsheet__table">
+    <tr class="field-embed-cheatsheet__th">
       <td>URL parameter</td>
       <td>Description</td>
     </tr>

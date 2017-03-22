@@ -4,7 +4,7 @@ $link:    #bbb;
 $green:   #8dad28;
 $white:   #fff;
 
-.field-oembed {
+.field-embed {
 
   // ================================================
   //  Preview display section
@@ -29,10 +29,10 @@ $white:   #fff;
       }
 
       // actual embed
-      .oembed {
+      .embed {
         &--rich { padding: .6em; }
 
-        &--link > .oembed--link__fallback {
+        &--link > .embed--link__fallback {
           display: inline-block;
           padding: .6em;
 
@@ -98,7 +98,7 @@ $white:   #fff;
     }
 
     > span {
-      &:not(.field-oembed-info__title) { font-size: .8em; }
+      &:not(.field-embed-info__title) { font-size: .8em; }
       &:not(:first-child):not(:last-child)::after { content: ' / '; }
     }
 
@@ -129,7 +129,7 @@ $white:   #fff;
       background-color: rgba($white, .95);
       z-index:          1;
 
-      .field-oembed-cheatsheet:hover + & { display: block; }
+      .field-embed-cheatsheet:hover + & { display: block; }
     }
 
     &__table {

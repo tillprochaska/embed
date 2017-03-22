@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\distantnative\oEmbed;
+namespace Kirby\Embed;
 
 use C;
 use L;
@@ -44,7 +44,7 @@ class Html {
 
   public static function error($url, $msg = null) {
     if(!$msg) $msg = 'noembed';
-    $msg  = l::get('plugin.oembed.error.' . $msg);
+    $msg  = l::get('plugin.embed.error.' . $msg);
     $path = __DIR__ . DS . 'snippets' . DS . 'error.php';
 
     return tpl::load($path, [
@@ -127,7 +127,7 @@ class Html {
   //  Code validity
   // ================================================
   protected function ensureValidCode() {
-    if(c::get('plugin.oembed.w3c.enforce', false)) {
+    if(c::get('plugin.embed.w3c.enforce', false)) {
       $this->updateData('code', function($code) {
         $pattern = '/(frameborder="0"|allowtransparency="true")/';
         return preg_replace($pattern, '', $code);

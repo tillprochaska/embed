@@ -1,5 +1,5 @@
 (function($) {
-  $.fn.oembedfield = function() {
+  $.fn.embedfield = function() {
 
     // ================================================
     //  Make icon clickable
@@ -31,8 +31,8 @@
     var updateEmbed = function($this, preview, info, sheet) {
       var url = $.trim($this.val());
 
-      if(!$this.data('oembedurl') || url !== $this.data('oembedurl')) {
-        $this.data('oembedurl', url);
+      if(!$this.data('embedurl') || url !== $this.data('embedurl')) {
+        $this.data('embedurl', url);
 
         if(url === '') {
           hidePreview(preview);
@@ -73,7 +73,7 @@
     var showPreview = function(preview, data) {
       preview.load.css('opacity', '0');
       preview.bucket.html(data.code).css('opacity', '1');
-      preview.bucket.find('.oembed__thumb').click(pluginOembedLoadLazyVideo);
+      preview.bucket.find('.embed__thumb').click(pluginEmbedLoadLazyVideo);
     };
 
     var clearPreview = function(preview) {
@@ -169,10 +169,10 @@
 
       var $this = $(this);
 
-      if($this.data('oembedfield')) {
+      if($this.data('embedfield')) {
         return;
       } else {
-        $this.data('oembedfield', true);
+        $this.data('embedfield', true);
       }
 
       // make icon clickable
@@ -180,24 +180,24 @@
 
       // collect all elements
       var inputTimer;
-      var preview = $this.parent().nextAll('.field-oembed-preview');
+      var preview = $this.parent().nextAll('.field-embed-preview');
       preview     = {
         wrapper: preview,
-        bucket:  preview.find('.field-oembed-preview__bucket'),
-        load:    preview.find('.field-oembed-preview__loading'),
+        bucket:  preview.find('.field-embed-preview__bucket'),
+        load:    preview.find('.field-embed-preview__loading'),
       };
-      var info    = $this.parent().nextAll('.field-oembed-info');
+      var info    = $this.parent().nextAll('.field-embed-info');
       info        = {
         wrapper:  info,
-        title:    info.find('.field-oembed-info__title'),
-        author:   info.find('.field-oembed-info__author'),
-        provider: info.find('.field-oembed-info__provider'),
-        type:     info.find('.field-oembed-info__type')
+        title:    info.find('.field-embed-info__title'),
+        author:   info.find('.field-embed-info__author'),
+        provider: info.find('.field-embed-info__provider'),
+        type:     info.find('.field-embed-info__type')
       };
-      var sheet   = $this.parent().prev().find('.field-oembed-cheatsheet');
+      var sheet   = $this.parent().prev().find('.field-embed-cheatsheet');
       sheet       = {
         wrapper: sheet,
-        icon:    sheet.find('.field-oembed-cheatsheet__icon'),
+        icon:    sheet.find('.field-embed-cheatsheet__icon'),
         bucket:  sheet.next(),
       };
 

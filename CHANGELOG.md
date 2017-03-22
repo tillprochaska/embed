@@ -1,12 +1,13 @@
 # Changelog
 
 
-## [2.5.0](https://github.com/distantnative/oembed/releases/tag/2.5.0) (2017-01-22)
-- Improved: simplified CSS classes to `oembed` root
+## [3.0.0](https://github.com/distantnative/embed/releases/tag/2.5.0) (2017-03-22)
+- Renamed: Plugin is now called `embed`
+- Improved: simplified CSS classes to `embed` root
 - Fixed: Vimeo play button support
 - Updated: Embed library to v3.0.5
 
-## [2.4.0](https://github.com/distantnative/oembed/releases/tag/2.4.0) (2016-09-04)
+## [2.4.0](https://github.com/distantnative/embed/releases/tag/2.4.0) (2016-09-04)
 - Improved: LazyVideo support and display for certain providers
 - Improved: Smarter sizing of LazyVideo play overlay
 - Improved: Preview label hidden in panel field
@@ -18,19 +19,19 @@
 - Fixed: Thumb caching for thumbs with url parameter
 - Fixed: Correct permissions for thumbs directories
 
-## [2.3.2](https://github.com/distantnative/oembed/releases/tag/2.3.2) (2016-09-03)
+## [2.3.2](https://github.com/distantnative/embed/releases/tag/2.3.2) (2016-09-03)
 - Fixed: YouTube timecode URL parameter 't' did not work
 
-## [2.3.1](https://github.com/distantnative/oembed/releases/tag/2.3.1) (2016-09-03)
+## [2.3.1](https://github.com/distantnative/embed/releases/tag/2.3.1) (2016-09-03)
 - Fixed: Adding a custom CSS class via the Kirbytag was not working
 
-## [2.3.0](https://github.com/distantnative/oembed/releases/tag/2.3.0) (2016-09-03)
+## [2.3.0](https://github.com/distantnative/embed/releases/tag/2.3.0) (2016-09-03)
 - Feature: Support various Vimeo url parameters
 - Improved: Getting and setting custom url parameters
 - Improved: Cheatsheet for the panel field is active by default
 - Fixed: Global helper function was not working
 
-## [2.2.0](https://github.com/distantnative/oembed/releases/tag/2.2.0) (2016-06-10)
+## [2.2.0](https://github.com/distantnative/embed/releases/tag/2.2.0) (2016-06-10)
 - Feature: Support for Spotify theme and view parameters
 - Feature: Set Spotify width and height through url parameters
 - Feature: Parameter cheatsheet for the panel field
@@ -40,7 +41,7 @@
 - Fixed: More precise code regular expressions
 - Docs: Removed example images from repository
 
-## [2.1.0](https://github.com/distantnative/oembed/releases/tag/2.1.0) (2016-05-10)
+## [2.1.0](https://github.com/distantnative/embed/releases/tag/2.1.0) (2016-05-10)
 - Lots of panel field improvements:
   - Feature: Section with information (e.g. title, author, source)
   - Feature: Options to disable preview and information section
@@ -61,18 +62,18 @@
 - Fixed: error display for videos with no embed code
 
 
-## [2.0.2](https://github.com/distantnative/oembed/releases/tag/2.0.2) (2016-05-08)
+## [2.0.2](https://github.com/distantnative/embed/releases/tag/2.0.2) (2016-05-08)
 - Fixed: YouTube timecode handling
 - Fixed: more secure use of `$kirby`
 
 
-## [2.0.1](https://github.com/distantnative/oembed/releases/tag/2.0.1) (2016-05-07)
+## [2.0.1](https://github.com/distantnative/embed/releases/tag/2.0.1) (2016-05-07)
 - Panel field: changed icon click behavior (opens now url in new tab)
 - Fixed: access to thumb location
 - Fixed: Included vendor files instead using git submodules
 
 
-## [2.0.0](https://github.com/distantnative/oembed/releases/tag/2.0.0) (2016-05-06)
+## [2.0.0](https://github.com/distantnative/embed/releases/tag/2.0.0) (2016-05-06)
 - Requires Kirby 2.3.0
 - Complete rewrite of PHP, CSS, JS
 - All new panel field with great instant preview
@@ -84,7 +85,7 @@
 - Using new library for collecting embed information ([oscarotero/Embed](https://github.com/oscarotero/Embed))
 
 
-## [1.0.0](https://github.com/distantnative/oembed/releases/tag/v1.0) (2015-06-19)
+## [1.0.0](https://github.com/distantnative/embed/releases/tag/v1.0) (2015-06-19)
 - Restructured plugin files and renamed repository to oembed
 - Updated Essence library to v3
 - Added custom class option and default container classes
@@ -96,6 +97,6 @@
 - Enhanced CSS browser support
 
 
-## [0.7.0](https://github.com/distantnative/oembed/releases/tag/v0.7) (2015-05-27)
+## [0.7.0](https://github.com/distantnative/embed/releases/tag/v0.7) (2015-05-27)
 - File structure of plugin repository changed
 - Improved HTML validation of plugin output

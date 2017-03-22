@@ -1,12 +1,12 @@
 <?php
 
-namespace Kirby\distantnative\oEmbed;
+namespace Kirby\Embed;
 
 use A;
 use C;
 
-use Kirby\distantnative\Cache;
-use Kirby\distantnative\Thumb;
+use Kirby\Embed\Cache;
+use Kirby\Embed\Thumb;
 
 class Core {
 
@@ -14,7 +14,7 @@ class Core {
 
   public function __construct($url, $args = []) {
     $this->input = $url;
-    $this->cache = c::get('plugin.oembed.caching', true) ? new Cache('oembed', $url) : false;
+    $this->cache = c::get('plugin.embed.caching', true) ? new Cache('embed', $url) : false;
 
     $this->load();
 
@@ -41,7 +41,7 @@ class Core {
 
     // cache the data
     if($this->cache && $this->data) {
-      $this->cache->set($this->data, c::get('plugin.oembed.caching.duration', 24) * 60);
+      $this->cache->set($this->data, c::get('plugin.embed.caching.duration', 24) * 60);
     }
   }
 
@@ -53,9 +53,9 @@ class Core {
     return a::merge([
       'class'     => null,
       'thumb'     => null,
-      'autoplay'  => c::get('plugin.oembed.video.autoplay', false),
-      'lazyvideo' => c::get('plugin.oembed.video.lazyload', true),
-      'jsapi'     => c::get('plugin.oembed.providers.jsapi', false),
+      'autoplay'  => c::get('plugin.embed.video.autoplay', false),
+      'lazyvideo' => c::get('plugin.embed.video.lazyload', true),
+      'jsapi'     => c::get('plugin.embed.providers.jsapi', false),
     ], $options);
   }
 
@@ -68,7 +68,7 @@ class Core {
     // if custom thumbnail is set
     $thumb = $this->options['thumb'] ?: $this->image();
 
-    return $this->cache ? new Thumb('oembed', $thumb,       (c::get('plugin.oembed.caching.duration', 24) * 60 * 60)) : $thumb;
+    return $this->cache ? new Thumb('embed', $thumb,       (c::get('plugin.embed.caching.duration', 24) * 60 * 60)) : $thumb;
   }
 
 
@@ -77,7 +77,7 @@ class Core {
   // ================================================
 
   protected function provider() {
-    $namespace = 'Kirby\Plugins\distantnative\oEmbed\Providers\\';
+    $namespace = 'Kirby\Embed\Providers\\';
     $class     =  $namespace . $this->data()->providerName;
     $class     =  class_exists($class) ? $class : $namespace . 'Provider';
     return $this->provider ?: new $class($this, $this->input);

@@ -1,1 +1,0 @@
-var pluginOembedLoadLazyVideo=function(){var e=this.parentNode,t=e.children[0];t.src=t.dataset.src,this.remove()};document.addEventListener("DOMContentLoaded",function(e){for(var t=document.getElementsByClassName("oembed__thumb"),d=0;d<t.length;d++)t[d].addEventListener("click",pluginOembedLoadLazyVideo,!1)});
