@@ -1,7 +1,7 @@
 # Changelog
 
 
-## [3.0.0](https://github.com/distantnative/embed/releases/tag/2.5.0) (2017-03-22)
+## [3.0.0](https://github.com/distantnative/embed/releases/tag/3.0.0) (2017-03-22)
 - Renamed: Plugin is now called `embed`
 - Improved: simplified CSS classes to `embed` root
 - Fixed: Vimeo play button support
