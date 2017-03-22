@@ -6,9 +6,10 @@ use C;
 use F;
 
 class Thumb {
-
+  
   protected $dir;
   protected $root;
+  protected $url = '';
 
   public function __construct($plugin, $url, $lifetime) {
     $this->plugin    = $plugin;
@@ -20,17 +21,22 @@ class Thumb {
     $this->file      = md5($this->source) . '.' . pathinfo(strtok($this->source, '?'), PATHINFO_EXTENSION);
     $this->path      = $this->dir . DS . $this->file;
 
+    $this->url       = $url;
+
     $this->dirs();
     $this->cache();
   }
 
   public function __toString() {
-    return url('thumbs/_plugins/' . $this->plugin . '/' . $this->file);
+    return $this->url;
   }
 
   protected function cache() {
     if($this->expired() or !f::exists($this->path)) {
-      file_put_contents($this->path, file_get_contents($this->source));
+      try {
+        file_put_contents($this->path, file_get_contents($this->source));
+        $this->url = url('thumbs/_plugins/' . $this->plugin . '/' . $this->file);
+      } catch (Exception $e) {}
     }
   }
 
@@ -43,9 +49,9 @@ class Thumb {
   }
 
   protected function dirs() {
-    if(!file_exists($this->root)) mkdir($this->root, 0755, true);
-    if(!file_exists($this->dir))  mkdir($this->dir, 0755, true);
+    if(is_writable(kirby()->roots()->thumbs())) {
+      if(!file_exists($this->root)) mkdir($this->root, 0755, true);
+      if(!file_exists($this->dir))  mkdir($this->dir, 0755, true);
+    }
   }
-
-
 }

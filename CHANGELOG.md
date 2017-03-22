@@ -1,5 +1,7 @@
 # Changelog
 
+## [3.0.1](https://github.com/distantnative/embed/releases/tag/3.0.1) (?)
+- Improved: Safer handling of thumb if directory is not writable
 
 ## [3.0.0](https://github.com/distantnative/embed/releases/tag/3.0.0) (2017-03-22)
 - Renamed: Plugin is now called `embed`

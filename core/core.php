@@ -65,10 +65,15 @@ class Core {
   // ================================================
 
   public function thumb() {
-    // if custom thumbnail is set
-    $thumb = $this->options['thumb'] ?: $this->image();
+    if($this->options['thumb']) return $this->options['thumb'];
 
-    return $this->cache ? new Thumb('embed', $thumb,       (c::get('plugin.embed.caching.duration', 24) * 60 * 60)) : $thumb;
+    $thumb = $this->image();
+
+    if($this->cache) {
+      return new Thumb('embed', $thumb,       (c::get('plugin.embed.caching.duration', 24) * 60 * 60));
+    } else {
+      return $thumb;
+    }
   }
 
 
