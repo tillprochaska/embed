@@ -32,7 +32,7 @@ Kirby CMS 2.3.0+ and PHP 5.4+.
 <?= css('assets/plugins/oembed/css/oembed.css') ?>
 ```
 
-#### With video lazyload [option](#Options)
+#### With video lazyload [option](#Options) (activated by default, so include unless you have deactived)
 3. Add the necessary script by including the following right before the `</body>` tag:
 ```php
 <?= js('assets/plugins/oembed/js/oembed.js') ?>
@@ -42,6 +42,8 @@ Kirby CMS 2.3.0+ and PHP 5.4+.
 ```
 kirby plugin:install distantnative/oembed
 ```
+And add CSS and JS as outlined above.
+
 
 
 ## Usage <a id="Usage"></a>
