@@ -19,8 +19,6 @@ class Provider {
   protected function init() {}
 
   public function supportsLazyVideo() { return $this->core->type() === 'video'; }
-  public function supportsPlayBtn()   { return true; }
-
 
   // ================================================
   //  Custom URL parameter helpers
