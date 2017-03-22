@@ -17,19 +17,12 @@ class Data {
 
   protected static function config() {
     return [
-      'adapter' => [
-        'config' => ['getBiggerImage' => true]
+      'choose_bigger_image' => true,
+      'google' => [
+        'key' => c::get('plugin.oembed.providers.google.key', null)
       ],
-      'providers' => [
-        'facebook' => [
-          'key' => c::get('plugin.oembed.providers.facebook.key', null)
-        ],
-        'google' => [
-          'key' => c::get('plugin.oembed.providers.google.key', null)
-        ],
-        'soundcloud' => [
-          'key' => c::get('plugin.oembed.providers.soundcloud.key', null)
-        ]
+      'soundcloud' => [
+        'key' => c::get('plugin.oembed.providers.soundcloud.key', null)
       ]
     ];
   }

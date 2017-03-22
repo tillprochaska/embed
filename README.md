@@ -178,12 +178,12 @@ The oEmbed plugin comes with very minimal styles, mainly for embedded videos and
 
 If you want to further customize and work with the embedded medium. The following CSS classes are applied to the main wrapper:
 ```
-.kirby-plugin-oembed
-.kirby-plugin-oembed--{TYPE}      // e.g. video, rich
-.kirby-plugin-oembed--{PROVIDER}  // e.g. YouTube, Vimeo
+.oembed
+.oembed--{TYPE}      // e.g. video, rich
+.oembed--{PROVIDER}  // e.g. YouTube, Vimeo
 
-.kirby-plugin-oembed__thumb
-.kirby-plugin-oembed__thumb > img
+.oembed__thumb
+.oembed__thumb > img
 ```
 
 You can also translate the strings used by the oEmbed plugin. Translations for English and German are already included. To find out what keys to use, check out the [English translation file](translations/en.php).
