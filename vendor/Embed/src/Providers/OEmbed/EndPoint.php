@@ -6,20 +6,24 @@ use Embed\Adapters\Adapter;
 use Embed\Http\Response;
 use Embed\Http\Url;
 
-class Iframely implements EndPointInterface
+/**
+ * Abstract class extended by other classes.
+ */
+abstract class EndPoint
 {
-    private $response;
-    private $key;
+    protected $response;
+    protected static $pattern;
+    protected static $endPoint;
 
     /**
      * {@inheritdoc}
      */
     public static function create(Adapter $adapter)
     {
-        $key = $adapter->getConfig('oembed[iframely_key]');
+        $response = $adapter->getResponse();
 
-        if (!empty($key)) {
-            return new static($adapter->getResponse(), $key);
+        if ($response->getUrl()->match(static::$pattern)) {
+            return new static($response);
         }
     }
 
@@ -27,12 +31,10 @@ class Iframely implements EndPointInterface
      * Constructor.
      *
      * @param Response $response
-     * @param string   $key
      */
-    private function __construct(Response $response, $key)
+    private function __construct(Response $response)
     {
         $this->response = $response;
-        $this->key = $key;
     }
 
     /**
@@ -40,11 +42,10 @@ class Iframely implements EndPointInterface
      */
     public function getEndPoint()
     {
-        return Url::create('http://open.iframe.ly/api/oembed')
+        return Url::create(static::$endPoint)
                 ->withQueryParameters([
                     'url' => (string) $this->response->getUrl(),
                     'format' => 'json',
-                    'api_key' => $this->key,
                 ]);
     }
 }

@@ -3,20 +3,21 @@
 namespace Embed\Adapters;
 
 use Embed\Utils;
-use Embed\Request;
+use Embed\Http\Response;
+use Embed\Http\Url;
 
 /**
  * Adapter to get the embed code from spreaker.com.
  */
-class Spreaker extends Webpage implements AdapterInterface
+class Spreaker extends Webpage
 {
     /**
      * {@inheritdoc}
      */
-    public static function check(Request $request)
+    public static function check(Response $response)
     {
-        return $request->isValid() && $request->match([
-            'http?://www.spreaker.com/*',
+        return $response->isValid() && $response->getUrl()->match([
+            'www.spreaker.com/*',
         ]);
     }
 
@@ -25,19 +26,20 @@ class Spreaker extends Webpage implements AdapterInterface
      */
     public function getCode()
     {
-        $dom = $this->request->getHtmlContent();
+        $dom = $this->getResponse()->getHtmlContent();
 
         foreach ($dom->getElementsByTagName('a') as $a) {
             if ($a->hasAttribute('data-episode_id')) {
                 $id = (int) $a->getAttribute('data-episode_id');
 
                 if ($id) {
-                    return Utils::iframe($this->request->createUrl()
-                        ->withPath('embed/player/standard')
+                    $url = Url::create('https://www.spreaker.com/embed/player/standard')
                         ->withQueryParameters([
                             'autoplay' => 'false',
                             'episode_id' => $id,
-                        ]), $this->width, $this->height, 'min-width:400px;border:none;overflow:hidden;');
+                        ]);
+
+                    return Utils::iframe($url, $this->width, $this->height, 'min-width:400px;border:none;overflow:hidden;');
                 }
 
                 break;
