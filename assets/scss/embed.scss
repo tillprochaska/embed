@@ -1,9 +1,11 @@
 
 $col-bg: #ddd;
 
-.kirby-plugin-oembed {
-  position:    relative;
-  padding:     0;
+.embed {
+  position:  relative;
+  max-width: 100%;
+  margin:    0;
+  padding:   0;
 
   iframe,
   object {
@@ -11,8 +13,9 @@ $col-bg: #ddd;
   }
 
   img {
-    display: block;
-    height:  auto;
+    display:   block;
+    max-width: 100%;
+    height:    auto;
   }
 
   &--video {

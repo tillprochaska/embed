@@ -1,7 +1,7 @@
 <?php
 
 // ================================================
-//  (oembed: …)
+//  (embed: …)
 // ================================================
 
 $options = [
@@ -12,7 +12,7 @@ $options = [
   'jsapi'     => 'bool',
 ];
 
-$kirby->set('tag', 'oembed', [
+$kirby->set('tag', 'embed', [
   'attr' => array_keys($options),
   'html' => function($tag) use($options) {
     $args = [];
@@ -26,6 +26,6 @@ $kirby->set('tag', 'oembed', [
       }
     }
 
-    return oembed($tag->attr('oembed'), $args);
+    return embed($tag->attr('embed'), $args);
   }
 ]);

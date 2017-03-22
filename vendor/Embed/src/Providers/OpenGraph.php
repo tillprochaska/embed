@@ -2,26 +2,32 @@
 
 namespace Embed\Providers;
 
+use Embed\Adapters\Adapter;
 use Embed\Utils;
 
 /**
- * Generic opengraph provider.
- *
- * Load the opengraph data of an url and store it
+ * Provider to get the data from the Open Graph elements in the HTML
  */
-class OpenGraph extends Provider implements ProviderInterface
+class OpenGraph extends Provider
 {
     /**
      * {@inheritdoc}
      */
-    public function run()
+    public function __construct(Adapter $adapter)
     {
-        if (!($html = $this->request->getHtmlContent())) {
-            return false;
+        parent::__construct($adapter);
+
+        if (!($html = $adapter->getResponse()->getHtmlContent())) {
+            return;
         }
 
-        foreach (Utils::getMetas($html) as $meta) {
-            list($name, $value) = $meta;
+        foreach ($html->getElementsByTagName('meta') as $meta) {
+            $name = trim(strtolower($meta->getAttribute('property')));
+            $value = $meta->getAttribute('content');
+
+            if (empty($name) || empty($value)) {
+                continue;
+            }
 
             if (strpos($name, 'og:article:') === 0) {
                 $name = substr($name, 11);
@@ -93,7 +99,7 @@ class OpenGraph extends Provider implements ProviderInterface
 
         foreach ($names as $name) {
             if ($this->bag->has($name)) {
-                $video = $this->bag->get($name);
+                $video = $this->normalizeUrl($this->bag->get($name));
 
                 if (!($videoPath = parse_url($video, PHP_URL_PATH)) || !($type = pathinfo($videoPath, PATHINFO_EXTENSION))) {
                     $type = $this->bag->get('video:type');
@@ -129,9 +135,9 @@ class OpenGraph extends Provider implements ProviderInterface
      */
     public function getUrl()
     {
-        $url = $this->bag->get('url');
+        $url = $this->normalizeUrl($this->bag->get('url'));
 
-        if ($url !== $this->request->getAbsolute('/')) {
+        if ($url !== $this->adapter->getResponse()->getUrl()->getAbsolute('/')) {
             return $url;
         }
     }
@@ -165,7 +171,7 @@ class OpenGraph extends Provider implements ProviderInterface
      */
     public function getImagesUrls()
     {
-        return (array) $this->bag->get('images') ?: [];
+        return $this->normalizeUrls($this->bag->get('images'));
     }
 
     /**

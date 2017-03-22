@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\distantnative\oEmbed;
+namespace Kirby\Embed;
 
 
 class Url {

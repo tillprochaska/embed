@@ -1,6 +1,6 @@
 <?php
 
-class OembedField extends UrlField {
+class EmbedField extends UrlField {
 
   public $preview    = true;
   public $info       = true;
@@ -9,11 +9,11 @@ class OembedField extends UrlField {
 
   public static $assets = [
     'css' => [
-      '../../../assets/css/oembed.css',
+      '../../../assets/css/embed.css',
       'field.css'
     ],
     'js' => [
-      '../../../assets/js/oembed.js',
+      '../../../assets/js/embed.js',
       'field.js'
     ]
   ];
@@ -21,16 +21,16 @@ class OembedField extends UrlField {
   public function __construct() {
     parent::__construct();
 
-    $this->type        = 'oembed';
-    $this->icon        = 'object-group';
+    $this->type = 'embed';
+    $this->icon = 'object-group';
 
     $this->translations();
   }
 
   public function input() {
     $input = parent::input();
-    $input->data('field', 'oembedfield');
-    $input->data('ajax', url('api/plugin/oembed/'));
+    $input->data('field', 'embedfield');
+    $input->data('ajax', url('api/plugin/embed/'));
     return $input;
   }
 

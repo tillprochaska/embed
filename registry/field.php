@@ -4,4 +4,4 @@
 //  Register panel field
 // ================================================
 
-$kirby->set('field', 'oembed', dirname(__DIR__) . DS .  'field');
+$kirby->set('field', 'embed', dirname(__DIR__) . DS .  'field');

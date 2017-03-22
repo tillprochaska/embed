@@ -1,9 +1,9 @@
 <?php
 
 // ================================================
-//  $page->video()->oembed()
+//  $page->video()->embed()
 // ================================================
 
-$kirby->set('field::method', 'oembed', function($field, $args = []) {
-  return oembed($field->value, $args);
+$kirby->set('field::method', 'embed', function($field, $args = []) {
+  return embed($field->value, $args);
 });

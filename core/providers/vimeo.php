@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed\Providers;
+namespace Kirby\Embed\Providers;
 
 class Vimeo extends Provider {
 
@@ -49,12 +49,5 @@ class Vimeo extends Provider {
       $this->parameter('api=1');
     }
   }
-
-  // ================================================
-  //  Remove thumbOverlay
-  // ================================================
-
-  public function supportsPlayBtn() { return false; }
-
 
 }

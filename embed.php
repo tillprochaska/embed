@@ -1,8 +1,8 @@
 <?php
 
-namespace Kirby\distantnative\oEmbed {
+namespace Kirby\Embed {
 
-  use Kirby\distantnative\Autoloader;
+  use Kirby\Embed\Autoloader;
   require_once('core/lib/autoloader.php');
 
   $kirby    = kirby();
@@ -29,7 +29,7 @@ namespace Kirby\distantnative\oEmbed {
 // ================================================
 
 namespace {
-  function oembed($url, $args = []) {
-    return new Kirby\distantnative\oEmbed\Core($url, $args);
+  function embed($url, $args = []) {
+    return new Kirby\Embed\Core($url, $args);
   }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\distantnative;
+namespace Kirby\Embed;
 
 class Cache {
 

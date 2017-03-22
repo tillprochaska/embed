@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\Plugins\distantnative\oEmbed\Providers;
+namespace Kirby\Embed\Providers;
 
 class CollegeHumor extends Provider {
 
