@@ -104,8 +104,7 @@ class Html {
     // thumb
     $this->data['more'] = $this->snippet('thumb', [
       'url' => $this->core->thumb(),
-      'alt' => $this->core->title() . ($this->core->authorName() ? ' (by ' . $this->core->authorName() . ')' : ''),
-      'overlay' => $this->core->supportsPlayBtn()
+      'alt' => $this->core->title() . ($this->core->authorName() ? ' (by ' . $this->core->authorName() . ')' : '')
     ]);
   }
 

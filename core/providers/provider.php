@@ -19,8 +19,6 @@ class Provider {
   protected function init() {}
 
   public function supportsLazyVideo() { return $this->core->type() === 'video'; }
-  public function supportsPlayBtn()   { return true; }
-
 
   // ================================================
   //  Custom URL parameter helpers
@@ -40,8 +38,11 @@ class Provider {
     $this->get($paramenter, '[0-1]');
   }
 
-  protected function getNumber($paramenter) {
+  protected function getNumber($paramenter, $offset = 0) {
     $this->get($paramenter, '[0-9]*');
+    if($offset !== 0) {
+      $this->{$paramenter} += $offset;
+    }
   }
 
   protected function getString($paramenter) {

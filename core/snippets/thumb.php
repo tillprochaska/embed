@@ -1,1 +1,1 @@
-<div class="embed__thumb" style="background-image:url('<?= $url ?>');" title="<?= $alt ?>"><?php if($overlay) : ?><img src="<?= url(c::get('plugin.embed.video.lazyload.btn', 'assets/plugins/embed/images/play.png')) ?>" alt="" width="175" height="110" /><?php endif ?></div>
+<div class="embed__thumb" style="background-image:url('<?= $url ?>');" title="<?= $alt ?>"><img src="<?= url(c::get('plugin.embed.video.lazyload.btn', 'assets/plugins/embed/images/play.png')) ?>" alt="" width="175" height="110" /></div>

@@ -6,11 +6,13 @@ class YouTube extends Provider {
 
   protected function init() {
     $this->getAll('t');
+    $this->getNumber('index');
   }
 
   public function code($code) {
     $this->setAutoplay();
     $this->setTimecode();
+    $this->set('index');
     $this->setJsApi();
     return $code;
   }
