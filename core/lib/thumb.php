@@ -6,7 +6,7 @@ use C;
 use F;
 
 class Thumb {
-  
+
   protected $dir;
   protected $root;
   protected $url = '';
@@ -18,12 +18,11 @@ class Thumb {
 
     $this->root      = kirby()->roots()->thumbs() . DS . '_plugins';
     $this->dir       = $this->root . DS . $this->plugin;
-    $this->file      = md5($this->source) . '.' . pathinfo(strtok($this->source, '?'), PATHINFO_EXTENSION);
+    $this->extension = pathinfo(strtok($this->source, '?'), PATHINFO_EXTENSION);
+    $this->file      = md5($this->source) . '.' . $this->extension;
     $this->path      = $this->dir . DS . $this->file;
-
     $this->url       = $url;
 
-    $this->dirs();
     $this->cache();
   }
 
@@ -32,10 +31,18 @@ class Thumb {
   }
 
   protected function cache() {
-    if($this->expired() or !f::exists($this->path)) {
+    $cache = url('thumbs/_plugins/' . $this->plugin . '/' . $this->file);
+
+    if(f::exists($this->path) and !$this->expired()) {
+      return $this->url = $cache;
+    } else {
       try {
-        file_put_contents($this->path, file_get_contents($this->source));
-        $this->url = url('thumbs/_plugins/' . $this->plugin . '/' . $this->file);
+        if(is_writable(kirby()->roots()->thumbs())) {
+          if(!file_exists($this->root)) mkdir($this->root, 0755, true);
+          if(!file_exists($this->dir))  mkdir($this->dir, 0755, true);
+          file_put_contents($this->path, file_get_contents($this->source));
+          $this->url = $cache;
+        }
       } catch (Exception $e) {}
     }
   }
@@ -46,12 +53,5 @@ class Thumb {
     }
 
     return false;
-  }
-
-  protected function dirs() {
-    if(is_writable(kirby()->roots()->thumbs())) {
-      if(!file_exists($this->root)) mkdir($this->root, 0755, true);
-      if(!file_exists($this->dir))  mkdir($this->dir, 0755, true);
-    }
   }
 }
