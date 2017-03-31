@@ -6,7 +6,7 @@ class YouTube extends Provider {
 
   protected function init() {
     $this->getAll('t');
-    $this->getNumber('index', -1);
+    $this->getNumber('index');
   }
 
   public function code($code) {
