@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.0.1](https://github.com/distantnative/embed/releases/tag/3.0.1) (?)
+## [3.0.1](https://github.com/distantnative/embed/releases/tag/3.0.1) (2017-03-31)
 - :balloon: Safer handling of thumb if directory is not writable  
 - :balloon: Handle YouTube playlist index URL parameter  
 
