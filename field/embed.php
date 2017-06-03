@@ -34,6 +34,10 @@ class EmbedField extends UrlField {
     return $input;
   }
 
+  public function help() {
+    return null;
+  }
+
   public function template() {
     $template = parent::template();
 
@@ -43,7 +47,7 @@ class EmbedField extends UrlField {
       ]));
     }
 
-    if($this->info) $template->append($this->tpl('info'));
+    if($this->info) $template->append($this->tpl('info'))->append(parent::help());
 
     return $template;
   }
