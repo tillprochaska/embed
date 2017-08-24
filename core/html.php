@@ -116,7 +116,8 @@ class Html {
     if(!$this->data['code']) {
       $this->updateData('code', $this->snippet('typeLink', [
         'url'  => $this->core->url(),
-        'text' => $this->core->title()
+        'text' => $this->core->title(),
+        'data' => $this->core->data(),
       ]));
     }
   }
